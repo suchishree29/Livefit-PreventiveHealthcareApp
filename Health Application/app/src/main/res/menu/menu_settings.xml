@@ -1,0 +1,34 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.c02hp1dtdv35.healthapplication.Home.HomeScreenActivity">
+
+
+
+    <item
+        android:id="@+id/action_weatherApi"
+        android:title="@string/action_watherApi"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_remind"
+        android:title="@string/action_reminder"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_log_food_camera"
+        android:title="@string/action_log_food_camera"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_food_barcode"
+        android:title="@string/action_log_food_barcode"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_signout"
+        android:orderInCategory="100"
+        android:title="@string/action_signout"
+        app:showAsAction="never" />
+
+</menu>

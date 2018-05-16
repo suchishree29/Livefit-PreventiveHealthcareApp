@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">HealthApplication</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_firstName">First Name</string>
+    <string name="prompt_lastName">Last Name</string>
+    <string name="prompt_password">Password </string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_up">Sign Up</string>
+    <string name="action_register">Register</string>
+
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_sign_up">Sign Up</string>
+    <string name="title_activity_home_screen">HomeScreenActivity</string>
+    <string name="action_settings">SETTINGS</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+
+    <string name="action_signout">SIGN-OUT</string>
+    <string name="action_watherApi">CHECK WEATHER</string>
+    <string name="action_reminder">REMIND</string>
+    <string name="action_log_food_camera">CAMERA</string>
+    <string name="action_log_food_barcode">BARCODE SCANNER</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="what_s_on_your_mind">Whats on Your Mind</string>
+
+
+    <string name="conversation_username">f690134b-cf8e-4ecb-a023-51efd285c4cf</string>
+    <string name="conversation_password">1eLIKH6MleLJ</string>
+    <string name="watsonurl">https://gateway.watsonplatform.net/assistant/api/v1/workspaces/df8bf253-2044-4e70-ae4d-c48c0850af4d/message/</string>
+    <string name="watsonWorkspaceName">LivefitWatsonWorkspace</string>
+    <string name="workspace_id">df8bf253-2044-4e70-ae4d-c48c0850af4d</string>
+
+
+</resources>
