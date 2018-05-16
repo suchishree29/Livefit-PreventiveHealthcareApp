@@ -1,0 +1,1449 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fnil\fcharset0 HelveticaNeue-Bold;\f1\fnil\fcharset0 HelveticaNeue;\f2\fnil\fcharset0 HelveticaNeue-Italic;
+\f3\fnil\fcharset0 HelveticaNeue-BoldItalic;}
+{\colortbl;\red255\green255\blue255;\red53\green53\blue53;}
+{\*\expandedcolortbl;;\cssrgb\c27059\c27059\c27059;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab560
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf2 package 
+\f1\b0 com.example.c02hp1dtdv35.healthapplication.Watson;\
+\
+\
+
+\f0\b import 
+\f1\b0 android.os.Bundle;\
+
+\f0\b import 
+\f1\b0 android.support.annotation.Nullable;\
+
+\f0\b import 
+\f1\b0 android.support.v4.app.Fragment;\
+
+\f0\b import 
+\f1\b0 android.support.v7.widget.RecyclerView;\
+
+\f0\b import 
+\f1\b0 android.view.LayoutInflater;\
+
+\f0\b import 
+\f1\b0 android.view.View;\
+
+\f0\b import 
+\f1\b0 android.view.ViewGroup;\
+
+\f0\b import 
+\f1\b0 android.widget.EditText;\
+
+\f0\b import 
+\f1\b0 android.widget.ImageButton;\
+\
+
+\f0\b import 
+\f1\b0 com.example.c02hp1dtdv35.healthapplication.Home.WatsonScreen;\
+
+\f0\b import 
+\f1\b0 com.example.c02hp1dtdv35.healthapplication.R;\
+
+\f0\b import 
+\f1\b0 com.ibm.mobilefirstplatform.clientsdk.android.analytics.api.Analytics;\
+
+\f0\b import 
+\f1\b0 com.ibm.mobilefirstplatform.clientsdk.android.core.api.BMSClient;\
+
+\f0\b import 
+\f1\b0 com.ibm.mobilefirstplatform.clientsdk.android.core.api.Response;\
+
+\f0\b import 
+\f1\b0 com.ibm.mobilefirstplatform.clientsdk.android.core.api.ResponseListener;\
+
+\f0\b import 
+\f1\b0 com.ibm.watson.developer_cloud.android.library.audio.MicrophoneHelper;\
+
+\f0\b import 
+\f1\b0 com.ibm.watson.developer_cloud.android.library.audio.MicrophoneInputStream;\
+
+\f0\b import 
+\f1\b0 com.ibm.watson.developer_cloud.android.library.audio.StreamPlayer;\
+
+\f0\b import 
+\f1\b0 com.ibm.watson.developer_cloud.android.library.audio.utils.ContentType;\
+
+\f0\b import 
+\f1\b0 com.ibm.watson.developer_cloud.conversation.v1.Conversation;\
+\
+
+\f0\b import 
+\f1\b0 com.ibm.watson.developer_cloud.conversation.v1.model.InputData;\
+
+\f0\b import 
+\f1\b0 com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;\
+
+\f0\b import 
+\f1\b0 com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;\
+
+\f0\b import 
+\f1\b0 com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;\
+
+\f0\b import 
+\f1\b0 com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;\
+
+\f0\b import 
+\f1\b0 com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;\
+
+\f0\b import 
+\f1\b0 com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;\
+
+\f0\b import 
+\f1\b0 com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;\
+
+\f0\b import 
+\f1\b0 com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;\
+\
+
+\f0\b import 
+\f1\b0 java.util.ArrayList;\
+
+\f0\b import 
+\f1\b0 java.util.logging.Logger;\
+\
+
+\f0\b import 
+\f1\b0 android.Manifest;\
+
+\f0\b import 
+\f1\b0 android.content.Context;\
+
+\f0\b import 
+\f1\b0 android.content.pm.PackageManager;\
+
+\f0\b import 
+\f1\b0 android.graphics.Typeface;\
+
+\f0\b import 
+\f1\b0 android.net.ConnectivityManager;\
+
+\f0\b import 
+\f1\b0 android.net.NetworkInfo;\
+
+\f0\b import 
+\f1\b0 android.os.Bundle;\
+
+\f0\b import 
+\f1\b0 android.support.annotation.NonNull;\
+
+\f0\b import 
+\f1\b0 android.support.v4.app.ActivityCompat;\
+
+\f0\b import 
+\f1\b0 android.support.v4.content.ContextCompat;\
+
+\f0\b import 
+\f1\b0 android.support.v7.app.AppCompatActivity;\
+
+\f0\b import 
+\f1\b0 android.support.v7.widget.DefaultItemAnimator;\
+
+\f0\b import 
+\f1\b0 android.support.v7.widget.LinearLayoutManager;\
+
+\f0\b import 
+\f1\b0 android.support.v7.widget.RecyclerView;\
+
+\f0\b import 
+\f1\b0 android.util.Log;\
+
+\f0\b import 
+\f1\b0 android.view.View;\
+
+\f0\b import 
+\f1\b0 android.widget.EditText;\
+
+\f0\b import 
+\f1\b0 android.widget.ImageButton;\
+
+\f0\b import 
+\f1\b0 android.widget.Toast;\
+\
+
+\f0\b import 
+\f1\b0 org.json.JSONObject;\
+\
+
+\f0\b import static 
+\f1\b0 com.google.android.gms.internal.zzagz.
+\f2\i runOnUiThread
+\f1\i0 ;\
+\
+\
+
+\f2\i /**\
+ * Created by C02HP1DTDV35 on 5/12/18.\
+ */\
+\
+
+\f0\i0\b public class 
+\f1\b0 WatsonFragment 
+\f0\b extends 
+\f1\b0 Fragment \{\
+\
+    EditText 
+\f0\b watsonUserInput
+\f1\b0 ;\
+\
+    
+\f0\b private 
+\f1\b0 RecyclerView 
+\f0\b recyclerView
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 ChatAdapter 
+\f0\b mAdapter
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 ArrayList 
+\f0\b messageArrayList
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 EditText 
+\f0\b inputMessage
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 ImageButton 
+\f0\b btnSend
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 ImageButton 
+\f0\b btnRecord
+\f1\b0 ;\
+    
+\f2\i //private Map<String,Object> context = new HashMap<>();\
+    
+\f0\i0\b private 
+\f1\b0 com.ibm.watson.developer_cloud.conversation.v1.model.Context 
+\f0\b context 
+\f1\b0 = 
+\f0\b null
+\f1\b0 ;\
+    StreamPlayer 
+\f0\b streamPlayer
+\f1\b0 ;\
+    
+\f0\b private boolean initialRequest
+\f1\b0 ;\
+    
+\f0\b private boolean permissionToRecordAccepted 
+\f1\b0 = 
+\f0\b false
+\f1\b0 ;\
+    
+\f0\b private static final int 
+\f3\i REQUEST_RECORD_AUDIO_PERMISSION 
+\f1\i0\b0 = 200;\
+    
+\f0\b private static 
+\f1\b0 String 
+\f2\i TAG 
+\f1\i0 = 
+\f0\b "MainActivity"
+\f1\b0 ;\
+    
+\f0\b private static final int 
+\f3\i RECORD_REQUEST_CODE 
+\f1\i0\b0 = 101;\
+    
+\f0\b private boolean listening 
+\f1\b0 = 
+\f0\b false
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 SpeechToText 
+\f0\b speechService
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 TextToSpeech 
+\f0\b textToSpeech
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 MicrophoneInputStream 
+\f0\b capture
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 Context 
+\f0\b mContext
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 String 
+\f0\b workspace_id
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 String 
+\f0\b conversation_username
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 String 
+\f0\b conversation_password
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 String 
+\f0\b STT_username
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 String 
+\f0\b STT_password
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 String 
+\f0\b TTS_username
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 String 
+\f0\b TTS_password
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 String 
+\f0\b analytics_APIKEY
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 SpeakerLabelsDiarization.RecoTokens 
+\f0\b recoTokens
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 MicrophoneHelper 
+\f0\b microphoneHelper
+\f1\b0 ;\
+    
+\f0\b private 
+\f1\b0 Logger 
+\f0\b myLogger
+\f1\b0 ;\
+    View 
+\f0\b view
+\f1\b0 ;\
+\
+\
+\
+\
+\
+    
+\f0\b public 
+\f1\b0 WatsonFragment()\{\
+\
+    \}\
+\
+    @Override\
+    
+\f0\b public void 
+\f1\b0 onCreate(@Nullable Bundle savedInstanceState) \{\
+        
+\f0\b super
+\f1\b0 .onCreate(savedInstanceState);\
+\
+    \}\
+\
+    @Nullable\
+    @Override\
+    
+\f0\b public 
+\f1\b0 View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) \{\
+\
+         
+\f0\b view 
+\f1\b0 = inflater.inflate(R.layout.
+\f3\i\b activity_watson_screen
+\f1\i0\b0 , container, 
+\f0\b false
+\f1\b0 );\
+        
+\f0\b watsonUserInput
+\f1\b0 =
+\f0\b view
+\f1\b0 .findViewById(R.id.
+\f3\i\b watsonUserInput
+\f1\i0\b0 );\
+\
+\
+        
+\f2\i //analytics();\
+        
+\f1\i0 initViewGroup();\
+\
+        
+\f0\b return 
+\f1\b0 inflater.inflate(R.layout.
+\f3\i\b watson_fragment
+\f1\i0\b0 , container, 
+\f0\b false
+\f1\b0 );\
+\
+    \}\
+    
+\f0\b private void 
+\f1\b0 analytics()\{\
+        BMSClient.
+\f2\i getInstance
+\f1\i0 ().initialize(getActivity().getApplicationContext(), BMSClient.
+\f3\i\b REGION_SYDNEY
+\f1\i0\b0 );\
+        
+\f2\i //Analytics is configured to record lifecycle events.\
+        
+\f1\i0 Analytics.
+\f2\i init
+\f1\i0 (getActivity().getApplication(), 
+\f0\b "WatBot"
+\f1\b0 , 
+\f0\b analytics_APIKEY
+\f1\b0 , 
+\f0\b false
+\f1\b0 ,
+\f0\b false
+\f1\b0 , Analytics.DeviceEvent.
+\f3\i\b ALL
+\f1\i0\b0 );\
+        
+\f2\i //Analytics.send();\
+        
+\f0\i0\b myLogger 
+\f1\b0 = Logger.
+\f2\i getLogger
+\f1\i0 (
+\f0\b "myLogger"
+\f1\b0 );\
+        
+\f2\i // Send recorded usage analytics to the Mobile Analytics Service\
+        
+\f1\i0 Analytics.
+\f2\i send
+\f1\i0 (
+\f0\b new 
+\f1\b0 ResponseListener() \{\
+            @Override\
+            
+\f0\b public void 
+\f1\b0 onSuccess(Response response) \{\
+                
+\f2\i // Handle Analytics send success here.\
+            
+\f1\i0 \}\
+\
+            @Override\
+            
+\f0\b public void 
+\f1\b0 onFailure(Response response, Throwable throwable, JSONObject jsonObject) \{\
+                
+\f2\i // Handle Analytics send failure here.\
+            
+\f1\i0 \}\
+        \});\
+\
+\
+\
+    \}\
+\
+    
+\f0\b public void 
+\f1\b0 initViewGroup()\{\
+\
+        
+\f0\b inputMessage 
+\f1\b0 = (EditText)
+\f0\b view
+\f1\b0 . findViewById(R.id.
+\f3\i\b message
+\f1\i0\b0 );\
+        
+\f0\b btnSend 
+\f1\b0 = (ImageButton)
+\f0\b view
+\f1\b0 . findViewById(R.id.
+\f3\i\b btn_send
+\f1\i0\b0 );\
+        
+\f0\b btnRecord
+\f1\b0 = (ImageButton)
+\f0\b view
+\f1\b0 . findViewById(R.id.
+\f3\i\b btn_record
+\f1\i0\b0 );\
+        String customFont = 
+\f0\b "Montserrat-Regular.ttf"
+\f1\b0 ;\
+        Typeface typeface = Typeface.
+\f2\i createFromAsset
+\f1\i0 (getActivity().getApplicationContext().getAssets(), customFont);\
+        
+\f0\b inputMessage
+\f1\b0 .setTypeface(typeface);\
+        
+\f0\b recyclerView 
+\f1\b0 = (RecyclerView) 
+\f0\b view
+\f1\b0 .findViewById(R.id.
+\f3\i\b recycler_view
+\f1\i0\b0 );\
+\
+        
+\f0\b messageArrayList 
+\f1\b0 = 
+\f0\b new 
+\f1\b0 ArrayList<>();\
+        
+\f0\b mAdapter 
+\f1\b0 = 
+\f0\b new 
+\f1\b0 ChatAdapter(
+\f0\b messageArrayList
+\f1\b0 );\
+        
+\f0\b microphoneHelper 
+\f1\b0 = 
+\f0\b new 
+\f1\b0 MicrophoneHelper(getActivity());\
+\
+        LinearLayoutManager layoutManager = 
+\f0\b new 
+\f1\b0 LinearLayoutManager(getActivity());\
+        layoutManager.setStackFromEnd(
+\f0\b true
+\f1\b0 );\
+        
+\f0\b recyclerView
+\f1\b0 .setLayoutManager(layoutManager);\
+        
+\f0\b recyclerView
+\f1\b0 .setItemAnimator(
+\f0\b new 
+\f1\b0 DefaultItemAnimator());\
+        
+\f0\b recyclerView
+\f1\b0 .setAdapter(
+\f0\b mAdapter
+\f1\b0 );\
+        
+\f0\b this
+\f1\b0 .
+\f0\b inputMessage
+\f1\b0 .setText(
+\f0\b ""
+\f1\b0 );\
+        
+\f0\b this
+\f1\b0 .
+\f0\b initialRequest 
+\f1\b0 = 
+\f0\b true
+\f1\b0 ;\
+\
+        
+\f0\b mContext 
+\f1\b0 = getActivity().getApplicationContext();\
+        
+\f0\b conversation_username 
+\f1\b0 = 
+\f0\b mContext
+\f1\b0 .getString(R.string.
+\f3\i\b conversation_username
+\f1\i0\b0 );\
+        
+\f0\b conversation_password 
+\f1\b0 = 
+\f0\b mContext
+\f1\b0 .getString(R.string.
+\f3\i\b conversation_password
+\f1\i0\b0 );\
+        
+\f0\b workspace_id 
+\f1\b0 = 
+\f0\b mContext
+\f1\b0 .getString(R.string.
+\f3\i\b workspace_id
+\f1\i0\b0 );\
+        
+\f0\b STT_username 
+\f1\b0 = 
+\f0\b mContext
+\f1\b0 .getString(R.string.
+\f3\i\b STT_username
+\f1\i0\b0 );\
+        
+\f0\b STT_password 
+\f1\b0 = 
+\f0\b mContext
+\f1\b0 .getString(R.string.
+\f3\i\b STT_password
+\f1\i0\b0 );\
+        
+\f2\i //TTS_username = mContext.getString(R.string.TTS_username);\
+        //TTS_password = mContext.getString(R.string.TTS_password);\
+\
+\
+        
+\f1\i0 sendMessage();\
+\
+\
+        
+\f2\i //Watson Text-to-Speech Service on Bluemix\
+        
+\f0\i0\b textToSpeech 
+\f1\b0 = 
+\f0\b new 
+\f1\b0 TextToSpeech();\
+        
+\f0\b textToSpeech
+\f1\b0 .setUsernameAndPassword(
+\f0\b TTS_username
+\f1\b0 , 
+\f0\b TTS_password
+\f1\b0 );\
+\
+        
+\f0\b int 
+\f1\b0 permission = ContextCompat.
+\f2\i checkSelfPermission
+\f1\i0 (getActivity(),\
+                Manifest.permission.
+\f3\i\b RECORD_AUDIO
+\f1\i0\b0 );\
+\
+        
+\f0\b if 
+\f1\b0 (permission != PackageManager.
+\f3\i\b PERMISSION_GRANTED
+\f1\i0\b0 ) \{\
+            Log.
+\f2\i i
+\f1\i0 (
+\f2\i TAG
+\f1\i0 , 
+\f0\b "Permission to record denied"
+\f1\b0 );\
+            makeRequest();\
+        \}\
+        
+\f0\b recyclerView
+\f1\b0 .addOnItemTouchListener(
+\f0\b new 
+\f1\b0 RecyclerTouchListener(getActivity().getApplicationContext(), 
+\f0\b recyclerView
+\f1\b0 , 
+\f0\b new 
+\f1\b0 ClickListener() \{\
+            @Override\
+            
+\f0\b public void 
+\f1\b0 onClick(View view, 
+\f0\b final int 
+\f1\b0 position) \{\
+                Thread thread = 
+\f0\b new 
+\f1\b0 Thread(
+\f0\b new 
+\f1\b0 Runnable() \{\
+                    
+\f0\b public void 
+\f1\b0 run() \{\
+                        Message audioMessage;\
+                        
+\f0\b try 
+\f1\b0 \{\
+\
+                            audioMessage =(Message) 
+\f0\b messageArrayList
+\f1\b0 .get(position);\
+                            
+\f0\b streamPlayer 
+\f1\b0 = 
+\f0\b new 
+\f1\b0 StreamPlayer();\
+                            
+\f0\b if
+\f1\b0 (audioMessage != 
+\f0\b null 
+\f1\b0 && !audioMessage.getMessage().isEmpty())\
+                                
+\f2\i //Change the Voice format and choose from the available choices\
+                                
+\f0\i0\b streamPlayer
+\f1\b0 .playStream(
+\f0\b textToSpeech
+\f1\b0 .synthesize(audioMessage.getMessage(), Voice.
+\f3\i\b EN_LISA
+\f1\i0\b0 ).execute());\
+                            
+\f0\b else\
+                                streamPlayer
+\f1\b0 .playStream(
+\f0\b textToSpeech
+\f1\b0 .synthesize(
+\f0\b "No Text Specified"
+\f1\b0 , Voice.
+\f3\i\b EN_LISA
+\f1\i0\b0 ).execute());\
+\
+                        \} 
+\f0\b catch 
+\f1\b0 (Exception e) \{\
+                            e.printStackTrace();\
+                        \}\
+                    \}\
+                \});\
+                thread.start();\
+            \}\
+\
+            @Override\
+            
+\f0\b public void 
+\f1\b0 onLongClick(View view, 
+\f0\b int 
+\f1\b0 position) \{\
+                recordMessage();\
+\
+            \}\
+        \}));\
+\
+        
+\f0\b btnSend
+\f1\b0 .setOnClickListener(
+\f0\b new 
+\f1\b0 View.OnClickListener()\{\
+            @Override\
+            
+\f0\b public void 
+\f1\b0 onClick(View v) \{\
+                
+\f0\b if
+\f1\b0 (checkInternetConnection()) \{\
+                    sendMessage();\
+                \}\
+            \}\
+        \});\
+\
+        
+\f0\b btnRecord
+\f1\b0 .setOnClickListener(
+\f0\b new 
+\f1\b0 View.OnClickListener() \{\
+            @Override 
+\f0\b public void 
+\f1\b0 onClick(View v) \{\
+                recordMessage();\
+            \}\
+        \});\
+    \};\
+    @Override\
+    
+\f0\b public void 
+\f1\b0 onRequestPermissionsResult(
+\f0\b int 
+\f1\b0 requestCode, @NonNull String[] permissions, @NonNull 
+\f0\b int
+\f1\b0 [] grantResults) \{\
+        
+\f0\b super
+\f1\b0 .onRequestPermissionsResult(requestCode, permissions, grantResults);\
+        
+\f0\b switch 
+\f1\b0 (requestCode)\{\
+            
+\f0\b case 
+\f3\i REQUEST_RECORD_AUDIO_PERMISSION
+\f1\i0\b0 :\
+                
+\f0\b permissionToRecordAccepted  
+\f1\b0 = grantResults[0] == PackageManager.
+\f3\i\b PERMISSION_GRANTED
+\f1\i0\b0 ;\
+                
+\f0\b break
+\f1\b0 ;\
+            
+\f0\b case 
+\f3\i RECORD_REQUEST_CODE
+\f1\i0\b0 : \{\
+\
+                
+\f0\b if 
+\f1\b0 (grantResults.
+\f0\b length 
+\f1\b0 == 0\
+                        || grantResults[0] !=\
+                        PackageManager.
+\f3\i\b PERMISSION_GRANTED
+\f1\i0\b0 ) \{\
+\
+                    Log.
+\f2\i i
+\f1\i0 (
+\f2\i TAG
+\f1\i0 , 
+\f0\b "Permission has been denied by user"
+\f1\b0 );\
+                \} 
+\f0\b else 
+\f1\b0 \{\
+                    Log.
+\f2\i i
+\f1\i0 (
+\f2\i TAG
+\f1\i0 , 
+\f0\b "Permission has been granted by user"
+\f1\b0 );\
+                \}\
+                
+\f0\b return
+\f1\b0 ;\
+            \}\
+\
+            
+\f0\b case 
+\f1\b0 MicrophoneHelper.
+\f3\i\b REQUEST_PERMISSION
+\f1\i0\b0 : \{\
+                
+\f0\b if 
+\f1\b0 (grantResults.
+\f0\b length 
+\f1\b0 > 0 && grantResults[0] != PackageManager.
+\f3\i\b PERMISSION_GRANTED
+\f1\i0\b0 ) \{\
+                    Toast.
+\f2\i makeText
+\f1\i0 (getActivity().getApplicationContext(), 
+\f0\b "Permission to record audio denied"
+\f1\b0 , Toast.
+\f3\i\b LENGTH_SHORT
+\f1\i0\b0 ).show();\
+                \}\
+            \}\
+        \}\
+        
+\f2\i // if (!permissionToRecordAccepted ) finish();\
+\
+    
+\f1\i0 \}\
+\
+\
+\
+\
+    
+\f0\b protected void 
+\f1\b0 makeRequest() \{\
+        ActivityCompat.
+\f2\i requestPermissions
+\f1\i0 (getActivity(),\
+                
+\f0\b new 
+\f1\b0 String[]\{Manifest.permission.
+\f3\i\b RECORD_AUDIO
+\f1\i0\b0 \},\
+                MicrophoneHelper.
+\f3\i\b REQUEST_PERMISSION
+\f1\i0\b0 );\
+    \}\
+\
+\
+    
+\f2\i // Sending a message to Watson Conversation Service\
+    
+\f0\i0\b private void 
+\f1\b0 sendMessage() \{\
+\
+        
+\f0\b final 
+\f1\b0 String inputmessage = 
+\f0\b this
+\f1\b0 .
+\f0\b inputMessage
+\f1\b0 .getText().toString().trim();\
+        
+\f0\b if
+\f1\b0 (!
+\f0\b this
+\f1\b0 .
+\f0\b initialRequest
+\f1\b0 ) \{\
+            Message inputMessage = 
+\f0\b new 
+\f1\b0 Message();\
+            inputMessage.setMessage(inputmessage);\
+            inputMessage.setId(
+\f0\b "1"
+\f1\b0 );\
+            
+\f0\b messageArrayList
+\f1\b0 .add(inputMessage);\
+            
+\f0\b myLogger
+\f1\b0 .info(
+\f0\b "Sending a message to Watson Conversation Service"
+\f1\b0 );\
+\
+        \}\
+        
+\f0\b else\
+        
+\f1\b0 \{\
+            Message inputMessage = 
+\f0\b new 
+\f1\b0 Message();\
+            inputMessage.setMessage(inputmessage);\
+            inputMessage.setId(
+\f0\b "100"
+\f1\b0 );\
+            
+\f0\b this
+\f1\b0 .
+\f0\b initialRequest 
+\f1\b0 = 
+\f0\b false
+\f1\b0 ;\
+            Toast.
+\f2\i makeText
+\f1\i0 (getActivity().getApplicationContext(),
+\f0\b "Tap on the message for Voice"
+\f1\b0 ,Toast.
+\f3\i\b LENGTH_LONG
+\f1\i0\b0 ).show();\
+\
+        \}\
+\
+        
+\f0\b this
+\f1\b0 .
+\f0\b inputMessage
+\f1\b0 .setText(
+\f0\b ""
+\f1\b0 );\
+        
+\f0\b mAdapter
+\f1\b0 .notifyDataSetChanged();\
+\
+\
+\
+        Thread thread = 
+\f0\b new 
+\f1\b0 Thread(
+\f0\b new 
+\f1\b0 Runnable()\{\
+            
+\f0\b public void 
+\f1\b0 run() \{\
+                
+\f0\b try 
+\f1\b0 \{\
+\
+                    Conversation service = 
+\f0\b new 
+\f1\b0 Conversation(Conversation.
+\f3\i\b VERSION_DATE_2017_05_26
+\f1\i0\b0 );\
+                    service.setUsernameAndPassword(
+\f0\b conversation_username
+\f1\b0 , 
+\f0\b conversation_password
+\f1\b0 );\
+                    InputData input = 
+\f0\b new 
+\f1\b0 InputData.Builder(inputmessage).build();\
+                    MessageOptions options = 
+\f0\b new 
+\f1\b0 MessageOptions.Builder(
+\f0\b workspace_id
+\f1\b0 ).input(input).context(
+\f0\b context
+\f1\b0 ).build();\
+                    MessageResponse response = service.message(options).execute();\
+\
+                    
+\f2\i //Passing Context of last conversation\
+                    
+\f0\i0\b if
+\f1\b0 (response.getContext() !=
+\f0\b null
+\f1\b0 )\
+                    \{\
+                        
+\f2\i //context.clear();\
+                        
+\f0\i0\b context 
+\f1\b0 = response.getContext();\
+\
+                    \}\
+                    
+\f0\b final 
+\f1\b0 Message outMessage=
+\f0\b new 
+\f1\b0 Message();\
+                    
+\f0\b if
+\f1\b0 (response!=
+\f0\b null
+\f1\b0 )\
+                    \{\
+                        
+\f0\b if
+\f1\b0 (response.getOutput()!=
+\f0\b null 
+\f1\b0 && response.getOutput().containsKey(
+\f0\b "text"
+\f1\b0 ))\
+                        \{\
+\
+                            ArrayList responseList = (ArrayList) response.getOutput().get(
+\f0\b "text"
+\f1\b0 );\
+                            
+\f0\b if
+\f1\b0 (
+\f0\b null 
+\f1\b0 !=responseList && responseList.size()>0)\{\
+                                outMessage.setMessage((String)responseList.get(0));\
+                                outMessage.setId(
+\f0\b "2"
+\f1\b0 );\
+                            \}\
+                            
+\f0\b messageArrayList
+\f1\b0 .add(outMessage);\
+                            Thread thread = 
+\f0\b new 
+\f1\b0 Thread(
+\f0\b new 
+\f1\b0 Runnable() \{\
+                                
+\f0\b public void 
+\f1\b0 run() \{\
+                                    Message audioMessage;\
+                                    
+\f0\b try 
+\f1\b0 \{\
+\
+                                        audioMessage = outMessage;\
+                                        
+\f0\b streamPlayer 
+\f1\b0 = 
+\f0\b new 
+\f1\b0 StreamPlayer();\
+                                        
+\f0\b if
+\f1\b0 (audioMessage != 
+\f0\b null 
+\f1\b0 && !audioMessage.getMessage().isEmpty())\
+                                            
+\f2\i //Change the Voice format and choose from the available choices\
+                                            
+\f0\i0\b streamPlayer
+\f1\b0 .playStream(
+\f0\b textToSpeech
+\f1\b0 .synthesize(audioMessage.getMessage(), Voice.
+\f3\i\b EN_LISA
+\f1\i0\b0 ).execute());\
+                                        
+\f0\b else\
+                                            streamPlayer
+\f1\b0 .playStream(
+\f0\b textToSpeech
+\f1\b0 .synthesize(
+\f0\b "No Text Specified"
+\f1\b0 , Voice.
+\f3\i\b EN_LISA
+\f1\i0\b0 ).execute());\
+\
+                                    \} 
+\f0\b catch 
+\f1\b0 (Exception e) \{\
+                                        e.printStackTrace();\
+                                    \}\
+                                \}\
+                            \});\
+                            thread.start();\
+                        \}\
+\
+                        
+\f2\i runOnUiThread
+\f1\i0 (
+\f0\b new 
+\f1\b0 Runnable() \{\
+                            
+\f0\b public void 
+\f1\b0 run() \{\
+                                
+\f0\b mAdapter
+\f1\b0 .notifyDataSetChanged();\
+                                
+\f0\b if 
+\f1\b0 (
+\f0\b mAdapter
+\f1\b0 .getItemCount() > 1) \{\
+                                    
+\f0\b recyclerView
+\f1\b0 .getLayoutManager().smoothScrollToPosition(
+\f0\b recyclerView
+\f1\b0 , 
+\f0\b null
+\f1\b0 , 
+\f0\b mAdapter
+\f1\b0 .getItemCount()-1);\
+\
+                                \}\
+\
+                            \}\
+                        \});\
+\
+\
+                    \}\
+                \} 
+\f0\b catch 
+\f1\b0 (Exception e) \{\
+                    e.printStackTrace();\
+                \}\
+            \}\
+        \});\
+\
+        thread.start();\
+\
+    \}\
+\
+\
+\
+\
+\
+\
+\
+\
+    
+\f0\b private void 
+\f1\b0 recordMessage() \{\
+        
+\f2\i //mic.setEnabled(false);\
+        
+\f0\i0\b speechService 
+\f1\b0 = 
+\f0\b new 
+\f1\b0 SpeechToText();\
+        
+\f0\b speechService
+\f1\b0 .setUsernameAndPassword(
+\f0\b STT_username
+\f1\b0 , 
+\f0\b STT_password
+\f1\b0 );\
+\
+\
+        
+\f0\b if
+\f1\b0 (
+\f0\b listening 
+\f1\b0 != 
+\f0\b true
+\f1\b0 ) \{\
+            
+\f0\b capture 
+\f1\b0 = 
+\f0\b microphoneHelper
+\f1\b0 .getInputStream(
+\f0\b true
+\f1\b0 );\
+            
+\f0\b new 
+\f1\b0 Thread(
+\f0\b new 
+\f1\b0 Runnable() \{\
+                @Override 
+\f0\b public void 
+\f1\b0 run() \{\
+                    
+\f0\b try 
+\f1\b0 \{\
+                        
+\f0\b speechService
+\f1\b0 .recognizeUsingWebSocket(
+\f0\b capture
+\f1\b0 , getRecognizeOptions(), 
+\f0\b new 
+\f1\b0 MicrophoneRecognizeDelegate());\
+                    \} 
+\f0\b catch 
+\f1\b0 (Exception e) \{\
+                        showError(e);\
+                    \}\
+                \}\
+            \}).start();\
+            
+\f0\b listening 
+\f1\b0 = 
+\f0\b true
+\f1\b0 ;\
+            Toast.
+\f2\i makeText
+\f1\i0 (getActivity().getApplicationContext(),
+\f0\b "Listening....Click to Stop"
+\f1\b0 , Toast.
+\f3\i\b LENGTH_LONG
+\f1\i0\b0 ).show();\
+\
+        \} 
+\f0\b else 
+\f1\b0 \{\
+            
+\f0\b try 
+\f1\b0 \{\
+                
+\f0\b microphoneHelper
+\f1\b0 .closeInputStream();\
+                
+\f0\b listening 
+\f1\b0 = 
+\f0\b false
+\f1\b0 ;\
+                Toast.
+\f2\i makeText
+\f1\i0 (getActivity().getApplicationContext(),
+\f0\b "Stopped Listening....Click to Start"
+\f1\b0 , Toast.
+\f3\i\b LENGTH_LONG
+\f1\i0\b0 ).show();\
+            \} 
+\f0\b catch 
+\f1\b0 (Exception e) \{\
+                e.printStackTrace();\
+            \}\
+\
+        \}\
+    \}\
+\
+\
+    
+\f0\b private boolean 
+\f1\b0 checkInternetConnection() \{\
+        
+\f2\i // get Connectivity Manager object to check connection\
+        
+\f1\i0 ConnectivityManager cm =\
+                (ConnectivityManager)getActivity().getSystemService(Context.
+\f3\i\b CONNECTIVITY_SERVICE
+\f1\i0\b0 );\
+\
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();\
+        
+\f0\b boolean 
+\f1\b0 isConnected = activeNetwork != 
+\f0\b null 
+\f1\b0 &&\
+                activeNetwork.isConnectedOrConnecting();\
+\
+        
+\f2\i // Check for network connections\
+        
+\f0\i0\b if 
+\f1\b0 (isConnected)\{\
+            
+\f0\b return true
+\f1\b0 ;\
+        \}\
+        
+\f0\b else 
+\f1\b0 \{\
+            Toast.
+\f2\i makeText
+\f1\i0 (getActivity().getApplicationContext(), 
+\f0\b " No Internet Connection available "
+\f1\b0 , Toast.
+\f3\i\b LENGTH_LONG
+\f1\i0\b0 ).show();\
+            
+\f0\b return false
+\f1\b0 ;\
+        \}\
+\
+    \}\
+\
+    
+\f2\i //Private Methods - Speech to Text\
+    
+\f0\i0\b private 
+\f1\b0 RecognizeOptions getRecognizeOptions() \{\
+        
+\f0\b return new 
+\f1\b0 RecognizeOptions.Builder()\
+                
+\f2\i //.continuous(true)\
+                
+\f1\i0 .contentType(ContentType.
+\f3\i\b OPUS
+\f1\i0\b0 .toString())\
+                
+\f2\i //.model("en-UK_NarrowbandModel")\
+                
+\f1\i0 .interimResults(
+\f0\b true
+\f1\b0 )\
+                .inactivityTimeout(2000)\
+                
+\f2\i //
+\f3\b TODO: Uncomment this to enable Speaker Diarization\
+                
+\f2\b0 //.speakerLabels(true)\
+                
+\f1\i0 .build();\
+    \}\
+\
+\
+    
+\f0\b private class 
+\f1\b0 MicrophoneRecognizeDelegate 
+\f0\b implements 
+\f1\b0 RecognizeCallback \{\
+        @Override\
+        
+\f0\b public void 
+\f1\b0 onTranscription(SpeechResults speechResults) \{\
+            
+\f2\i //
+\f3\b TODO: Uncomment this to enable Speaker Diarization\
+            
+\f2\b0 /*recoTokens = new SpeakerLabelsDiarization.RecoTokens();\
+            if(speechResults.getSpeakerLabels() !=null)\
+            \{\
+                recoTokens.add(speechResults);\
+                Log.i("SPEECHRESULTS",speechResults.getSpeakerLabels().get(0).toString());\
+            \}*/\
+            
+\f0\i0\b if
+\f1\b0 (speechResults.getResults() != 
+\f0\b null 
+\f1\b0 && !speechResults.getResults().isEmpty()) \{\
+                String text = speechResults.getResults().get(0).getAlternatives().get(0).getTranscript();\
+                showMicText(text);\
+            \}\
+        \}\
+\
+        @Override 
+\f0\b public void 
+\f1\b0 onConnected() \{\
+        \}\
+\
+    @Override 
+\f0\b public void 
+\f1\b0 onError(Exception e) \{\
+        showError(e);\
+        enableMicButton();\
+    \}\
+\
+    @Override 
+\f0\b public void 
+\f1\b0 onDisconnected() \{\
+        enableMicButton();\
+    \}\
+\
+    @Override\
+    
+\f0\b public void 
+\f1\b0 onInactivityTimeout(RuntimeException runtimeException) \{\
+\
+    \}\
+\
+    @Override\
+    
+\f0\b public void 
+\f1\b0 onListening() \{\
+\
+    \}\
+\
+    @Override\
+    
+\f0\b public void 
+\f1\b0 onTranscriptionComplete() \{\
+\
+    \}\
+\}\
+\
+    
+\f0\b private void 
+\f1\b0 showMicText(
+\f0\b final 
+\f1\b0 String text) \{\
+        
+\f2\i runOnUiThread
+\f1\i0 (
+\f0\b new 
+\f1\b0 Runnable() \{\
+            @Override 
+\f0\b public void 
+\f1\b0 run() \{\
+                
+\f0\b inputMessage
+\f1\b0 .setText(text);\
+            \}\
+        \});\
+    \}\
+\
+    
+\f0\b private void 
+\f1\b0 enableMicButton() \{\
+        
+\f2\i runOnUiThread
+\f1\i0 (
+\f0\b new 
+\f1\b0 Runnable() \{\
+            @Override 
+\f0\b public void 
+\f1\b0 run() \{\
+                
+\f0\b btnRecord
+\f1\b0 .setEnabled(
+\f0\b true
+\f1\b0 );\
+            \}\
+        \});\
+    \}\
+\
+    
+\f0\b private void 
+\f1\b0 showError(
+\f0\b final 
+\f1\b0 Exception e) \{\
+        
+\f2\i runOnUiThread
+\f1\i0 (
+\f0\b new 
+\f1\b0 Runnable() \{\
+            @Override 
+\f0\b public void 
+\f1\b0 run() \{\
+                Toast.
+\f2\i makeText
+\f1\i0 (getActivity().getBaseContext(), e.getMessage(), Toast.
+\f3\i\b LENGTH_SHORT
+\f1\i0\b0 ).show();\
+                e.printStackTrace();\
+            \}\
+        \});\
+    \}\
+\
+\
+\
+\}\
+\
+}
