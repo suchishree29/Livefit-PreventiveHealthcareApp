@@ -2,10 +2,10 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="/home/kartknair/Downloads/paranamer-2.7.jar"/>
-	<classpathentry kind="lib" path="/home/kartknair/Downloads/slf4j-api-1.7.7.jar"/>
-	<classpathentry kind="lib" path="/home/kartknair/Downloads/snappy-java-1.1.1.3.jar"/>
-	<classpathentry kind="lib" path="/home/kartknair/Downloads/xz-1.5.jar"/>
-	<classpathentry kind="lib" path="/home/kartknair/Desktop/kafka-clients-0.10.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Karthik Nair/Desktop/kafka-clients-0.10.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Karthik Nair/Desktop/paranamer-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Karthik Nair/Desktop/slf4j-api-1.7.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Karthik Nair/Desktop/snappy-java-1.1.1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Karthik Nair/Desktop/xz-1.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
