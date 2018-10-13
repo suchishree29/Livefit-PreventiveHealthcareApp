@@ -1,34 +1,51 @@
 package com.springboot.kafka.project295.controller;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Properties;
 
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.config.Config;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.kafka.project295.Config;
+
 @RestController
 public class KafkaProducerController {
-	Config myConf;
+	//Config myConf;
 	Producer<String, byte[]> producer;
 	String topic, bootstrapServers;
 	Path path;
 	ByteArrayOutputStream out;
 
 	@RequestMapping(value = "/upload", method = RequestMethod.PUT)
-	public String fileUpload(@RequestBody byte[] fileData, String fileName) throws InterruptedException {
+	public String fileUpload(@RequestBody byte[] fileData) throws InterruptedException, FileNotFoundException, IOException {
 
 		Thread.sleep(500);
+		//myConf = new Config("../resources/ProducerConf.conf");
+
+		// setting the kafka producer stuff
+		Properties props = new Properties();
+		props.put("bootstrap.servers", "localhost:9092");
+		props.put("acks", "1");
+		props.put("compression.type", "snappy");
+		props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+		props.put("value.serializer", "org.apache.kafka.common.serialization.ByteArraySerializer");
+		producer = new KafkaProducer<>(props);
+		
+		topic = "exchangetopic";
 		ArrayList<byte[]> allChunks;
-		allChunks = splitFile(fileName, fileData);
+		allChunks = splitFile("dummyFile", fileData);
 		for (int i = 0; i < allChunks.size(); i++) {
-			publishMessage(fileName, (allChunks.get(i)));
+			publishMessage("dummyFile", (allChunks.get(i)));
 		}
 		return "Upload Successful!!";
 	}
