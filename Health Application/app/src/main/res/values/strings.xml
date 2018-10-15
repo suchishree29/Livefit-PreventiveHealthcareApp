@@ -40,5 +40,7 @@
     <string name="watsonWorkspaceName">LivefitWatsonWorkspace</string>
     <string name="workspace_id">df8bf253-2044-4e70-ae4d-c48c0850af4d</string>
 
+    <string name="scan">Scan Barcode</string>
+
 
 </resources>
