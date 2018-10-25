@@ -1,5 +1,6 @@
 package com.example.c02hp1dtdv35.healthapplication.BarcodeScanner;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.c02hp1dtdv35.healthapplication.R;
+import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -53,9 +55,13 @@ public class BarcodeScannerActivity extends AppCompatActivity implements View.On
         this.barcodeTxt.setText("Barcode: " + str);
     }
 
+
+
     private void getData(String barcode) {
         // First, we insert the username into the repo url.
         this.url = this.baseUrl + barcode + ".json";
+
+
 
         JsonObjectRequest arrReq = new JsonObjectRequest(Request.Method.GET, url,
                 new Response.Listener<JSONObject>() {
@@ -65,11 +71,27 @@ public class BarcodeScannerActivity extends AppCompatActivity implements View.On
                         if (response.length() > 0) {
 
                             try {
-                                String code = response.get("code").toString();
-                                String product = response.get("product").toString();
-                                setBarcodeTxt(code);
-                                setContentTxt(product);
-                            } catch (JSONException e) {
+                               // String code = response.get("code").toString();
+//                                Product product = (Product)response.toString();
+                                Gson gson = new Gson();
+                                ProductFullObject productFullObject =  gson.fromJson(response.toString(), ProductFullObject.class);
+                                Product product = productFullObject.getProduct();
+                                Nutriments nutriments = product.getNutriments();
+                                Intent myIntent = new Intent(getApplicationContext(),LogFood.class);
+                                //Create the bundle
+                                Bundle bundle = new Bundle();
+
+                                //Add your data to bundle
+                                bundle.putString("product_name", product.getProductName());
+                                bundle.putString("product_image", product.getImageSmallUrl());
+
+                                //Add the bundle to the intent
+                                myIntent.putExtra("nutriments", new Gson().toJson(nutriments));
+                                myIntent.putExtras(bundle);
+                                startActivity(myIntent);
+//                                setBarcodeTxt(code);
+//                                setContentTxt(product);
+                            } catch (Exception e) {
                                 // If there is an error then output this to the logs.
                                 Log.e("Volley", "Invalid JSON Object.");
                             }
@@ -97,6 +119,7 @@ public class BarcodeScannerActivity extends AppCompatActivity implements View.On
         if(v.getId()==R.id.scan_button){
             IntentIntegrator scanIntegrator = new IntentIntegrator(this);
             scanIntegrator.initiateScan();
+
         }
     }
 
@@ -105,6 +128,8 @@ public class BarcodeScannerActivity extends AppCompatActivity implements View.On
 
         if (scanningResult != null) {
             String scanContent = scanningResult.getContents();
+//            Intent myIntent = new Intent(this, LogFood.class);
+//            startActivity(myIntent);
             getData(scanContent);
 
 
