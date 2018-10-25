@@ -224,7 +224,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         Application application = (Application) getApplication();
 //        String name = nameInput.getText().toString();
 //        String pass = passwordInput.getText().toString();
-        application.login("test", "text");
+        application.login("john", "pass");
     }
 
     private boolean isPasswordValid(String password) {

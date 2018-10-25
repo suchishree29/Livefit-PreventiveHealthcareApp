@@ -24,26 +24,36 @@
             <ImageView
                 android:id="@+id/product_image"
                 android:layout_width="match_parent"
-                android:layout_height="204dp"
+                android:layout_height="198dp"
                 android:layout_weight="1"
                 app:srcCompat="@mipmap/apple" />
 
             <TextView
                 android:id="@+id/product_name"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="30dp"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textColorLink="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color" />
 
             <TextView
                 android:id="@+id/nutrition_facts"
                 android:layout_width="match_parent"
-                android:layout_height="0.1dp"
+                android:layout_height="32dp"
                 android:layout_weight="1"
                 android:linksClickable="true"
                 android:onClick="onClick"
                 android:text="NUTRITION FACTS"
-                android:textColor="@android:color/holo_blue_dark"
+                android:textColor="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
+                android:textColorLink="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/mealTimeTxt"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:text="Meal n Snacks Time"
                 android:textColorLink="@android:color/holo_blue_dark"
                 android:textStyle="bold" />
 
@@ -59,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Morning Snack"
-                    android:textColorLink="@android:color/holo_blue_dark" />
+                    android:textColorLink="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color" />
 
                 <RadioButton
                     android:id="@+id/breakfastBtn"
@@ -67,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Breakfast"
-                    android:textColorLink="@android:color/holo_blue_dark" />
+                    android:textColorLink="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color" />
 
             </RadioGroup>
 
@@ -79,11 +89,11 @@
 
                 <RadioButton
                     android:id="@+id/afternoonSnackBtn"
-                    android:layout_width="77dp"
+                    android:layout_width="85dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Afternoon Snack"
-                    android:textColorLink="@android:color/holo_blue_dark" />
+                    android:textColorLink="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color" />
 
                 <RadioButton
                     android:id="@+id/lunchBtn"
@@ -91,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Lunch"
-                    android:textColorLink="@android:color/holo_blue_dark" />
+                    android:textColorLink="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color" />
 
             </RadioGroup>
 
@@ -103,54 +113,47 @@
 
                 <RadioButton
                     android:id="@+id/eveSnackBtn"
-                    android:layout_width="83dp"
+                    android:layout_width="85dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Evening Snack"
-                    android:textColorLink="@android:color/holo_blue_dark" />
+                    android:textColorLink="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color" />
 
                 <RadioButton
                     android:id="@+id/dinnerBtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Dinner"
-                    android:textColorLink="@android:color/holo_blue_dark" />
+                    android:textColorLink="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color" />
             </RadioGroup>
 
-            <TextView
-                android:id="@+id/mealTimeTxt"
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:layout_weight="1"
-                android:text="Meal n Snacks Time"
-                android:textColorLink="@android:color/holo_blue_dark"
-                android:textStyle="bold" />
-
-            <DatePicker
-                android:id="@+id/DatePicker01"
-                android:layout_width="match_parent"
-                android:layout_height="144dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/dayTxt"
+                android:layout_width="match_parent"
+                android:layout_height="76dp"
+                android:layout_weight="1"
+                android:hint="Select a Date"
+                android:text="Day"
+                android:textColorLink="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/logBtn"
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
                 android:layout_weight="1"
-                android:background="@android:color/holo_blue_dark"
+                android:background="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
                 android:text="LOG THIS"
                 android:textColor="@android:color/background_light" />
 
         </LinearLayout>
     </ScrollView>
-
-    <!--<CalendarView-->
-            <!--android:id="@+id/calendarView"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="101dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:clickable="true" />-->
 
 </LinearLayout>
 

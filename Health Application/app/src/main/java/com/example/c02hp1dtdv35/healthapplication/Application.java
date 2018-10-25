@@ -37,8 +37,8 @@ public class Application extends android.app.Application implements ReplicatorCh
     private final static boolean LOGIN_FLOW_ENABLED = true;
     private final static boolean SYNC_ENABLED = true;
 
-    private final static String DATABASE_NAME = "todo";
-    private final static String SYNCGATEWAY_URL = "ws://10.0.2.2:4984/todo/";
+    private final static String DATABASE_NAME = "staging";
+    private final static String SYNCGATEWAY_URL = "ws://10.250.174.242:4984/staging";
 
     private Database database = null;
     private Replicator replicator;
