@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.c02hp1dtdv35.healthapplication.Application;
 import com.example.c02hp1dtdv35.healthapplication.Home.WatsonScreen;
 import com.example.c02hp1dtdv35.healthapplication.R;
 
@@ -132,7 +133,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
+                    .setAction(android.R.string.ok, new OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
                         public void onClick(View v) {
@@ -209,13 +210,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
-        Intent homeScreenIntent= new Intent(this,WatsonScreen.class);
-        startActivity(homeScreenIntent);
+     //   Intent homeScreenIntent= new Intent(this,WatsonScreen.class);
+        login();
+       // startActivity(homeScreenIntent);
     }
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         return email.contains("@");
+    }
+
+    private void login() {
+        Application application = (Application) getApplication();
+//        String name = nameInput.getText().toString();
+//        String pass = passwordInput.getText().toString();
+        application.login("test", "text");
     }
 
     private boolean isPasswordValid(String password) {

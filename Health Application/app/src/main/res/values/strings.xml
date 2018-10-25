@@ -42,5 +42,16 @@
 
     <string name="scan">Scan Barcode</string>
 
+    <!-- Strings related to login -->
+
+    <string name="title_dialog_new_list">Create new list</string>
+    <string name="title_dialog_new_task">Create new task</string>
+    <string name="title_dialog_new_user">Create new user</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="action_delete">Delete</string>
+    <string name="action_update">Update</string>
+    <string name="title_dialog_update">Update task</string>
+
 
 </resources>

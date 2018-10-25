@@ -22,6 +22,7 @@
 
     <application
         android:allowBackup="true"
+        android:name="com.example.c02hp1dtdv35.healthapplication.Application"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -42,9 +43,11 @@
         <activity
             android:name=".Home.WatsonScreen"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".WeatherApi.WeatherActivity" />
+        <activity android:name=".WeatherApi.WeatherActivity" android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Remind.RemindActivity" />
         <activity android:name=".BarcodeScanner.BarcodeScannerActivity"></activity>
+        <activity android:name=".BarcodeScanner.LogFood" />
+        <activity android:name=".BarcodeScanner.ShowNutriments" />
     </application>
 
 </manifest>
