@@ -68,7 +68,7 @@ public class WatsonScreen extends AppCompatActivity {
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Log.d("Anirudh", "onTabSelected: "+tab.getText());
+
                 onTabChangeAction((String) tab.getText());
             }
 
@@ -91,14 +91,14 @@ public class WatsonScreen extends AppCompatActivity {
             case watsonFragmentTitle:
                 break;
             case cameraFragmentTitle:
-                Intent cameraIntent =new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent,REQUEST_CAMERA_CODE);
                 break;
             case foodDisplayFragmentTitle:
                 break;
 
         }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

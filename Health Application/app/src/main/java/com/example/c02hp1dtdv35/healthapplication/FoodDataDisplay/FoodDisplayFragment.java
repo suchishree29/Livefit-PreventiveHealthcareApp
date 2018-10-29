@@ -19,9 +19,6 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by C02HP1DTDV35 on 5/12/18.
- */
 
 public class FoodDisplayFragment extends Fragment {
 
@@ -48,18 +45,16 @@ public class FoodDisplayFragment extends Fragment {
 
         addData();
 
-        int imageResource=getResources().getIdentifier("@mipmap/apple",null,"com.example.c02hp1dtdv35.healthapplication.FoodDataDisplay");
-        imageview.setImageResource(imageResource);
-
-        textView.setText("APple");
+//        int imageResource=getResources().getIdentifier("@mipmap/apple",null,"com.example.c02hp1dtdv35.healthapplication.FoodDataDisplay");
+//        imageview.setImageResource(imageResource);
+//
+//        textView.setText("APple");
         return inflater.inflate(R.layout.activity_food_fragment, container, false);
     }
     public void addData(){
 
-        list.add(new CardViewer("@mipmap/apple","Apple"));
+        list.add(new CardViewer("https://static.openfoodfacts.org/images/products/071/627/000/1660/front_en.3.200.jpg","Apple"));
         list.add(new CardViewer("@mipmap/pizza","Pizza"));
-        list.add(new CardViewer("@mipmap/Salad","Salad"));
-        list.add(new CardViewer("@mipmap/pancakes","Pancakes"));
 
     }
 }
