@@ -5,22 +5,22 @@ import com.google.gson.annotations.SerializedName;
 
 public class ProductFullObject {
 
-    @SerializedName("status")
-    @Expose
-    private Integer status;
-    @SerializedName("product")
-    @Expose
-    private Product product;
     @SerializedName("code")
     @Expose
     private String code;
+    @SerializedName("product")
+    @Expose
+    private Product product;
+    @SerializedName("status")
+    @Expose
+    private Integer status;
 
-    public Integer getStatus() {
-        return status;
+    public String getCode() {
+        return code;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Product getProduct() {
@@ -31,12 +31,12 @@ public class ProductFullObject {
         this.product = product;
     }
 
-    public String getCode() {
-        return code;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
 }

@@ -5,25 +5,25 @@ import com.google.gson.annotations.SerializedName;
 
 public class NutrientLevels {
 
-    @SerializedName("saturated-fat")
-    @Expose
-    private String saturatedFat;
-    @SerializedName("salt")
-    @Expose
-    private String salt;
-    @SerializedName("sugars")
-    @Expose
-    private String sugars;
     @SerializedName("fat")
     @Expose
     private String fat;
+    @SerializedName("salt")
+    @Expose
+    private String salt;
+    @SerializedName("saturated-fat")
+    @Expose
+    private String saturatedFat;
+    @SerializedName("sugars")
+    @Expose
+    private String sugars;
 
-    public String getSaturatedFat() {
-        return saturatedFat;
+    public String getFat() {
+        return fat;
     }
 
-    public void setSaturatedFat(String saturatedFat) {
-        this.saturatedFat = saturatedFat;
+    public void setFat(String fat) {
+        this.fat = fat;
     }
 
     public String getSalt() {
@@ -34,20 +34,20 @@ public class NutrientLevels {
         this.salt = salt;
     }
 
+    public String getSaturatedFat() {
+        return saturatedFat;
+    }
+
+    public void setSaturatedFat(String saturatedFat) {
+        this.saturatedFat = saturatedFat;
+    }
+
     public String getSugars() {
         return sugars;
     }
 
     public void setSugars(String sugars) {
         this.sugars = sugars;
-    }
-
-    public String getFat() {
-        return fat;
-    }
-
-    public void setFat(String fat) {
-        this.fat = fat;
     }
 
 }

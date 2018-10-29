@@ -52,6 +52,23 @@
     <string name="action_delete">Delete</string>
     <string name="action_update">Update</string>
     <string name="title_dialog_update">Update task</string>
+    <string name="allergens">Allergens :</string>
+    <string name="date">Date</string>
+    <string name="log_this">LOG THIS</string>
+    <string name="meal_and_snacks_time">Meal and Snacks Time</string>
+    <string name="calories">Calories:</string>
+    <string name="serving_size">Serving Size:</string>
+    <string name="nutrition_facts">NUTRITION FACTS</string>
+    <string name="product_name">Product Name:</string>
+
+    <string-array name="meals_array">
+        <item>Morning Snack</item>
+        <item>Breakfast</item>
+        <item>Afternoon Snack</item>
+        <item>Lunch</item>
+        <item>Evening Snack</item>
+        <item>Dinner</item>
+    </string-array>
 
 
 </resources>
