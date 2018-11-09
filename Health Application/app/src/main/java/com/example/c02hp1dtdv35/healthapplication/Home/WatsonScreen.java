@@ -1,7 +1,7 @@
 package com.example.c02hp1dtdv35.healthapplication.Home;
 
 import android.content.Intent;
-import android.provider.MediaStore;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,9 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,10 +17,10 @@ import android.view.MenuItem;
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.BarcodeScannerActivity;
 import com.example.c02hp1dtdv35.healthapplication.FoodDataDisplay.FoodDisplayFragment;
 import com.example.c02hp1dtdv35.healthapplication.Login.LoginActivity;
+import com.example.c02hp1dtdv35.healthapplication.Login.UserProfileActivity;
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.example.c02hp1dtdv35.healthapplication.Remind.RemindActivity;
 import com.example.c02hp1dtdv35.healthapplication.Watson.WatsonFragment;
-import com.example.c02hp1dtdv35.healthapplication.WeatherApi.WeatherActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,7 +110,7 @@ public class WatsonScreen extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.action_weatherApi:
-                Intent weatherIntent= new Intent(WatsonScreen.this, WeatherActivity.class);
+                Intent weatherIntent= new Intent(WatsonScreen.this, UserProfileActivity.class);
                 startActivity(weatherIntent);
                 break;
             case R.id.action_remind:
@@ -123,6 +121,7 @@ public class WatsonScreen extends AppCompatActivity {
                 Intent cameraIntent= new Intent(WatsonScreen.this,CameraFragment.class);
                 startActivity(cameraIntent);
                 break;
+
 
             case R.id.action_food_barcode:
                 Intent barcodeScannerIntent= new Intent(WatsonScreen.this, BarcodeScannerActivity.class);
