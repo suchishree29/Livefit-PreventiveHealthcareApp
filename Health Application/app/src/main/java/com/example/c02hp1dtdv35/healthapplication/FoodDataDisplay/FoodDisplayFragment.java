@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.ProductList;
 import com.example.c02hp1dtdv35.healthapplication.Home.WatsonScreen;
 import com.example.c02hp1dtdv35.healthapplication.R;
 
@@ -25,6 +26,7 @@ public class FoodDisplayFragment extends Fragment {
     ImageView imageview;
     TextView textView;
     ArrayList<CardViewer>list= new ArrayList<>();
+    ArrayList<ProductList> products;
     CardView cardView;
     public FoodDisplayFragment(){
 
