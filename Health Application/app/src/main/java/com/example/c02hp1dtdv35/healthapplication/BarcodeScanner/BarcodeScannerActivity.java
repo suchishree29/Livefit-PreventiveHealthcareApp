@@ -7,7 +7,6 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.c02hp1dtdv35.healthapplication.R;
@@ -24,8 +23,8 @@ import org.json.JSONObject;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.RequestQueue;
 
-public class BarcodeScannerActivity extends AppCompatActivity{
-
+public class BarcodeScannerActivity extends AppCompatActivity implements View.OnClickListener{
+    private Button scanBtn;
     private RequestQueue requestQueue;
 
     String baseUrl = "https://world.openfoodfacts.org/api/v0/product/";
@@ -36,30 +35,24 @@ public class BarcodeScannerActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode_scanner);
         getSupportActionBar().setTitle("Barcode Scanner");
+        scanBtn =  findViewById(R.id.scan_button);
         requestQueue = Volley.newRequestQueue(this);  // This setups up a new request queue which we will need to make HTTP requests.
-        IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-        scanIntegrator.initiateScan();
+        scanBtn.setOnClickListener(this);
 
     }
 
 
-
     private void getData(String barcode) {
-        // First, we insert the username into the repo url.
         this.url = this.baseUrl + barcode + ".json";
-
-
 
         JsonObjectRequest arrReq = new JsonObjectRequest(Request.Method.GET, url,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // Check the length of our response (to see if the user has any repos)
+                        // Check the length of our response
                         if (response.length() > 0) {
 
                             try {
-                               // String code = response.get("code").toString();
-//                                Product product = (Product)response.toString();
                                 Gson gson = new Gson();
                                 ProductFullObject productFullObject =  gson.fromJson(response.toString(), ProductFullObject.class);
                                 Product product = productFullObject.getProduct();
@@ -103,6 +96,14 @@ public class BarcodeScannerActivity extends AppCompatActivity{
         // Add the request we just defined to our request queue.
         // The request queue will automatically handle the request as soon as it can.
         requestQueue.add(arrReq);
+    }
+
+    public void onClick (View v){
+        if(v.getId()==R.id.scan_button){
+            IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+            scanIntegrator.initiateScan();
+
+        }
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
