@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.c02hp1dtdv35.healthapplication.Login.SignUpActivity">
+    tools:context="com.example.c02hp1dtdv35.healthapplication.Login.UserProfileActivity">
 
     <!-- Login progress -->
     <ProgressBar
@@ -31,33 +31,56 @@
             android:orientation="vertical">
 
             <AutoCompleteTextView
-                android:id="@+id/firstName"
+                android:id="@+id/Height"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_firstName"
-                android:inputType="textEmailAddress"
+                android:hint="Height In Ft and Inches"
+                android:inputType="text"
                 android:maxLines="1"
                 android:singleLine="true" />
-            />
+
             <AutoCompleteTextView
-                android:id="@+id/lastName"
+                android:id="@+id/Weight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_lastName"
+                android:hint="Weight in Lbs"
                 android:maxLines="1"
                 android:singleLine="true" />
-            />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <Switch
+                    android:id="@+id/switch1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Smoking" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Switch
+                    android:id="@+id/switch2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Alcohol Consumption" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
                 <AutoCompleteTextView
-                    android:id="@+id/email"
+                    android:id="@+id/bloodglucose"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_email"
                     android:layout_marginTop="16dp"
-                    android:inputType="textEmailAddress"
+                    android:hint="Blood Glucose (mg/dL)"
+                    android:inputType="date"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -67,30 +90,48 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/password"
+                <AutoCompleteTextView
+                    android:id="@+id/cholestrol"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_password"
-                    android:imeActionId="6"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
+                    android:layout_marginTop="16dp"
+                    android:hint="Cholestrol (mg/dL)"
+                    android:inputType="date"
                     android:maxLines="1"
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="test" />
 
             <Button
-                android:id="@+id/email_sign_in_button"
+                android:id="@+id/save"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
 
                 android:background="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
-                android:text="@string/action_register"
+                android:text="save"
                 android:textStyle="bold" />
+
 
         </LinearLayout>
     </ScrollView>
