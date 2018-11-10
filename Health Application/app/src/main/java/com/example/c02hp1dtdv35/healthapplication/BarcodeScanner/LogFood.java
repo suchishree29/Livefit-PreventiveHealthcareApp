@@ -9,12 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.LinkMovementMethod;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,8 +26,10 @@ import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.MutableDocument;
 import com.example.c02hp1dtdv35.healthapplication.Application;
+import com.example.c02hp1dtdv35.healthapplication.Home.CameraFragment;
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.google.gson.Gson;
+import com.google.zxing.integration.android.IntentIntegrator;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -39,13 +44,14 @@ public class LogFood extends AppCompatActivity {
     Nutriments nutriments;
     private Database db;
     String product,serving_size,calories,allergens;
-    String date,imgUrl,selectedMealCourse;
+    String date;
+    String imgUrl;
+    String selectedMealCourse;
     int year,day,month;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private static final String TAG = LogFood.class.getSimpleName();
 
-    ArrayList<ProductRecycleView> products , product_list;
-
+    ArrayList<ProductList> products;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +74,6 @@ public class LogFood extends AppCompatActivity {
 
         //Extract the product name and image…
         product = bundle.getString("product_name");
-        //product_list = bundle.getString("productList");
         //this.prodName.setText("Product Name: " + product);
         imgUrl = bundle.getString("product_image");
         Picasso.get().load(imgUrl).into(prodImg);
@@ -95,10 +100,10 @@ public class LogFood extends AppCompatActivity {
 
         //Code for populating Recycler View
         // Initialize products
-        //products = ProductRecycleView.createProductList(product,serving_size,calories,allergens,1);
-
-        products = ProductRecycleView.createProductList(product,serving_size,calories,allergens,1);
-
+        products = ProductList.createProductList(product,serving_size,calories,allergens,1);
+        for(ProductList product: products){
+            System.out.println("Products outside " +product);
+        }
         // Create adapter passing in the sample user data
         ProductsAdapter adapter = new ProductsAdapter(products);
         // Attach the adapter to the recyclerview to populate items
@@ -162,14 +167,14 @@ public class LogFood extends AppCompatActivity {
 
                 if (db == null) throw new IllegalArgumentException();
 
-                for(ProductRecycleView product: products){
+                for(ProductList product: products){
                     System.out.println(product);
                     MutableDocument mDoc = new MutableDocument();
 
                     mDoc.setString("name",product.getName());
                     mDoc.setString("product_img",imgUrl);
                     mDoc.setString("meal_date",date);
-                    mDoc.setString("serving_size", product.getServing_size());
+                    mDoc.setString("serving_size", product.getServingSize());
                     mDoc.setString("calories", product.getCalories());
                     mDoc.setString("allergens", product.getAllergens());
                     mDoc.setString("meal_course", selectedMealCourse);
