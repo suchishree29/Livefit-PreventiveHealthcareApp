@@ -18,6 +18,7 @@ import android.view.MenuItem;
 
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.BarcodeScannerActivity;
 import com.example.c02hp1dtdv35.healthapplication.FoodDataDisplay.FoodDisplayFragment;
+import com.example.c02hp1dtdv35.healthapplication.LoggedFoodDisplay.ShowLoggedFoodActivity;
 import com.example.c02hp1dtdv35.healthapplication.Login.LoginActivity;
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.example.c02hp1dtdv35.healthapplication.Remind.RemindActivity;
@@ -118,6 +119,10 @@ public class WatsonScreen extends AppCompatActivity {
             case R.id.action_remind:
                 Intent reminderIntent= new Intent(WatsonScreen.this, RemindActivity.class);
                 startActivity(reminderIntent);
+                break;
+            case R.id.action_get_logs:
+                Intent foodLogsIntent= new Intent(WatsonScreen.this, ShowLoggedFoodActivity.class);
+                startActivity(foodLogsIntent);
                 break;
             case R.id.action_log_food_camera:
                 Intent cameraIntent= new Intent(WatsonScreen.this,CameraFragment.class);

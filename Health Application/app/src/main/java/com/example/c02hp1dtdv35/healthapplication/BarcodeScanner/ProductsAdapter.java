@@ -16,7 +16,7 @@ import java.util.List;
 public class ProductsAdapter extends
         RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
 
-    private List<ProductList> products;
+    private List<ProductRecycleView> products;
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -57,14 +57,14 @@ public class ProductsAdapter extends
         @Override
         public void onBindViewHolder(ProductsAdapter.ViewHolder viewHolder, int position) {
             // Get the data model based on position
-            ProductList productItem = products.get(position);
+            ProductRecycleView productItem = products.get(position);
 
             // Set item views based on your views and data model
             TextView textProduct = viewHolder.product_name;
             textProduct.setText("Product Name: " + productItem.getName());
 
             TextView textServingSize = viewHolder.serving_size;
-            textServingSize.setText("Serving Size: " + productItem.getServingSize());
+            textServingSize.setText("Serving Size: " + productItem.getServing_size());
 
             TextView textCalories = viewHolder.calories;
             textCalories.setText("Calories: " + productItem.getCalories());
@@ -81,7 +81,7 @@ public class ProductsAdapter extends
         }
 
     // Pass in the product array into the constructor
-    public ProductsAdapter(List<ProductList> products) {
+    public ProductsAdapter(List<ProductRecycleView> products) {
         this.products = products;
     }
 }

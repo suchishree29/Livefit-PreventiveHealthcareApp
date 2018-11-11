@@ -21,6 +21,11 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_get_logs"
+        android:title="FOOD LOGS"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_food_barcode"
         android:title="@string/action_log_food_barcode"
         app:showAsAction="never" />

@@ -3,7 +3,7 @@ package com.example.c02hp1dtdv35.healthapplication.BarcodeScanner;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ProductFullObject {
+public class ProductVO {
 
     @SerializedName("code")
     @Expose
