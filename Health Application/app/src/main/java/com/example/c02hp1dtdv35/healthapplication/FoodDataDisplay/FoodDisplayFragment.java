@@ -11,14 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.ProductList;
-import com.example.c02hp1dtdv35.healthapplication.Home.WatsonScreen;
+import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.ProductRecycleView;
 import com.example.c02hp1dtdv35.healthapplication.R;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class FoodDisplayFragment extends Fragment {
@@ -26,7 +22,7 @@ public class FoodDisplayFragment extends Fragment {
     ImageView imageview;
     TextView textView;
     ArrayList<CardViewer>list= new ArrayList<>();
-    ArrayList<ProductList> products;
+    ArrayList<ProductRecycleView> products;
     CardView cardView;
     public FoodDisplayFragment(){
 
