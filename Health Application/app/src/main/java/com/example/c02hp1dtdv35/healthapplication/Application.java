@@ -81,7 +81,7 @@ public class Application extends android.app.Application implements ReplicatorCh
         localBackup(username);
 
         // TODO: After authenticated, move to next screen
-       // showApp();
+        showApp();
     }
 
     // show loginUI

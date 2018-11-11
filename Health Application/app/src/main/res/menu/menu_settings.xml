@@ -14,14 +14,15 @@
         android:id="@+id/action_remind"
         android:title="@string/action_reminder"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_userprofile"
-        android:title="User Profile"
-        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_log_food_camera"
         android:title="@string/action_log_food_camera"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_get_logs"
+        android:title="FOOD LOGS"
         app:showAsAction="never" />
 
     <item

@@ -20,7 +20,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,15 +33,9 @@ import android.widget.TextView;
 import com.example.c02hp1dtdv35.healthapplication.Application;
 import com.example.c02hp1dtdv35.healthapplication.Home.WatsonScreen;
 import com.example.c02hp1dtdv35.healthapplication.R;
-import com.example.c02hp1dtdv35.healthapplication.retrofit.ApiClient;
-import com.example.c02hp1dtdv35.healthapplication.retrofit.ApiInterface;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -73,7 +66,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    ArrayList<Login> loginArrayList=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,106 +89,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-
-        Button mEmailSignUpButton=(Button)findViewById(R.id.email_sign_up_button);
-
-        mEmailSignUpButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // attemptLogin();
-
-                Intent i = new Intent(LoginActivity.this,SignUpActivity.class);
-                startActivity(i);
-            }
-        });
-
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (IsNetworkConnection.checkNetworkConnection(LoginActivity.this)){
-                    LoginApiCall();
-                }else
-                {
-                    Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                            .setAction(android.R.string.ok, new View.OnClickListener() {
-                                @Override
-                                @TargetApi(Build.VERSION_CODES.M)
-                                public void onClick(View v) {
-                                    requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-                                }
-                            });
-                }
+                attemptLogin();
+            }
+        });
 
-                //actionSignUp();
+        Button mEmailSignUpButton=(Button)findViewById(R.id.email_sign_up_button);
+        mEmailSignUpButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionSignUp();
             }
         });
 
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-    }
-
-    private void LoginApiCall() {
-
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-
-        final String username = mEmailView.getText().toString().trim();
-        final String pass = mPasswordView.getText().toString().trim();
-        String json = "{\"username\":\"" + mEmailView.getText().toString().trim() + "\"," +
-                "\"password\":\"" + mPasswordView.getText().toString().trim() + "\"}";
-        CustomLog.d("System out", "login____" + json);
-
-        Call<Login> call = apiService.login(mEmailView.getText().toString().trim(),mPasswordView.getText().toString().trim());
-        call.enqueue(new Callback<Login>() {
-            @Override
-            public void onResponse(Call<Login> call, Response<Login> response) {
-                System.out.println("Response: " + response.body());
-                if (response.body() != null) {
-
-                    if (response.body().getSuccess().equals(true)) {
-//                        loginArrayList = response.body();
-//                        loginArrayList.get(0).setPassword(mPasswordView.getText().toString().trim());
-//                        String json = Constants.convert_object_string(loginArrayList.get(0));
-//                        Log.d("System out","password__"+loginArrayList);
-//                        CustomLog.d("System out","password__"+loginArrayList);
-
-                        //sessionManager.create_login_session(json);
-                        //Constants.snackbar(getActivity(), ll_main, "" + response.body().get(0).getMessage());
-
-//                        CustomLog.d("system out", response.body().get(0).getMsg());
-
-                        Application application = (Application) getApplication();
-//        String name = nameInput.getText().toString();
-//        String pass = passwordInput.getText().toString();
-                        application.login(username, pass);
-                        //application.login("john", "pass");
-                        Intent i = new Intent(LoginActivity.this,WatsonScreen.class);
-                        startActivity(i);
-
-                        //finish();
-
-                        //Home.WatsonScreen();
-                    } else {
-                        //Constants.snackbar(getActivity(), ll_main, "" + response.body().get(0).getMsg());
-//                        CustomLog.d("System out", response.body().get(0).getMsg());
-                        CustomLog.d("system out", "else case:");
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Login> call, Throwable t) {
-
-            }
-        });
-
-    }
-
-    private void login() {
-        Application application = (Application) getApplication();
-//        String name = nameInput.getText().toString();
-//        String pass = passwordInput.getText().toString();
-        application.login("john", "pass");
     }
 
     private void actionSignUp() {
@@ -223,7 +133,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
+                    .setAction(android.R.string.ok, new OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
                         public void onClick(View v) {
@@ -300,13 +210,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
-        Intent homeScreenIntent= new Intent(this,WatsonScreen.class);
-        startActivity(homeScreenIntent);
+     //   Intent homeScreenIntent= new Intent(this,WatsonScreen.class);
+        login();
+       // startActivity(homeScreenIntent);
     }
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         return email.contains("@");
+    }
+
+    private void login() {
+        Application application = (Application) getApplication();
+//        String name = nameInput.getText().toString();
+//        String pass = passwordInput.getText().toString();
+        application.login("john", "pass");
     }
 
     private boolean isPasswordValid(String password) {
