@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -33,7 +32,7 @@ import java.util.Calendar;
 public class LogFood extends AppCompatActivity {
 
     private ImageView prodImg;
-    private TextView prodName,nutritionFacts,servingSize,caloriesTxt,allergensTxt,dateTxt;
+    private TextView dateTxt;
     private Button logBtn;
     private Spinner spinner;
     Nutriments nutriments;
@@ -55,8 +54,6 @@ public class LogFood extends AppCompatActivity {
         prodImg = findViewById(R.id.product_image);
         RecyclerView rvProducts = findViewById(R.id.rvProducts);
         logBtn = findViewById(R.id.logBtn);
-        nutritionFacts = findViewById(R.id.nutrition_facts);
-        nutritionFacts.setMovementMethod(LinkMovementMethod.getInstance());
 
         //Get the bundle
         Bundle bundle = getIntent().getExtras();
@@ -70,15 +67,12 @@ public class LogFood extends AppCompatActivity {
 
         //Get Serving size data from the bundle
         serving_size = bundle.getString("serving_size");
-        //this.servingSize.setText("Serving Size: " + serving_size);
 
         //Get Calories Data from the bundle
         calories = bundle.getString("calories");
-        //this.caloriesTxt.setText("Calories: " + calories);
 
         //Get Allergens Data from the bundle
         allergens = bundle.getString("allergens");
-        //this.allergensTxt.setText("Allergens: " + allergens);
 
         // Get Nutriments Object
         String jsonMyObject = "";
@@ -90,11 +84,9 @@ public class LogFood extends AppCompatActivity {
 
         //Code for populating Recycler View
         // Initialize products
-        //products = ProductRecycleView.createProductList(product,serving_size,calories,allergens,1);
-
         products = ProductRecycleView.createProductList(product,serving_size,calories,allergens,1);
 
-        // Create adapter passing in the sample user data
+        // Create adapter passing in the product data
         ProductsAdapter adapter = new ProductsAdapter(products);
         // Attach the adapter to the recyclerview to populate items
         rvProducts.setAdapter(adapter);
@@ -185,7 +177,7 @@ public class LogFood extends AppCompatActivity {
 
     }
 
-    public void onClick(View v){
+    public void onClickNutriments(View v){
         Intent nutrimentsIntent = new Intent(getApplicationContext(),ShowNutriments.class);
         nutrimentsIntent.putExtra("nutriments", new Gson().toJson(nutriments));
         startActivity(nutrimentsIntent);
