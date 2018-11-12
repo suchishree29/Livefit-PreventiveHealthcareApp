@@ -4,14 +4,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.DataSource;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.Dictionary;
 import com.couchbase.lite.Expression;
-import com.couchbase.lite.Meta;
 import com.couchbase.lite.Ordering;
 import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryBuilder;
@@ -29,13 +27,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ShowLoggedFoodActivity extends AppCompatActivity{
 
-    private final UniversityListAdapter adapter = new UniversityListAdapter(this);
+    private final ProductListAdapter adapter = new ProductListAdapter(this);
     private Query query;
-    private String username;
+
     private Database db;
 
     @Override
@@ -45,22 +42,22 @@ public class ShowLoggedFoodActivity extends AppCompatActivity{
         // Initialize couchbase lite database manager
 
         Application application = (Application) getApplication();
-        username = application.getUsername();
+        
         db = application.getDatabase();
         if (db == null) throw new IllegalArgumentException();
 
         // Set content layout
         setContentView(R.layout.activity_list);
 
-        QueryForListOfUniversities();
+        QueryForListOfProducts();
 
         // Get recycler view
-        RecyclerView recyclerView = findViewById(R.id.rvUniversities);
+        RecyclerView recyclerView = findViewById(R.id.rvLoggedProducts);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void QueryForListOfUniversities() {
+    private void QueryForListOfProducts() {
         try {
 
 
@@ -77,7 +74,7 @@ public class ShowLoggedFoodActivity extends AppCompatActivity{
                                             ResultSet resultRows = change.getResults();
                                             Result row;
                                             //List<ProductRecycleView> universities = new ArrayList<ProductRecycleView>();
-                                            List<Product> universities = new ArrayList<Product>();
+                                            List<Product> products = new ArrayList<Product>();
                                             // 3. Iterate over changed rows, corresponding documents and map to University POJO
                                             while ((row = resultRows.next()) != null) {
                                                 ObjectMapper objectMapper = new ObjectMapper();
@@ -97,14 +94,14 @@ public class ShowLoggedFoodActivity extends AppCompatActivity{
                                                 String calories = (String) ab.get("calories");
                                                 String allergens = (String) ab.get("allergens");*/
 
-                                                //ProductRecycleView university = new ProductRecycleView(name,serving_size,calories,allergens);
+                                                //ProductRecycleView product = new ProductRecycleView(name,serving_size,calories,allergens);
                                                 //ProductRecycleView university1 = objectMapper.convertValue(valueMap.toMap(),ProductRecycleView.class);
-                                                Product university = objectMapper.convertValue(valueMap.toMap(),Product.class);
-                                                universities.add(university);
+                                                Product product = objectMapper.convertValue(valueMap.toMap(),Product.class);
+                                                products.add(product);
                                             }
 
                                             // 4. Update the adapter with the newly added University documents
-                                            adapter.setUniversities(universities);
+                                            adapter.setProductList(products);
 
                                             runOnUiThread(new Runnable() {
                                                 @Override

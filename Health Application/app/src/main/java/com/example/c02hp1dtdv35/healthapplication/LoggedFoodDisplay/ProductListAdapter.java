@@ -14,16 +14,16 @@ import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.Product;
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.ShowNutriments;
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.google.gson.Gson;
-//import com.couchbase.universitylister.model.University;
+
 
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class UniversityListAdapter extends RecyclerView.Adapter<UniversityListAdapter.ViewHolder> {
+public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
-    private static List<Product> mUniversities = new ArrayList<>();
+    private static List<Product> products = new ArrayList<>();
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView product_name,serving_size,calories,allergens;
         public Context context;
@@ -44,7 +44,7 @@ public class UniversityListAdapter extends RecyclerView.Adapter<UniversityListAd
                     int pos = getAdapterPosition();
 
                     if(pos != RecyclerView.NO_POSITION){
-                        Product clickedProduct = mUniversities.get(pos);
+                        Product clickedProduct = products.get(pos);
                         nutriments = clickedProduct.getNutriments();
                         Intent nutrimentsIntent = new Intent(v.getContext(),ShowNutriments.class);
                         nutrimentsIntent.putExtra("nutriments", new Gson().toJson(nutriments));
@@ -61,7 +61,7 @@ public class UniversityListAdapter extends RecyclerView.Adapter<UniversityListAd
 
     private Context mContext;
 
-    public UniversityListAdapter(Context context) {
+    public ProductListAdapter(Context context) {
         mContext = context;
 
 
@@ -72,11 +72,9 @@ public class UniversityListAdapter extends RecyclerView.Adapter<UniversityListAd
         return mContext;
     }
 
-    public void addUniversities(List<Product> universities) {
-        mUniversities.addAll(universities);
-    }
-    public void setUniversities(List<Product> universities) {
-        mUniversities = universities;
+
+    public void setProductList(List<Product> products) {
+        this.products = products;
     }
 
     @Override
@@ -90,7 +88,7 @@ public class UniversityListAdapter extends RecyclerView.Adapter<UniversityListAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Product product = mUniversities.get(position);
+        Product product = products.get(position);
         holder.product_name.setText("Product Name: " +product.getProductName());
         holder.serving_size.setText( "Serving Size: " + product.getServingSize());
         holder.calories.setText("Calories: " + product.getNutriments().getEnergy());
@@ -100,7 +98,7 @@ public class UniversityListAdapter extends RecyclerView.Adapter<UniversityListAd
 
     @Override
     public int getItemCount() {
-        return  mUniversities.size();
+        return  products.size();
     }
 
 
