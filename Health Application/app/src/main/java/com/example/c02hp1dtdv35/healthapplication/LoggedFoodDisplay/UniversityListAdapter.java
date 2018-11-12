@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.Product;
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.ProductRecycleView;
 import com.example.c02hp1dtdv35.healthapplication.R;
 //import com.couchbase.universitylister.model.University;
@@ -30,7 +31,7 @@ public class UniversityListAdapter extends RecyclerView.Adapter<UniversityListAd
         }
     }
 
-    private List<ProductRecycleView> mUniversities = new ArrayList<>();
+    private List<Product> mUniversities = new ArrayList<>();
 
     private Context mContext;
 
@@ -45,10 +46,10 @@ public class UniversityListAdapter extends RecyclerView.Adapter<UniversityListAd
         return mContext;
     }
 
-    public void addUniversities(List<ProductRecycleView> universities) {
+    public void addUniversities(List<Product> universities) {
         mUniversities.addAll(universities);
     }
-    public void setUniversities(List<ProductRecycleView> universities) {
+    public void setUniversities(List<Product> universities) {
         mUniversities = universities;
     }
 
@@ -63,10 +64,10 @@ public class UniversityListAdapter extends RecyclerView.Adapter<UniversityListAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ProductRecycleView product = mUniversities.get(position);
-        holder.product_name.setText("Product Name: " +product.getName());
-        holder.serving_size.setText( "Serving Size: " + product.getServing_size());
-        holder.calories.setText("Calories: " + product.getCalories());
+        Product product = mUniversities.get(position);
+        holder.product_name.setText("Product Name: " +product.getProductName());
+        holder.serving_size.setText( "Serving Size: " + product.getServingSize());
+        holder.calories.setText("Calories: " + product.getNutriments().getEnergy());
         holder.allergens.setText("Allergens: " +product.getAllergens());
 
     }

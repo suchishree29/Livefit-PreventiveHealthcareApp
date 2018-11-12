@@ -16,7 +16,8 @@ import java.util.List;
 public class ProductsAdapter extends
         RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
 
-    private List<ProductRecycleView> products;
+   // private List<ProductRecycleView> products;
+    private List<Product> productsLog;
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -57,17 +58,17 @@ public class ProductsAdapter extends
         @Override
         public void onBindViewHolder(ProductsAdapter.ViewHolder viewHolder, int position) {
             // Get the data model based on position
-            ProductRecycleView productItem = products.get(position);
+            Product productItem = productsLog.get(position);
 
             // Set item views based on your views and data model
             TextView textProduct = viewHolder.product_name;
-            textProduct.setText("Product Name: " + productItem.getName());
+            textProduct.setText("Product Name: " + productItem.getProductName());
 
             TextView textServingSize = viewHolder.serving_size;
-            textServingSize.setText("Serving Size: " + productItem.getServing_size());
+            textServingSize.setText("Serving Size: " + productItem.getServingSize());
 
             TextView textCalories = viewHolder.calories;
-            textCalories.setText("Calories: " + productItem.getCalories());
+            textCalories.setText("Calories: " + productItem.getNutriments().getEnergy());
 
             TextView textAllergens = viewHolder.allergens;
             textAllergens.setText("Allergens: " + productItem.getAllergens());
@@ -77,12 +78,12 @@ public class ProductsAdapter extends
         // Returns the total count of items in the list
         @Override
         public int getItemCount() {
-            return products.size();
+            return productsLog.size();
         }
 
     // Pass in the product array into the constructor
-    public ProductsAdapter(List<ProductRecycleView> products) {
-        this.products = products;
+    public ProductsAdapter(List<Product> products) {
+        this.productsLog = products;
     }
 }
 
