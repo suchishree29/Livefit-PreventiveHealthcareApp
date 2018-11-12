@@ -64,10 +64,10 @@ public class UniversityListAdapter extends RecyclerView.Adapter<UniversityListAd
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         ProductRecycleView product = mUniversities.get(position);
-        holder.product_name.setText(product.getName());
-        holder.serving_size.setText( product.getServing_size());
-        holder.calories.setText(product.getCalories());
-        holder.allergens.setText(product.getAllergens());
+        holder.product_name.setText("Product Name: " +product.getName());
+        holder.serving_size.setText( "Serving Size: " + product.getServing_size());
+        holder.calories.setText("Calories: " + product.getCalories());
+        holder.allergens.setText("Allergens: " +product.getAllergens());
 
     }
 

@@ -51,22 +51,12 @@ public class ShowLoggedFoodActivity extends AppCompatActivity{
         // Set content layout
         setContentView(R.layout.activity_list);
 
-
         QueryForListOfUniversities();
 
-        // Set toolbar
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.university_toolbar);
-        //setSupportActionBar(toolbar);
-
         // Get recycler view
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.rvUniversities);
+        RecyclerView recyclerView = findViewById(R.id.rvUniversities);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        // Asynchronously Load the data from local sample file
-
-
-
     }
 
     private void QueryForListOfUniversities() {
