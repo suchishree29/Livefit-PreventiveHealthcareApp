@@ -14,6 +14,12 @@ public class ProductRecycleView {
     private String meal_course;
     private String type;
     private String owner;
+    public ProductRecycleView() {
+
+    }
+
+
+
 
 
     public ProductRecycleView(String name, String product_img, String meal_date, String serving_size, String calories, String allergens, String meal_course, String type, String owner) {

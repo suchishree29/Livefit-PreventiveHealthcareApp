@@ -21,6 +21,7 @@ import com.couchbase.lite.Result;
 import com.couchbase.lite.ResultSet;
 import com.couchbase.lite.SelectResult;
 import com.example.c02hp1dtdv35.healthapplication.Application;
+import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.Product;
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.ProductRecycleView;
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -75,7 +76,8 @@ public class ShowLoggedFoodActivity extends AppCompatActivity{
                                         public void changed(QueryChange change) {
                                             ResultSet resultRows = change.getResults();
                                             Result row;
-                                            List<ProductRecycleView> universities = new ArrayList<ProductRecycleView>();
+                                            //List<ProductRecycleView> universities = new ArrayList<ProductRecycleView>();
+                                            List<Product> universities = new ArrayList<Product>();
                                             // 3. Iterate over changed rows, corresponding documents and map to University POJO
                                             while ((row = resultRows.next()) != null) {
                                                 ObjectMapper objectMapper = new ObjectMapper();
@@ -89,14 +91,15 @@ public class ShowLoggedFoodActivity extends AppCompatActivity{
                                                 Dictionary valueMap = row.getDictionary(db.getName());
 
                                                 // Convert from dictionary to corresponding University object
-                                                Map ab = valueMap.toMap();
+                                        /*        Map ab = valueMap.toMap();
                                                 String name = (String) ab.get("name");
                                                 String serving_size = (String) ab.get("serving_size");
                                                 String calories = (String) ab.get("calories");
-                                                String allergens = (String) ab.get("allergens");
+                                                String allergens = (String) ab.get("allergens");*/
 
-                                                ProductRecycleView university = new ProductRecycleView(name,serving_size,calories,allergens);
-                                                //ProductRecycleView university = objectMapper.convertValue(valueMap.toMap(),ProductRecycleView.class);
+                                                //ProductRecycleView university = new ProductRecycleView(name,serving_size,calories,allergens);
+                                                ProductRecycleView university1 = objectMapper.convertValue(valueMap.toMap(),ProductRecycleView.class);
+                                                Product university = objectMapper.convertValue(valueMap.toMap(),Product.class);
                                                 universities.add(university);
                                             }
 

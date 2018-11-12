@@ -23,11 +23,14 @@ import com.couchbase.lite.Database;
 import com.couchbase.lite.MutableDocument;
 import com.example.c02hp1dtdv35.healthapplication.Application;
 import com.example.c02hp1dtdv35.healthapplication.R;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class LogFood extends AppCompatActivity {
 
@@ -36,6 +39,7 @@ public class LogFood extends AppCompatActivity {
     private Button logBtn;
     private Spinner spinner;
     Nutriments nutriments;
+    Product productLog;
     private Database db;
     String product,serving_size,calories,allergens;
     String date,imgUrl,selectedMealCourse;
@@ -76,18 +80,24 @@ public class LogFood extends AppCompatActivity {
 
         // Get Nutriments Object
         String jsonMyObject = "";
+        String productJson = "";
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             jsonMyObject = extras.getString("nutriments");
+            productJson = extras.getString("products");
         }
         nutriments = new Gson().fromJson(jsonMyObject, Nutriments.class);
-
+        productLog = new Gson().fromJson(productJson, Product.class);
         //Code for populating Recycler View
         // Initialize products
         products = ProductRecycleView.createProductList(product,serving_size,calories,allergens,1);
+        ArrayList<Product> productsMain = new ArrayList<>();
 
-        // Create adapter passing in the product data
-        ProductsAdapter adapter = new ProductsAdapter(products);
+        productsMain.add(productLog);
+
+        // Create adapter passing in the sample user data
+        ProductsAdapter adapter = new ProductsAdapter(productsMain);
+
         // Attach the adapter to the recyclerview to populate items
         rvProducts.setAdapter(adapter);
         // Set layout manager to position the items
@@ -151,7 +161,25 @@ public class LogFood extends AppCompatActivity {
 
                 for(ProductRecycleView product: products){
                     System.out.println(product);
-                    MutableDocument mDoc = new MutableDocument();
+
+
+
+                    productLog.setMeal_course(selectedMealCourse);
+                    productLog.setType("task-list");
+                    productLog.setImageSmallUrl(imgUrl);
+                    productLog.setMeal_date(date);
+                    productLog.setOwner(username);
+
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    // Ignore undeclared properties
+                    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+                   // HashMap<String,Object> universityMap = objectMapper.convertValue(product,HashMap.class);
+                    HashMap<String,Object> universityMap = objectMapper.convertValue(productLog,HashMap.class);
+
+                    MutableDocument mDoc= new MutableDocument(universityMap);
+
+       /*             MutableDocument mDoc = new MutableDocument();
 
                     mDoc.setString("name",product.getName());
                     mDoc.setString("product_img",imgUrl);
@@ -161,7 +189,7 @@ public class LogFood extends AppCompatActivity {
                     mDoc.setString("allergens", product.getAllergens());
                     mDoc.setString("meal_course", selectedMealCourse);
                     mDoc.setString("type", "task-list");
-                    mDoc.setString("owner", username);
+                    mDoc.setString("owner", username);*/
 
                     try {
                         db.save(mDoc);
