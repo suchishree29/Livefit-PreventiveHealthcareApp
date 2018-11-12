@@ -54,12 +54,7 @@ public class LogFood extends AppCompatActivity {
         getSupportActionBar().setTitle("Log Food");
         prodImg = findViewById(R.id.product_image);
         RecyclerView rvProducts = findViewById(R.id.rvProducts);
-//        prodName = findViewById(R.id.product_name);
-//        servingSize = findViewById(R.id.servingSizeTxt);
-//        caloriesTxt = findViewById(R.id.caloriesTxt);
-//        allergensTxt = findViewById(R.id.allergensTxt);
         logBtn = findViewById(R.id.logBtn);
-        //this.prodName.setMovementMethod(new ScrollingMovementMethod());
         nutritionFacts = findViewById(R.id.nutrition_facts);
         nutritionFacts.setMovementMethod(LinkMovementMethod.getInstance());
 
