@@ -47,8 +47,7 @@ public class LogFood extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private static final String TAG = LogFood.class.getSimpleName();
 
-    ArrayList<ProductRecycleView> products , product_list;
-
+    final ArrayList<Product> products = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,22 +60,10 @@ public class LogFood extends AppCompatActivity {
 
         //Get the bundle
         Bundle bundle = getIntent().getExtras();
-
-        //Extract the product name and image…
-        product = bundle.getString("product_name");
-        //product_list = bundle.getString("productList");
-        //this.prodName.setText("Product Name: " + product);
         imgUrl = bundle.getString("product_image");
         Picasso.get().load(imgUrl).into(prodImg);
+        //Extract the product name and image…
 
-        //Get Serving size data from the bundle
-        serving_size = bundle.getString("serving_size");
-
-        //Get Calories Data from the bundle
-        calories = bundle.getString("calories");
-
-        //Get Allergens Data from the bundle
-        allergens = bundle.getString("allergens");
 
         // Get Nutriments Object
         String jsonMyObject = "";
@@ -90,13 +77,12 @@ public class LogFood extends AppCompatActivity {
         productLog = new Gson().fromJson(productJson, Product.class);
         //Code for populating Recycler View
         // Initialize products
-        products = ProductRecycleView.createProductList(product,serving_size,calories,allergens,1);
-        ArrayList<Product> productsMain = new ArrayList<>();
 
-        productsMain.add(productLog);
+
+        products.add(productLog);
 
         // Create adapter passing in the sample user data
-        ProductsAdapter adapter = new ProductsAdapter(productsMain);
+        ProductsAdapter adapter = new ProductsAdapter(products);
 
         // Attach the adapter to the recyclerview to populate items
         rvProducts.setAdapter(adapter);
@@ -159,10 +145,7 @@ public class LogFood extends AppCompatActivity {
 
                 if (db == null) throw new IllegalArgumentException();
 
-                for(ProductRecycleView product: products){
-                    System.out.println(product);
-
-
+                for(Product product: products){
 
                     productLog.setMeal_course(selectedMealCourse);
                     productLog.setType("task-list");
@@ -179,17 +162,6 @@ public class LogFood extends AppCompatActivity {
 
                     MutableDocument mDoc= new MutableDocument(universityMap);
 
-       /*             MutableDocument mDoc = new MutableDocument();
-
-                    mDoc.setString("name",product.getName());
-                    mDoc.setString("product_img",imgUrl);
-                    mDoc.setString("meal_date",date);
-                    mDoc.setString("serving_size", product.getServing_size());
-                    mDoc.setString("calories", product.getCalories());
-                    mDoc.setString("allergens", product.getAllergens());
-                    mDoc.setString("meal_course", selectedMealCourse);
-                    mDoc.setString("type", "task-list");
-                    mDoc.setString("owner", username);*/
 
                     try {
                         db.save(mDoc);
@@ -203,12 +175,6 @@ public class LogFood extends AppCompatActivity {
             }
         });
 
-    }
-
-    public void onClickNutriments(View v){
-        Intent nutrimentsIntent = new Intent(getApplicationContext(),ShowNutriments.class);
-        nutrimentsIntent.putExtra("nutriments", new Gson().toJson(nutriments));
-        startActivity(nutrimentsIntent);
     }
 
 }
