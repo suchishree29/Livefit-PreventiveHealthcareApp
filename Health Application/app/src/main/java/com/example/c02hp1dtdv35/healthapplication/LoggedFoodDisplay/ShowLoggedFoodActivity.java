@@ -22,7 +22,7 @@ import com.couchbase.lite.ResultSet;
 import com.couchbase.lite.SelectResult;
 import com.example.c02hp1dtdv35.healthapplication.Application;
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.Product;
-import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.ProductRecycleView;
+
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -84,8 +84,8 @@ public class ShowLoggedFoodActivity extends AppCompatActivity{
                                                 // Ignore undeclared properties
                                                 objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-                                               // String productName = row.getString(0);
-                                               // String name = row.getString(1);
+                                                // String productName = row.getString(0);
+                                                // String name = row.getString(1);
                                                 String name2 = row.getString("name");
                                                 // Get dictionary corresponding to the database name
                                                 Dictionary valueMap = row.getDictionary(db.getName());
@@ -98,7 +98,7 @@ public class ShowLoggedFoodActivity extends AppCompatActivity{
                                                 String allergens = (String) ab.get("allergens");*/
 
                                                 //ProductRecycleView university = new ProductRecycleView(name,serving_size,calories,allergens);
-                                                ProductRecycleView university1 = objectMapper.convertValue(valueMap.toMap(),ProductRecycleView.class);
+                                                //ProductRecycleView university1 = objectMapper.convertValue(valueMap.toMap(),ProductRecycleView.class);
                                                 Product university = objectMapper.convertValue(valueMap.toMap(),Product.class);
                                                 universities.add(university);
                                             }
