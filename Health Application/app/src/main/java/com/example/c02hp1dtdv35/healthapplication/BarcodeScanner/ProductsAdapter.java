@@ -18,12 +18,15 @@ import java.util.List;
 public class ProductsAdapter extends
         RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
 
-<<<<<<< ProductsAdapter.java
+
 
     private List<Product> products;
-=======
+
     private List<ProductList> products;
->>>>>>> ProductsAdapter.java
+
+
+    private List<Product> products;
+
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -80,29 +83,37 @@ public class ProductsAdapter extends
         @Override
         public void onBindViewHolder(ProductsAdapter.ViewHolder viewHolder, int position) {
             // Get the data model based on position
-<<<<<<< ProductsAdapter.java
+
             Product productItem = products.get(position);
-=======
+
             ProductList productItem = products.get(position);
->>>>>>> ProductsAdapter.java
+
 
             // Set item views based on your views and data model
             TextView textProduct = viewHolder.product_name;
-<<<<<<< ProductsAdapter.java
+
             textProduct.setText("Product Name: " + productItem.getProductName());
-=======
+
             textProduct.setText("Product Name: " + productItem.getName());
->>>>>>> ProductsAdapter.java
+
+            Product productItem = products.get(position);
+
+            // Set item views based on your views and data model
+            TextView textProduct = viewHolder.product_name;
+            textProduct.setText("Product Name: " + productItem.getProductName());
+
 
             TextView textServingSize = viewHolder.serving_size;
             textServingSize.setText("Serving Size: " + productItem.getServingSize());
 
             TextView textCalories = viewHolder.calories;
-<<<<<<< ProductsAdapter.java
+
             textCalories.setText("Calories: " + productItem.getNutriments().getEnergyValue());
-=======
+
             textCalories.setText("Calories: " + productItem.getCalories());
->>>>>>> ProductsAdapter.java
+
+            textCalories.setText("Calories: " + productItem.getNutriments().getEnergyValue());
+
 
             TextView textAllergens = viewHolder.allergens;
             textAllergens.setText("Allergens: " + productItem.getAllergens());
@@ -116,11 +127,13 @@ public class ProductsAdapter extends
         }
 
     // Pass in the product array into the constructor
-<<<<<<< ProductsAdapter.java
+
     public ProductsAdapter(List<Product> products) {
-=======
+
     public ProductsAdapter(List<ProductList> products) {
->>>>>>> ProductsAdapter.java
+
+    public ProductsAdapter(List<Product> products) {
+
         this.products = products;
     }
 }

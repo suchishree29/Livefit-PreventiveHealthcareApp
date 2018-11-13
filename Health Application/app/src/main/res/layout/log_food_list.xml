@@ -11,6 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_weight="1"
+        android:textStyle="bold"
+        android:textColor="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
+        android:textColorLink="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
         android:text="@string/product_name" />
 
     <RelativeLayout
@@ -42,5 +45,22 @@
             android:layout_alignParentStart="true"
             android:text="@string/allergens"
             android:textStyle="bold" />
+
+        <!--<TextView-->
+            <!--android:id="@+id/nutrition_facts"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:linksClickable="true"-->
+            <!--android:onClick="onClickNutriments"-->
+
+            <!--android:textStyle="bold"-->
+            <!--android:text="NUTRITION FACTS" />-->
     </RelativeLayout>
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        android:background="?android:attr/listDivider" />
 </LinearLayout>

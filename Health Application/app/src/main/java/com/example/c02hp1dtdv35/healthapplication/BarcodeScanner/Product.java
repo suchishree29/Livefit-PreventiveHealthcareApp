@@ -11,19 +11,62 @@ public class Product {
     @SerializedName("nutrition_score_debug")
     @Expose
     private String nutritionScoreDebug;
+
+
+    public Product(NutrientLevels nutrientLevels, String nutritionScoreDebug, Nutriments nutriments, String allergens, String imageSmallUrl, String nutritionGradeFr, String productName, String servingSize, String nutritionGrades, String type, String owner, String meal_course, String meal_date) {
+        this.nutrientLevels = nutrientLevels;
+        this.nutritionScoreDebug = nutritionScoreDebug;
+        this.nutriments = nutriments;
+        this.allergens = allergens;
+        this.imageSmallUrl = imageSmallUrl;
+        this.nutritionGradeFr = nutritionGradeFr;
+        this.productName = productName;
+        this.servingSize = servingSize;
+        this.nutritionGrades = nutritionGrades;
+        this.type = type;
+        this.owner = owner;
+        this.meal_course = meal_course;
+        this.meal_date = meal_date;
+    }
+
     @SerializedName("nutriments")
+
     @Expose
     private Nutriments nutriments;
     @SerializedName("allergens")
     @Expose
     private String allergens;
+
+    public Product() {
+
+    }
+
     @SerializedName("image_small_url")
     @Expose
+
     private String imageSmallUrl;
     @SerializedName("nutrition_grade_fr")
     @Expose
     private String nutritionGradeFr;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
     @SerializedName("product_name")
+
     @Expose
     private String productName;
     @SerializedName("serving_size")
@@ -32,6 +75,27 @@ public class Product {
     @SerializedName("nutrition_grades")
     @Expose
     private String nutritionGrades;
+
+    private String type;
+    private String owner;
+    private String meal_course;
+    private String meal_date;
+
+    public String getMeal_course() {
+        return meal_course;
+    }
+
+    public void setMeal_course(String meal_course) {
+        this.meal_course = meal_course;
+    }
+
+    public String getMeal_date() {
+        return meal_date;
+    }
+
+    public void setMeal_date(String meal_date) {
+        this.meal_date = meal_date;
+    }
 
     public NutrientLevels getNutrientLevels() {
         return nutrientLevels;

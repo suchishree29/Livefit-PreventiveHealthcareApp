@@ -8,16 +8,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.method.LinkMovementMethod;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,17 +22,23 @@ import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.MutableDocument;
 import com.example.c02hp1dtdv35.healthapplication.Application;
-<<<<<<< LogFood.java
+
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-=======
+
 import com.example.c02hp1dtdv35.healthapplication.Home.CameraFragment;
+
+
 import com.example.c02hp1dtdv35.healthapplication.R;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+
 import com.google.zxing.integration.android.IntentIntegrator;
->>>>>>> LogFood.java
+
+
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -46,33 +48,39 @@ import java.util.HashMap;
 public class LogFood extends AppCompatActivity {
 
     private ImageView prodImg;
-<<<<<<< LogFood.java
+
     private TextView dateTxt;
-=======
+
     private TextView prodName,nutritionFacts,servingSize,caloriesTxt,allergensTxt,dateTxt;
->>>>>>> LogFood.java
+
+    private TextView dateTxt;
+
     private Button logBtn;
     private Spinner spinner;
     Nutriments nutriments;
     Product productLog;
     private Database db;
     String product,serving_size,calories,allergens;
-<<<<<<< LogFood.java
+
     String date,imgUrl,selectedMealCourse;
-=======
+
     String date;
     String imgUrl;
     String selectedMealCourse;
->>>>>>> LogFood.java
+
+    String date,imgUrl,selectedMealCourse;
+
     int year,day,month;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private static final String TAG = LogFood.class.getSimpleName();
 
-<<<<<<< LogFood.java
+
     final ArrayList<Product> products = new ArrayList<>();
-=======
+
     ArrayList<ProductList> products;
->>>>>>> LogFood.java
+
+    final ArrayList<Product> products = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,42 +89,22 @@ public class LogFood extends AppCompatActivity {
         getSupportActionBar().setTitle("Log Food");
         prodImg = findViewById(R.id.product_image);
         RecyclerView rvProducts = findViewById(R.id.rvProducts);
-//        prodName = findViewById(R.id.product_name);
-//        servingSize = findViewById(R.id.servingSizeTxt);
-//        caloriesTxt = findViewById(R.id.caloriesTxt);
-//        allergensTxt = findViewById(R.id.allergensTxt);
         logBtn = findViewById(R.id.logBtn);
-        //this.prodName.setMovementMethod(new ScrollingMovementMethod());
-        nutritionFacts = findViewById(R.id.nutrition_facts);
-        nutritionFacts.setMovementMethod(LinkMovementMethod.getInstance());
 
         //Get the bundle
         Bundle bundle = getIntent().getExtras();
-
-        //Extract the product name and image…
-        product = bundle.getString("product_name");
-        //this.prodName.setText("Product Name: " + product);
         imgUrl = bundle.getString("product_image");
         Picasso.get().load(imgUrl).into(prodImg);
-<<<<<<< LogFood.java
+
         //Extract the product name and image…
 
 
-=======
 
-        //Get Serving size data from the bundle
-        serving_size = bundle.getString("serving_size");
-        //this.servingSize.setText("Serving Size: " + serving_size);
+        //Extract the product name and image…
 
-        //Get Calories Data from the bundle
-        calories = bundle.getString("calories");
-        //this.caloriesTxt.setText("Calories: " + calories);
 
-        //Get Allergens Data from the bundle
-        allergens = bundle.getString("allergens");
-        //this.allergensTxt.setText("Allergens: " + allergens);
 
->>>>>>> LogFood.java
+
         // Get Nutriments Object
         String jsonMyObject = "";
         String productJson = "";
@@ -126,24 +114,26 @@ public class LogFood extends AppCompatActivity {
             productJson = extras.getString("products");
         }
         nutriments = new Gson().fromJson(jsonMyObject, Nutriments.class);
-<<<<<<< LogFood.java
-        productLog = new Gson().fromJson(productJson, Product.class);
-=======
 
->>>>>>> LogFood.java
+        productLog = new Gson().fromJson(productJson, Product.class);
+
         //Code for populating Recycler View
         // Initialize products
-<<<<<<< LogFood.java
+
+        productLog = new Gson().fromJson(productJson, Product.class);
+        //Code for populating Recycler View
+        // Initialize products
+
 
 
         products.add(productLog);
 
-=======
+
         products = ProductList.createProductList(product,serving_size,calories,allergens,1);
         for(ProductList product: products){
             System.out.println("Products outside " +product);
         }
->>>>>>> LogFood.java
+
         // Create adapter passing in the sample user data
         ProductsAdapter adapter = new ProductsAdapter(products);
 
@@ -208,7 +198,7 @@ public class LogFood extends AppCompatActivity {
 
                 if (db == null) throw new IllegalArgumentException();
 
-<<<<<<< LogFood.java
+
                 for(Product product: products){
 
                     productLog.setMeal_course(selectedMealCourse);
@@ -226,7 +216,6 @@ public class LogFood extends AppCompatActivity {
 
                     MutableDocument mDoc= new MutableDocument(universityMap);
 
-=======
                 for(ProductList product: products){
                     System.out.println(product);
                     MutableDocument mDoc = new MutableDocument();
@@ -240,7 +229,7 @@ public class LogFood extends AppCompatActivity {
                     mDoc.setString("meal_course", selectedMealCourse);
                     mDoc.setString("type", "task-list");
                     mDoc.setString("owner", username);
->>>>>>> LogFood.java
+
 
                     try {
                         db.save(mDoc);
@@ -254,12 +243,6 @@ public class LogFood extends AppCompatActivity {
             }
         });
 
-    }
-
-    public void onClick(View v){
-        Intent nutrimentsIntent = new Intent(getApplicationContext(),ShowNutriments.class);
-        nutrimentsIntent.putExtra("nutriments", new Gson().toJson(nutriments));
-        startActivity(nutrimentsIntent);
     }
 
 }
