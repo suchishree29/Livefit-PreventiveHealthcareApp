@@ -54,8 +54,13 @@ public class BarcodeScannerActivity extends AppCompatActivity implements View.On
 
                             try {
                                 Gson gson = new Gson();
+<<<<<<< BarcodeScannerActivity.java
+                                ProductVO productVO =  gson.fromJson(response.toString(), ProductVO.class);
+                                Product product = productVO.getProduct();
+=======
                                 ProductFullObject productFullObject =  gson.fromJson(response.toString(), ProductFullObject.class);
                                 Product product = productFullObject.getProduct();
+>>>>>>> BarcodeScannerActivity.java
                                 Nutriments nutriments = product.getNutriments();
                                 NutrientLevels nutrientLevels = product.getNutrientLevels();
                                 Intent myIntent = new Intent(getApplicationContext(),LogFood.class);
@@ -70,6 +75,7 @@ public class BarcodeScannerActivity extends AppCompatActivity implements View.On
                                 bundle.putString("allergens", product.getAllergens());
 
                                 //Add the bundle to the intent
+                                myIntent.putExtra("products",new Gson().toJson(product));
                                 myIntent.putExtra("nutriments", new Gson().toJson(nutriments));
                                 myIntent.putExtra("nutrientLevels", new Gson().toJson(nutrientLevels));
                                 myIntent.putExtras(bundle);

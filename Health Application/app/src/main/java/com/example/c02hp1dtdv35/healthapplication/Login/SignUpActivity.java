@@ -58,7 +58,11 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
+<<<<<<< SignUpActivity.java
+public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+=======
 public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> {
+>>>>>>> SignUpActivity.java
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -82,20 +86,32 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+<<<<<<< SignUpActivity.java
+
+=======
     private EditText firstName,lastName,email,password,confPassword,birthdate,Height,Weight,bloodglucose,cholestrol,test;
     private RadioGroup radio;
     private Switch switch1,switch2;
     private Spinner spinner;
     ArrayList<Signup> SignupArrayList=new ArrayList<>();
+>>>>>>> SignUpActivity.java
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+<<<<<<< SignUpActivity.java
+        getSupportActionBar().setTitle("SignUp");
+=======
         //  getSupportActionBar().setTitle("SignUp");
+>>>>>>> SignUpActivity.java
         setContentView(R.layout.activity_sign_up);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
+<<<<<<< SignUpActivity.java
+
+=======
         init();
+>>>>>>> SignUpActivity.java
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -108,6 +124,10 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
             }
         });
 
+<<<<<<< SignUpActivity.java
+        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+=======
        /* Button mEmailSignUpButton = (Button) findViewById(R.id.email_sign_up_button);
         mEmailSignUpButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -121,8 +141,15 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
 */
         Button SignIn = (Button) findViewById(R.id.email_sign_in_button);
         SignIn.setOnClickListener(new OnClickListener() {
+>>>>>>> SignUpActivity.java
             @Override
             public void onClick(View view) {
+<<<<<<< SignUpActivity.java
+                attemptLogin();
+            }
+        });
+
+=======
                 //attemptLogin();
                 SignUpApiCall();
                 // Intent i = new Intent(SignUpActivity.this,LoginActivity.class);
@@ -130,6 +157,7 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
             }
 
         });
+>>>>>>> SignUpActivity.java
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
@@ -377,8 +405,12 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
+<<<<<<< SignUpActivity.java
+            // form field with an error.
+=======
             // form field with an error.kkkkkkkkl[]/\]
 
+>>>>>>> SignUpActivity.java
             focusView.requestFocus();
         } else {
             // Show a progress spinner, and kick off a background task to
@@ -387,8 +419,13 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
 
+<<<<<<< SignUpActivity.java
+            Intent signInActivityIntent= new Intent(this,LoginActivity.class);
+            startActivity(signInActivityIntent);
+=======
             // Intent signInActivityIntent= new Intent(this,UserProfileActivity.class);
             // startActivity(signInActivityIntent);
+>>>>>>> SignUpActivity.java
         }
     }
 

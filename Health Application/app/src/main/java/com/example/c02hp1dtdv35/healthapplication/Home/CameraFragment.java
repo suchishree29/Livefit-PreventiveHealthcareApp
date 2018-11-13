@@ -27,7 +27,11 @@ import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.LogFood;
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.NutrientLevels;
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.Nutriments;
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.Product;
+<<<<<<< CameraFragment.java
+import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.ProductVO;
+=======
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.ProductFullObject;
+>>>>>>> CameraFragment.java
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -162,8 +166,13 @@ public class CameraFragment extends Fragment {
                                 // String code = response.get("code").toString();
 //                                Product product = (Product)response.toString();
                                 Gson gson = new Gson();
+<<<<<<< CameraFragment.java
+                                ProductVO productVO =  gson.fromJson(response.toString(), ProductVO.class);
+                                Product product = productVO.getProduct();
+=======
                                 ProductFullObject productFullObject =  gson.fromJson(response.toString(), ProductFullObject.class);
                                 Product product = productFullObject.getProduct();
+>>>>>>> CameraFragment.java
                                 Nutriments nutriments = product.getNutriments();
                                 NutrientLevels nutrientLevels = product.getNutrientLevels();
 

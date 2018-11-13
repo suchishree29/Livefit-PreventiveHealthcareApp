@@ -14,14 +14,26 @@
         android:id="@+id/action_remind"
         android:title="@string/action_reminder"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_userprofile"
-        android:title="User Profile"
-        app:showAsAction="never" />
+<<<<<<< menu_settings.xml
 
     <item
         android:id="@+id/action_log_food_camera"
         android:title="@string/action_log_food_camera"
+=======
+    <item
+        android:id="@+id/action_userprofile"
+        android:title="User Profile"
+>>>>>>> menu_settings.xml
+        app:showAsAction="never" />
+
+    <item
+<<<<<<< menu_settings.xml
+        android:id="@+id/action_get_logs"
+        android:title="FOOD LOGS"
+=======
+        android:id="@+id/action_log_food_camera"
+        android:title="@string/action_log_food_camera"
+>>>>>>> menu_settings.xml
         app:showAsAction="never" />
 
     <item

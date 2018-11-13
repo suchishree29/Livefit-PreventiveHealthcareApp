@@ -97,22 +97,38 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+<<<<<<< LoginActivity.java
+        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+=======
 
         Button mEmailSignUpButton=(Button)findViewById(R.id.email_sign_up_button);
 
         mEmailSignUpButton.setOnClickListener(new OnClickListener() {
+>>>>>>> LoginActivity.java
             @Override
             public void onClick(View view) {
+<<<<<<< LoginActivity.java
+                attemptLogin();
+=======
                 // attemptLogin();
 
                 Intent i = new Intent(LoginActivity.this,SignUpActivity.class);
                 startActivity(i);
+>>>>>>> LoginActivity.java
             }
         });
 
+<<<<<<< LoginActivity.java
+        Button mEmailSignUpButton=(Button)findViewById(R.id.email_sign_up_button);
+        mEmailSignUpButton.setOnClickListener(new OnClickListener() {
+=======
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
+>>>>>>> LoginActivity.java
             @Override
             public void onClick(View view) {
+<<<<<<< LoginActivity.java
+                actionSignUp();
+=======
                 if (IsNetworkConnection.checkNetworkConnection(LoginActivity.this)){
                     LoginApiCall();
                 }else
@@ -128,6 +144,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
 
                 //actionSignUp();
+>>>>>>> LoginActivity.java
             }
         });
 
@@ -223,7 +240,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+<<<<<<< LoginActivity.java
+                    .setAction(android.R.string.ok, new OnClickListener() {
+=======
                     .setAction(android.R.string.ok, new View.OnClickListener() {
+>>>>>>> LoginActivity.java
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
                         public void onClick(View v) {
@@ -300,13 +321,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
+<<<<<<< LoginActivity.java
+     //   Intent homeScreenIntent= new Intent(this,WatsonScreen.class);
+        login();
+       // startActivity(homeScreenIntent);
+=======
         Intent homeScreenIntent= new Intent(this,WatsonScreen.class);
         startActivity(homeScreenIntent);
+>>>>>>> LoginActivity.java
     }
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         return email.contains("@");
+    }
+
+    private void login() {
+        Application application = (Application) getApplication();
+//        String name = nameInput.getText().toString();
+//        String pass = passwordInput.getText().toString();
+        application.login("john", "pass");
     }
 
     private boolean isPasswordValid(String password) {

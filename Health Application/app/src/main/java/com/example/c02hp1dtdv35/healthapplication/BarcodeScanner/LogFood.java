@@ -26,32 +26,53 @@ import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.MutableDocument;
 import com.example.c02hp1dtdv35.healthapplication.Application;
+<<<<<<< LogFood.java
+import com.example.c02hp1dtdv35.healthapplication.R;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+=======
 import com.example.c02hp1dtdv35.healthapplication.Home.CameraFragment;
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
+>>>>>>> LogFood.java
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class LogFood extends AppCompatActivity {
 
     private ImageView prodImg;
+<<<<<<< LogFood.java
+    private TextView dateTxt;
+=======
     private TextView prodName,nutritionFacts,servingSize,caloriesTxt,allergensTxt,dateTxt;
+>>>>>>> LogFood.java
     private Button logBtn;
     private Spinner spinner;
     Nutriments nutriments;
+    Product productLog;
     private Database db;
     String product,serving_size,calories,allergens;
+<<<<<<< LogFood.java
+    String date,imgUrl,selectedMealCourse;
+=======
     String date;
     String imgUrl;
     String selectedMealCourse;
+>>>>>>> LogFood.java
     int year,day,month;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private static final String TAG = LogFood.class.getSimpleName();
 
+<<<<<<< LogFood.java
+    final ArrayList<Product> products = new ArrayList<>();
+=======
     ArrayList<ProductList> products;
+>>>>>>> LogFood.java
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +98,11 @@ public class LogFood extends AppCompatActivity {
         //this.prodName.setText("Product Name: " + product);
         imgUrl = bundle.getString("product_image");
         Picasso.get().load(imgUrl).into(prodImg);
+<<<<<<< LogFood.java
+        //Extract the product name and image…
+
+
+=======
 
         //Get Serving size data from the bundle
         serving_size = bundle.getString("serving_size");
@@ -90,22 +116,37 @@ public class LogFood extends AppCompatActivity {
         allergens = bundle.getString("allergens");
         //this.allergensTxt.setText("Allergens: " + allergens);
 
+>>>>>>> LogFood.java
         // Get Nutriments Object
         String jsonMyObject = "";
+        String productJson = "";
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             jsonMyObject = extras.getString("nutriments");
+            productJson = extras.getString("products");
         }
         nutriments = new Gson().fromJson(jsonMyObject, Nutriments.class);
+<<<<<<< LogFood.java
+        productLog = new Gson().fromJson(productJson, Product.class);
+=======
 
+>>>>>>> LogFood.java
         //Code for populating Recycler View
         // Initialize products
+<<<<<<< LogFood.java
+
+
+        products.add(productLog);
+
+=======
         products = ProductList.createProductList(product,serving_size,calories,allergens,1);
         for(ProductList product: products){
             System.out.println("Products outside " +product);
         }
+>>>>>>> LogFood.java
         // Create adapter passing in the sample user data
         ProductsAdapter adapter = new ProductsAdapter(products);
+
         // Attach the adapter to the recyclerview to populate items
         rvProducts.setAdapter(adapter);
         // Set layout manager to position the items
@@ -167,6 +208,25 @@ public class LogFood extends AppCompatActivity {
 
                 if (db == null) throw new IllegalArgumentException();
 
+<<<<<<< LogFood.java
+                for(Product product: products){
+
+                    productLog.setMeal_course(selectedMealCourse);
+                    productLog.setType("task-list");
+                    productLog.setImageSmallUrl(imgUrl);
+                    productLog.setMeal_date(date);
+                    productLog.setOwner(username);
+
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    // Ignore undeclared properties
+                    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+                   // HashMap<String,Object> universityMap = objectMapper.convertValue(product,HashMap.class);
+                    HashMap<String,Object> universityMap = objectMapper.convertValue(productLog,HashMap.class);
+
+                    MutableDocument mDoc= new MutableDocument(universityMap);
+
+=======
                 for(ProductList product: products){
                     System.out.println(product);
                     MutableDocument mDoc = new MutableDocument();
@@ -180,6 +240,7 @@ public class LogFood extends AppCompatActivity {
                     mDoc.setString("meal_course", selectedMealCourse);
                     mDoc.setString("type", "task-list");
                     mDoc.setString("owner", username);
+>>>>>>> LogFood.java
 
                     try {
                         db.save(mDoc);

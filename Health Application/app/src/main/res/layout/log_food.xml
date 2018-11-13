@@ -36,6 +36,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+<<<<<<< log_food.xml
+
+    <View
+        android:id="@+id/divider3"
+=======
     <!--<TextView-->
         <!--android:id="@+id/product_name"-->
         <!--android:layout_width="match_parent"-->
@@ -57,6 +62,7 @@
 
     <View
         android:id="@+id/divider"
+>>>>>>> log_food.xml
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_weight="1"
@@ -103,7 +109,11 @@
     <TextView
         android:id="@+id/mealTimeTxt"
         android:layout_width="match_parent"
+<<<<<<< log_food.xml
+        android:layout_height="21dp"
+=======
         android:layout_height="35dp"
+>>>>>>> log_food.xml
         android:layout_weight="1"
         android:text="@string/meal_and_snacks_time"
         android:textColorLink="@android:color/holo_blue_dark"
@@ -112,15 +122,33 @@
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="match_parent"
+<<<<<<< log_food.xml
+        android:layout_height="25dp"
+=======
         android:layout_height="27dp"
+>>>>>>> log_food.xml
         android:layout_weight="1" />
 
+<<<<<<< log_food.xml
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        android:background="?android:attr/listDivider" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="5dp"/>
+=======
             <View
                 android:id="@+id/divider3"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_weight="1"
                 android:background="?android:attr/listDivider" />
+>>>>>>> log_food.xml
 
     <TextView
         android:id="@+id/dayTxt"

@@ -1,7 +1,11 @@
 package com.example.c02hp1dtdv35.healthapplication.Home;
 
 import android.content.Intent;
+<<<<<<< WatsonScreen.java
+import android.provider.MediaStore;
+=======
 import android.os.Bundle;
+>>>>>>> WatsonScreen.java
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,15 +13,22 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.BarcodeScannerActivity;
 import com.example.c02hp1dtdv35.healthapplication.FoodDataDisplay.FoodDisplayFragment;
+<<<<<<< WatsonScreen.java
+import com.example.c02hp1dtdv35.healthapplication.LoggedFoodDisplay.ShowLoggedFoodActivity;
+import com.example.c02hp1dtdv35.healthapplication.Login.LoginActivity;
+=======
 import com.example.c02hp1dtdv35.healthapplication.Login.LoginActivity;
 import com.example.c02hp1dtdv35.healthapplication.Login.UserProfileActivity;
+>>>>>>> WatsonScreen.java
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.example.c02hp1dtdv35.healthapplication.Remind.RemindActivity;
 import com.example.c02hp1dtdv35.healthapplication.Watson.WatsonFragment;
@@ -118,9 +129,15 @@ public class WatsonScreen extends AppCompatActivity {
                 Intent reminderIntent= new Intent(WatsonScreen.this, RemindActivity.class);
                 startActivity(reminderIntent);
                 break;
+<<<<<<< WatsonScreen.java
+            case R.id.action_get_logs:
+                Intent foodLogsIntent= new Intent(WatsonScreen.this, ShowLoggedFoodActivity.class);
+                startActivity(foodLogsIntent);
+=======
             case R.id.action_userprofile:
                 Intent profileIntent= new Intent(WatsonScreen.this, UserProfileActivity.class);
                 startActivity(profileIntent);
+>>>>>>> WatsonScreen.java
                 break;
             case R.id.action_log_food_camera:
                 Intent cameraIntent= new Intent(WatsonScreen.this,CameraFragment.class);

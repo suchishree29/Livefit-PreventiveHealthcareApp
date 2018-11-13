@@ -1,6 +1,7 @@
 package com.example.c02hp1dtdv35.healthapplication.BarcodeScanner;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.c02hp1dtdv35.healthapplication.R;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -16,13 +18,19 @@ import java.util.List;
 public class ProductsAdapter extends
         RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
 
+<<<<<<< ProductsAdapter.java
+
+    private List<Product> products;
+=======
     private List<ProductList> products;
+>>>>>>> ProductsAdapter.java
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
     public class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
         public TextView product_name,serving_size,calories,allergens;
+        Nutriments nutriments;
 
 
         // We also create a constructor that accepts the entire item row
@@ -36,6 +44,21 @@ public class ProductsAdapter extends
             serving_size = itemView.findViewById(R.id.servingSizeTxt);
             calories = itemView.findViewById(R.id.caloriesTxt);
             allergens = itemView.findViewById(R.id.allergensTxt);
+
+            product_name.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v){
+                    int pos = getAdapterPosition();
+
+                    if(pos != RecyclerView.NO_POSITION){
+                        Product clickedProduct = products.get(pos);
+                        nutriments = clickedProduct.getNutriments();
+                        Intent nutrimentsIntent = new Intent(v.getContext(),ShowNutriments.class);
+                        nutrimentsIntent.putExtra("nutriments", new Gson().toJson(nutriments));
+                        v.getContext().startActivity(nutrimentsIntent);
+                        //Toast.makeText(v.getContext(),"You clicked " + clickedProduct.getProductName(),Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
 
         }
     }
@@ -57,17 +80,29 @@ public class ProductsAdapter extends
         @Override
         public void onBindViewHolder(ProductsAdapter.ViewHolder viewHolder, int position) {
             // Get the data model based on position
+<<<<<<< ProductsAdapter.java
+            Product productItem = products.get(position);
+=======
             ProductList productItem = products.get(position);
+>>>>>>> ProductsAdapter.java
 
             // Set item views based on your views and data model
             TextView textProduct = viewHolder.product_name;
+<<<<<<< ProductsAdapter.java
+            textProduct.setText("Product Name: " + productItem.getProductName());
+=======
             textProduct.setText("Product Name: " + productItem.getName());
+>>>>>>> ProductsAdapter.java
 
             TextView textServingSize = viewHolder.serving_size;
             textServingSize.setText("Serving Size: " + productItem.getServingSize());
 
             TextView textCalories = viewHolder.calories;
+<<<<<<< ProductsAdapter.java
+            textCalories.setText("Calories: " + productItem.getNutriments().getEnergyValue());
+=======
             textCalories.setText("Calories: " + productItem.getCalories());
+>>>>>>> ProductsAdapter.java
 
             TextView textAllergens = viewHolder.allergens;
             textAllergens.setText("Allergens: " + productItem.getAllergens());
@@ -81,7 +116,11 @@ public class ProductsAdapter extends
         }
 
     // Pass in the product array into the constructor
+<<<<<<< ProductsAdapter.java
+    public ProductsAdapter(List<Product> products) {
+=======
     public ProductsAdapter(List<ProductList> products) {
+>>>>>>> ProductsAdapter.java
         this.products = products;
     }
 }
