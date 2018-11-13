@@ -22,10 +22,23 @@ import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.MutableDocument;
 import com.example.c02hp1dtdv35.healthapplication.Application;
+
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+
+import com.example.c02hp1dtdv35.healthapplication.Home.CameraFragment;
+
+
+import com.example.c02hp1dtdv35.healthapplication.R;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+
+
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -35,19 +48,39 @@ import java.util.HashMap;
 public class LogFood extends AppCompatActivity {
 
     private ImageView prodImg;
+
     private TextView dateTxt;
+
+    private TextView prodName,nutritionFacts,servingSize,caloriesTxt,allergensTxt,dateTxt;
+
+    private TextView dateTxt;
+
     private Button logBtn;
     private Spinner spinner;
     Nutriments nutriments;
     Product productLog;
     private Database db;
     String product,serving_size,calories,allergens;
+
     String date,imgUrl,selectedMealCourse;
+
+    String date;
+    String imgUrl;
+    String selectedMealCourse;
+
+    String date,imgUrl,selectedMealCourse;
+
     int year,day,month;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private static final String TAG = LogFood.class.getSimpleName();
 
+
     final ArrayList<Product> products = new ArrayList<>();
+
+    ArrayList<ProductList> products;
+
+    final ArrayList<Product> products = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +95,14 @@ public class LogFood extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         imgUrl = bundle.getString("product_image");
         Picasso.get().load(imgUrl).into(prodImg);
+
         //Extract the product name and image…
+
+
+
+        //Extract the product name and image…
+
+
 
 
         // Get Nutriments Object
@@ -74,12 +114,25 @@ public class LogFood extends AppCompatActivity {
             productJson = extras.getString("products");
         }
         nutriments = new Gson().fromJson(jsonMyObject, Nutriments.class);
+
+        productLog = new Gson().fromJson(productJson, Product.class);
+
+        //Code for populating Recycler View
+        // Initialize products
+
         productLog = new Gson().fromJson(productJson, Product.class);
         //Code for populating Recycler View
         // Initialize products
 
 
+
         products.add(productLog);
+
+
+        products = ProductList.createProductList(product,serving_size,calories,allergens,1);
+        for(ProductList product: products){
+            System.out.println("Products outside " +product);
+        }
 
         // Create adapter passing in the sample user data
         ProductsAdapter adapter = new ProductsAdapter(products);
@@ -145,6 +198,7 @@ public class LogFood extends AppCompatActivity {
 
                 if (db == null) throw new IllegalArgumentException();
 
+
                 for(Product product: products){
 
                     productLog.setMeal_course(selectedMealCourse);
@@ -161,6 +215,20 @@ public class LogFood extends AppCompatActivity {
                     HashMap<String,Object> universityMap = objectMapper.convertValue(productLog,HashMap.class);
 
                     MutableDocument mDoc= new MutableDocument(universityMap);
+
+                for(ProductList product: products){
+                    System.out.println(product);
+                    MutableDocument mDoc = new MutableDocument();
+
+                    mDoc.setString("name",product.getName());
+                    mDoc.setString("product_img",imgUrl);
+                    mDoc.setString("meal_date",date);
+                    mDoc.setString("serving_size", product.getServingSize());
+                    mDoc.setString("calories", product.getCalories());
+                    mDoc.setString("allergens", product.getAllergens());
+                    mDoc.setString("meal_course", selectedMealCourse);
+                    mDoc.setString("type", "task-list");
+                    mDoc.setString("owner", username);
 
 
                     try {

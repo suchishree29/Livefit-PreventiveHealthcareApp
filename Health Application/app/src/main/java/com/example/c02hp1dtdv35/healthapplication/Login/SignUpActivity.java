@@ -40,7 +40,9 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
+
 public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -65,14 +67,33 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
     private View mProgressView;
     private View mLoginFormView;
 
+    private EditText firstName,lastName,email,password,confPassword,birthdate,Height,Weight,bloodglucose,cholestrol,test;
+    private RadioGroup radio;
+    private Switch switch1,switch2;
+    private Spinner spinner;
+    ArrayList<Signup> SignupArrayList=new ArrayList<>();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getSupportActionBar().setTitle("SignUp");
+
+        //  getSupportActionBar().setTitle("SignUp");
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle("SignUp");
+
         setContentView(R.layout.activity_sign_up);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
+
+        init();
+
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -86,12 +107,37 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
             }
         });
 
+
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
+
+       /* Button mEmailSignUpButton = (Button) findViewById(R.id.email_sign_up_button);
+        mEmailSignUpButton.setOnClickListener(new OnClickListener() {
+
+        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 attemptLogin();
             }
+        });
+
+
+*/
+        Button SignIn = (Button) findViewById(R.id.email_sign_in_button);
+        SignIn.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                
+                //attemptLogin();
+                SignUpApiCall();
+                // Intent i = new Intent(SignUpActivity.this,LoginActivity.class);
+                // startActivity(i);
+            }
+
         });
 
         mLoginFormView = findViewById(R.id.login_form);
@@ -183,7 +229,7 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
-            // form field with an error.
+
             focusView.requestFocus();
         } else {
             // Show a progress spinner, and kick off a background task to
@@ -192,8 +238,13 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
 
+
+            // Intent signInActivityIntent= new Intent(this,UserProfileActivity.class);
+            // startActivity(signInActivityIntent);
+
             Intent signInActivityIntent= new Intent(this,LoginActivity.class);
             startActivity(signInActivityIntent);
+
         }
     }
 
