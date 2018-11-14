@@ -31,10 +31,23 @@ import com.couchbase.lite.Result;
 import com.couchbase.lite.ResultSet;
 import com.couchbase.lite.SelectResult;
 import com.example.c02hp1dtdv35.healthapplication.Application;
+
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+
+import com.example.c02hp1dtdv35.healthapplication.Home.CameraFragment;
+
+
+import com.example.c02hp1dtdv35.healthapplication.R;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+
+
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -45,25 +58,43 @@ import java.util.Map;
 public class LogFood extends AppCompatActivity {
 
     private ImageView prodImg;
+
     private TextView dateTxt;
+
+    private TextView prodName,nutritionFacts,servingSize,caloriesTxt,allergensTxt,dateTxt;
+
+    private TextView dateTxt;
+
     private Button logBtn;
     private Spinner spinner;
     Nutriments nutriments;
     Product productLog;
     private Database db;
 
+
     String date,imgUrl,selectedMealCourse;
+
+    String date;
+    String imgUrl;
+    String selectedMealCourse;
+
+    String date,imgUrl,selectedMealCourse;
+
     int year,day,month;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private static final String TAG = LogFood.class.getSimpleName();
 
+
     final ArrayList<Product> products = new ArrayList<>();
+
 
     private Query query;
     DailyValues dailyData;
     Double totalCalories =0.0, totalSugar=0.0,totalFat=0.0, totalProtein=0.0,totalSalt=0.0;
 
     ObjectMapper objectMapper;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +115,14 @@ public class LogFood extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         imgUrl = bundle.getString("product_image");
         Picasso.get().load(imgUrl).into(prodImg);
+
         //Extract the product name and image…
+
+
+
+        //Extract the product name and image…
+
+
 
 
         // Get Nutriments Object
@@ -96,12 +134,25 @@ public class LogFood extends AppCompatActivity {
             productJson = extras.getString("products");
         }
         nutriments = new Gson().fromJson(jsonMyObject, Nutriments.class);
+
+        productLog = new Gson().fromJson(productJson, Product.class);
+
+        //Code for populating Recycler View
+        // Initialize products
+
         productLog = new Gson().fromJson(productJson, Product.class);
         //Code for populating Recycler View
         // Initialize products
 
 
+
         products.add(productLog);
+
+
+        products = ProductList.createProductList(product,serving_size,calories,allergens,1);
+        for(ProductList product: products){
+            System.out.println("Products outside " +product);
+        }
 
         // Create adapter passing in the sample user data
         ProductsAdapter adapter = new ProductsAdapter(products);
@@ -277,6 +328,7 @@ public class LogFood extends AppCompatActivity {
 
                 if (db == null) throw new IllegalArgumentException();*/
 
+
                 for(Product product: products){
 
                     product.setMeal_course(selectedMealCourse);
@@ -322,13 +374,13 @@ public class LogFood extends AppCompatActivity {
                     MutableDocument nDV= new MutableDocument(dv);
                     try {
                         db.save(nDV);
-
 //                    Toast toast = Toast.makeText(getApplicationContext(),
 //                            product + "product is logged successfully!", Toast.LENGTH_SHORT);
 //                    toast.show();
                     } catch (CouchbaseLiteException e) {
                         com.couchbase.lite.internal.support.Log.e(TAG, "Failed to save the doc - %s", e, nDV);
                     }
+
 
                     try {
                         db.save(mDoc);
