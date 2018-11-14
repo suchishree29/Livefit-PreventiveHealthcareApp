@@ -39,7 +39,9 @@ public class Application extends android.app.Application implements ReplicatorCh
 
     private final static String DATABASE_NAME = "staging";
 
-    private final static String SYNCGATEWAY_URL = "ws://10.0.0.220:4984/staging";
+    private final static String SYNCGATEWAY_URL = "ws://10.0.0.155:4984/staging";
+
+
 
     private final static String SYNCGATEWAY_URL = "ws://10.250.145.62:4984/staging";
 
