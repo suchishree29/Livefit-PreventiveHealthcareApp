@@ -37,69 +37,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <View
-        android:id="@+id/divider3"
-
-    <!--<TextView-->
-        <!--android:id="@+id/product_name"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="14dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:text="@string/product_name" />-->
-
-    <TextView
-        android:id="@+id/nutrition_facts"
-        android:layout_width="match_parent"
-        android:layout_height="16dp"
-        android:layout_weight="1"
-        android:linksClickable="true"
-        android:onClick="onClick"
-        android:text="@string/nutrition_facts"
-        android:textColor="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
-        android:textColorLink="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
-        android:textStyle="bold" />
-
-    <View
-        android:id="@+id/divider"
-
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_weight="1"
-        android:background="?android:attr/listDivider" />
-
-    <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="60dp"-->
-        <!--android:padding="5dp">-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/servingSizeTxt"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/serving_size"-->
-            <!--android:textStyle="bold" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/caloriesTxt"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="@dimen/cast_intro_overlay_button_margin_bottom"-->
-            <!--android:layout_toEndOf="@+id/servingSizeTxt"-->
-            <!--android:text="@string/calories"-->
-            <!--android:textStyle="bold" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/allergensTxt"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:text="@string/allergens"-->
-            <!--android:textStyle="bold" />-->
-    <!--</RelativeLayout>-->
-r
-
     <View
         android:id="@+id/divider3"
         android:layout_width="match_parent"
@@ -110,13 +47,7 @@ r
     <TextView
         android:id="@+id/mealTimeTxt"
         android:layout_width="match_parent"
-
         android:layout_height="21dp"
-
-        android:layout_height="35dp"
-
-        android:layout_height="21dp"
-
         android:layout_weight="1"
         android:text="@string/meal_and_snacks_time"
         android:textColorLink="@android:color/holo_blue_dark"
@@ -125,17 +56,8 @@ r
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="match_parent"
-
-        android:layout_height="25dp"
-
-        android:layout_height="27dp"
-
-        android:layout_weight="1" />
-
-
         android:layout_height="25dp"
         android:layout_weight="1" />
-
 
     <View
         android:id="@+id/divider4"
@@ -148,14 +70,6 @@ r
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_margin="5dp"/>
-
-            <View
-                android:id="@+id/divider3"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_weight="1"
-                android:background="?android:attr/listDivider" />
-
 
     <TextView
         android:id="@+id/dayTxt"

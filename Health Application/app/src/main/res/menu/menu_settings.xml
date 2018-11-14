@@ -15,25 +15,9 @@
         android:title="@string/action_reminder"
         app:showAsAction="never" />
 
-
     <item
         android:id="@+id/action_log_food_camera"
         android:title="@string/action_log_food_camera"
-
-    <item
-        android:id="@+id/action_userprofile"
-        android:title="User Profile"
-
-        app:showAsAction="never" />
-
-
-  
-        android:id="@+id/action_get_logs"
-        android:title="FOOD LOGS"
-
-        android:id="@+id/action_log_food_camera"
-        android:title="@string/action_log_food_camera"
-
         app:showAsAction="never" />
 
     <item

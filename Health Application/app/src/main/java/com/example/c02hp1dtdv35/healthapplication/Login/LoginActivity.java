@@ -89,54 +89,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-
-
-        Button mEmailSignUpButton=(Button)findViewById(R.id.email_sign_up_button);
-
-        mEmailSignUpButton.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                attemptLogin();
-
-                // attemptLogin();
-
-                Intent i = new Intent(LoginActivity.this,SignUpActivity.class);
-                startActivity(i);
-
-            }
-        });
-
-
-        Button mEmailSignUpButton=(Button)findViewById(R.id.email_sign_up_button);
-        mEmailSignUpButton.setOnClickListener(new OnClickListener() {
-
-        //mEmailSignInButton.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                actionSignUp();
-
-                if (IsNetworkConnection.checkNetworkConnection(LoginActivity.this)){
-                    LoginApiCall();
-                }else
-                {
-                    Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                            .setAction(android.R.string.ok, new View.OnClickListener() {
-                                @Override
-                                @TargetApi(Build.VERSION_CODES.M)
-                                public void onClick(View v) {
-                                    requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-                                }
-                            });
-                }
-
-                //actionSignUp();
-
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,7 +101,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 actionSignUp();
-
             }
         });
 
@@ -182,13 +133,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-
                     .setAction(android.R.string.ok, new OnClickListener() {
-
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
-
-                    .setAction(android.R.string.ok, new OnClickListener() {
-
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
                         public void onClick(View v) {
@@ -265,18 +210,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
-
      //   Intent homeScreenIntent= new Intent(this,WatsonScreen.class);
         login();
        // startActivity(homeScreenIntent);
-
-        Intent homeScreenIntent= new Intent(this,WatsonScreen.class);
-        startActivity(homeScreenIntent);
-
-     //   Intent homeScreenIntent= new Intent(this,WatsonScreen.class);
-        login();
-       // startActivity(homeScreenIntent);
-
     }
 
     private boolean isEmailValid(String email) {
