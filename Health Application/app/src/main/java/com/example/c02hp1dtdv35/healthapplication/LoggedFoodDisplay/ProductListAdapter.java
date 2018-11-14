@@ -91,7 +91,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         Product product = products.get(position);
         holder.product_name.setText("Product Name: " +product.getProductName());
         holder.serving_size.setText( "Serving Size: " + product.getServingSize());
-        holder.calories.setText("Calories: " + product.getNutriments().getEnergy());
+        holder.calories.setText("Calories: " + product.getNutriments().getEnergyValue());
         holder.allergens.setText("Allergens: " +product.getAllergens());
 
     }
