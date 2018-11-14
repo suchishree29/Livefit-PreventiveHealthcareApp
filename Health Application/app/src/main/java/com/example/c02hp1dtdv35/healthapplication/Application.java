@@ -38,7 +38,15 @@ public class Application extends android.app.Application implements ReplicatorCh
     private final static boolean SYNC_ENABLED = true;
 
     private final static String DATABASE_NAME = "staging";
+
     private final static String SYNCGATEWAY_URL = "ws://10.0.0.155:4984/staging";
+
+
+
+    private final static String SYNCGATEWAY_URL = "ws://10.250.145.62:4984/staging";
+
+    private final static String SYNCGATEWAY_URL = "ws://10.0.0.220:4984/staging";
+
 
     private Database database = null;
     private Replicator replicator;
@@ -81,7 +89,13 @@ public class Application extends android.app.Application implements ReplicatorCh
         localBackup(username);
 
         // TODO: After authenticated, move to next screen
+
         showApp();
+
+       // showApp();
+
+        showApp();
+
     }
 
     // show loginUI
