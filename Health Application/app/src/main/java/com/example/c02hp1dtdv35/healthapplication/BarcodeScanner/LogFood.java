@@ -19,82 +19,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.couchbase.lite.CouchbaseLiteException;
-import com.couchbase.lite.DataSource;
 import com.couchbase.lite.Database;
-import com.couchbase.lite.Dictionary;
-import com.couchbase.lite.Expression;
 import com.couchbase.lite.MutableDocument;
-import com.couchbase.lite.Ordering;
-import com.couchbase.lite.Query;
-import com.couchbase.lite.QueryBuilder;
-import com.couchbase.lite.Result;
-import com.couchbase.lite.ResultSet;
-import com.couchbase.lite.SelectResult;
 import com.example.c02hp1dtdv35.healthapplication.Application;
-
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-
-import com.example.c02hp1dtdv35.healthapplication.Home.CameraFragment;
-
-
-import com.example.c02hp1dtdv35.healthapplication.R;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-
-import com.google.zxing.integration.android.IntentIntegrator;
-
-
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Map;
 
 public class LogFood extends AppCompatActivity {
 
     private ImageView prodImg;
-
     private TextView dateTxt;
-
-    private TextView prodName,nutritionFacts,servingSize,caloriesTxt,allergensTxt,dateTxt;
-
-    private TextView dateTxt;
-
     private Button logBtn;
     private Spinner spinner;
     Nutriments nutriments;
     Product productLog;
     private Database db;
-
-
+    String product,serving_size,calories,allergens;
     String date,imgUrl,selectedMealCourse;
-
-    String date;
-    String imgUrl;
-    String selectedMealCourse;
-
-    String date,imgUrl,selectedMealCourse;
-
     int year,day,month;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private static final String TAG = LogFood.class.getSimpleName();
 
-
     final ArrayList<Product> products = new ArrayList<>();
-
-
-    private Query query;
-    DailyValues dailyData;
-    Double totalCalories =0.0, totalSugar=0.0,totalFat=0.0, totalProtein=0.0,totalSalt=0.0;
-
-    ObjectMapper objectMapper;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,24 +58,11 @@ public class LogFood extends AppCompatActivity {
         RecyclerView rvProducts = findViewById(R.id.rvProducts);
         logBtn = findViewById(R.id.logBtn);
 
-
-
-
-
-
-
         //Get the bundle
         Bundle bundle = getIntent().getExtras();
         imgUrl = bundle.getString("product_image");
         Picasso.get().load(imgUrl).into(prodImg);
-
         //Extract the product name and image…
-
-
-
-        //Extract the product name and image…
-
-
 
 
         // Get Nutriments Object
@@ -134,25 +74,12 @@ public class LogFood extends AppCompatActivity {
             productJson = extras.getString("products");
         }
         nutriments = new Gson().fromJson(jsonMyObject, Nutriments.class);
-
-        productLog = new Gson().fromJson(productJson, Product.class);
-
-        //Code for populating Recycler View
-        // Initialize products
-
         productLog = new Gson().fromJson(productJson, Product.class);
         //Code for populating Recycler View
         // Initialize products
-
 
 
         products.add(productLog);
-
-
-        products = ProductList.createProductList(product,serving_size,calories,allergens,1);
-        for(ProductList product: products){
-            System.out.println("Products outside " +product);
-        }
 
         // Create adapter passing in the sample user data
         ProductsAdapter adapter = new ProductsAdapter(products);
@@ -181,62 +108,6 @@ public class LogFood extends AppCompatActivity {
 
         date = (month+1) +"/" + day + "/" + year;
         dateTxt.setText("Day : " + date);
-
-
-        Application application = (Application) getApplication();
-        final String username = application.getUsername();
-        db = application.getDatabase();
-
-        if (db == null) throw new IllegalArgumentException();
-
-
-        query = QueryBuilder.select(SelectResult.all())
-                .from(DataSource.database(db))
-                .where(Expression.property("type").equalTo(Expression.string("daily-data"))
-                .and(Expression.property("date").equalTo(Expression.string(date))));
-        // .orderBy(Ordering.property("name").ascending());
-        try {
-            ResultSet rs = query.execute();
-
-            Result row;
-
-            while ((row = rs.next()) != null) {
-                ObjectMapper objectMapper = new ObjectMapper();
-                // Ignore undeclared properties
-                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-                // String productName = row.getString(0);
-                // String name = row.getString(1);
-//                String name2 = row.getString("name");
-                // Get dictionary corresponding to the database name
-                Dictionary valueMap = row.getDictionary(db.getName());
-
-                // Convert from dictionary to corresponding University object
-                                        /*        Map ab = valueMap.toMap();
-                                                String name = (String) ab.get("name");
-                                                String serving_size = (String) ab.get("serving_size");
-                                                String calories = (String) ab.get("calories");
-                                                String allergens = (String) ab.get("allergens");*/
-
-                //ProductRecycleView product = new ProductRecycleView(name,serving_size,calories,allergens);
-                //ProductRecycleView university1 = objectMapper.convertValue(valueMap.toMap(),ProductRecycleView.class);
-                Map mp= valueMap.toMap();
-                dailyData = objectMapper.convertValue(valueMap.toMap(),DailyValues.class);
-
-
-                totalCalories += dailyData.getTotalCalories();
-                totalFat+= dailyData.getTotalFat();
-                totalProtein += dailyData.getTotalProtein();
-                totalSugar += dailyData.getTotalSugar();
-                totalSalt += dailyData.getTotalSalt();
-            }
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-
-
         dateTxt.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -258,58 +129,6 @@ public class LogFood extends AppCompatActivity {
 
                 date = month +"/" + day + "/" + year;
                 dateTxt.setText("Day : " + date);
-
-                totalCalories =0.0;
-                totalSugar=0.0;
-                totalFat=0.0;
-                totalProtein=0.0;
-                totalSalt=0.0;
-
-                query = QueryBuilder.select(SelectResult.all())
-                        .from(DataSource.database(db))
-                        .where(Expression.property("type").equalTo(Expression.string("daily-data"))
-                                .and(Expression.property("date").equalTo(Expression.string(date))));
-                // .orderBy(Ordering.property("name").ascending());
-                try {
-                    ResultSet rs = query.execute();
-
-                    Result row;
-
-                    while ((row = rs.next()) != null) {
-                        ObjectMapper objectMapper = new ObjectMapper();
-                        // Ignore undeclared properties
-                        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-                        // String productName = row.getString(0);
-                        // String name = row.getString(1);
-//                String name2 = row.getString("name");
-                        // Get dictionary corresponding to the database name
-                        Dictionary valueMap = row.getDictionary(db.getName());
-
-                        // Convert from dictionary to corresponding University object
-                                        /*        Map ab = valueMap.toMap();
-                                                String name = (String) ab.get("name");
-                                                String serving_size = (String) ab.get("serving_size");
-                                                String calories = (String) ab.get("calories");
-                                                String allergens = (String) ab.get("allergens");*/
-
-                        //ProductRecycleView product = new ProductRecycleView(name,serving_size,calories,allergens);
-                        //ProductRecycleView university1 = objectMapper.convertValue(valueMap.toMap(),ProductRecycleView.class);
-                        Map mp= valueMap.toMap();
-                        dailyData = objectMapper.convertValue(valueMap.toMap(),DailyValues.class);
-
-
-                        totalCalories += dailyData.getTotalCalories();
-                        totalFat+= dailyData.getTotalFat();
-                        totalProtein += dailyData.getTotalProtein();
-                        totalSugar += dailyData.getTotalSugar();
-                        totalSalt += dailyData.getTotalSalt();
-                    }
-                }
-                catch(Exception ex)
-                {
-                    ex.printStackTrace();
-                }
             }
         };
 
@@ -319,67 +138,29 @@ public class LogFood extends AppCompatActivity {
 
                 selectedMealCourse = spinner.getSelectedItem().toString();
 
-                Double dailyCalories =0.0, dailySugar=0.0,dailyFat=0.0, dailyProtein=0.0,dailySalt=0.0;
-
                 //Code to save food data to couchbase
-                /*Application application = (Application) getApplication();
+                Application application = (Application) getApplication();
                 String username = application.getUsername();
                 db = application.getDatabase();
 
-                if (db == null) throw new IllegalArgumentException();*/
-
+                if (db == null) throw new IllegalArgumentException();
 
                 for(Product product: products){
 
-                    product.setMeal_course(selectedMealCourse);
-                    product.setType("task-list");
-                    product.setImageSmallUrl(imgUrl);
-                    product.setMeal_date(date);
-                    product.setOwner(username);
+                    productLog.setMeal_course(selectedMealCourse);
+                    productLog.setType("task-list");
+                    productLog.setImageSmallUrl(imgUrl);
+                    productLog.setMeal_date(date);
+                    productLog.setOwner(username);
 
-                    objectMapper = new ObjectMapper();
+                    ObjectMapper objectMapper = new ObjectMapper();
                     // Ignore undeclared properties
                     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
                    // HashMap<String,Object> universityMap = objectMapper.convertValue(product,HashMap.class);
-                    HashMap<String,Object> universityMap = objectMapper.convertValue(product,HashMap.class);
+                    HashMap<String,Object> universityMap = objectMapper.convertValue(productLog,HashMap.class);
 
                     MutableDocument mDoc= new MutableDocument(universityMap);
-                    String en = product.getNutriments().getEnergyValue();
-
-                    Double val = new Double(en);
-                    totalCalories += Double.valueOf(en);
-                    totalFat+= Double.valueOf(product.getNutriments().getFat());
-                    totalProtein += Double.valueOf(product.getNutriments().getProteins());
-                    totalSugar += Double.valueOf(product.getNutriments().getSugars());
-                    totalSalt += Double.valueOf(product.getNutriments().getSalt());
-
-                    DailyValues logDailyValue = new DailyValues();;
-                    if(dailyData== null)
-                        dailyData = new DailyValues();
-
-                    logDailyValue.setDate(date);
-                    logDailyValue.setId(date);
-                    logDailyValue.setTotalCalories(dailyCalories);
-                    logDailyValue.setTotalFat(dailyCalories);
-                    logDailyValue.setTotalProtein(dailyCalories);
-                    logDailyValue.setTotalSugar(dailyCalories);
-                    logDailyValue.setTotalSalt(dailyCalories);
-                    logDailyValue.setType("daily-data");
-                    logDailyValue.setOwner(username);
-
-                    objectMapper = new ObjectMapper();
-
-                    HashMap<String,Object> dv = objectMapper.convertValue(logDailyValue,HashMap.class);
-                    MutableDocument nDV= new MutableDocument(dv);
-                    try {
-                        db.save(nDV);
-//                    Toast toast = Toast.makeText(getApplicationContext(),
-//                            product + "product is logged successfully!", Toast.LENGTH_SHORT);
-//                    toast.show();
-                    } catch (CouchbaseLiteException e) {
-                        com.couchbase.lite.internal.support.Log.e(TAG, "Failed to save the doc - %s", e, nDV);
-                    }
 
 
                     try {
@@ -391,8 +172,6 @@ public class LogFood extends AppCompatActivity {
                         com.couchbase.lite.internal.support.Log.e(TAG, "Failed to save the doc - %s", e, mDoc);
                     }
                 }
-
-
             }
         });
 
