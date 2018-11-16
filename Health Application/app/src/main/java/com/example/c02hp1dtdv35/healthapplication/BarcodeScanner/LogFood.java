@@ -1,7 +1,6 @@
 package com.example.c02hp1dtdv35.healthapplication.BarcodeScanner;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ import com.couchbase.lite.Database;
 import com.couchbase.lite.Dictionary;
 import com.couchbase.lite.Expression;
 import com.couchbase.lite.MutableDocument;
-import com.couchbase.lite.Ordering;
 import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryBuilder;
 import com.couchbase.lite.Result;
@@ -36,41 +34,17 @@ import com.example.c02hp1dtdv35.healthapplication.R;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-
-import com.example.c02hp1dtdv35.healthapplication.Home.CameraFragment;
-
-
-import com.example.c02hp1dtdv35.healthapplication.R;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-
-import com.google.zxing.integration.android.IntentIntegrator;
-
-
 import com.squareup.picasso.Picasso;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 public class LogFood extends AppCompatActivity {
 
     private ImageView prodImg;
-
-
-
-    private TextView prodName,nutritionFacts,servingSize,caloriesTxt,allergensTxt,dateTxt;
-
-
-
+    private TextView dateTxt;
     private Button logBtn;
     private Spinner spinner;
-    Nutriments nutriments;
     Product productLog;
     private Database db;
     String date,imgUrl,selectedMealCourse;
@@ -89,8 +63,6 @@ public class LogFood extends AppCompatActivity {
 
     ObjectMapper objectMapper;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,32 +72,15 @@ public class LogFood extends AppCompatActivity {
         RecyclerView rvProducts = findViewById(R.id.rvProducts);
         logBtn = findViewById(R.id.logBtn);
 
-
-
-
-
-
-
         //Get the bundle
         Bundle bundle = getIntent().getExtras();
         imgUrl = bundle.getString("product_image");
         Picasso.get().load(imgUrl).into(prodImg);
 
-        //Extract the product name and image…
-
-
-
-        //Extract the product name and image…
-
-
-
-
         // Get Nutriments Object
-        String nutrimentsJson = "";
         String productJson = "";
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            nutrimentsJson = extras.getString("nutriments");
             productJson = extras.getString("products");
         }
 
@@ -173,12 +128,10 @@ public class LogFood extends AppCompatActivity {
 
         if (db == null) throw new IllegalArgumentException();
 
-
         query = QueryBuilder.select(SelectResult.all())
                 .from(DataSource.database(db))
                 .where(Expression.property("type").equalTo(Expression.string("daily-data"))
                         .and(Expression.property("date").equalTo(Expression.string(date))));
-        // .orderBy(Ordering.property("name").ascending());
         try {
             ResultSet rs = query.execute();
 
@@ -188,23 +141,8 @@ public class LogFood extends AppCompatActivity {
                 ObjectMapper objectMapper = new ObjectMapper();
                 // Ignore undeclared properties
                 objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-                // String productName = row.getString(0);
-                // String name = row.getString(1);
-//                String name2 = row.getString("name");
-                // Get dictionary corresponding to the database name
                 Dictionary valueMap = row.getDictionary(db.getName());
 
-                // Convert from dictionary to corresponding University object
-                                        /*        Map ab = valueMap.toMap();
-                                                String name = (String) ab.get("name");
-                                                String serving_size = (String) ab.get("serving_size");
-                                                String calories = (String) ab.get("calories");
-                                                String allergens = (String) ab.get("allergens");*/
-
-                //ProductRecycleView product = new ProductRecycleView(name,serving_size,calories,allergens);
-                //ProductRecycleView university1 = objectMapper.convertValue(valueMap.toMap(),ProductRecycleView.class);
-                Map mp= valueMap.toMap();
                 dailyData = objectMapper.convertValue(valueMap.toMap(),DailyValues.class);
 
 
@@ -253,7 +191,6 @@ public class LogFood extends AppCompatActivity {
                         .from(DataSource.database(db))
                         .where(Expression.property("type").equalTo(Expression.string("daily-data"))
                                 .and(Expression.property("date").equalTo(Expression.string(date))));
-                // .orderBy(Ordering.property("name").ascending());
                 try {
                     ResultSet rs = query.execute();
 
@@ -264,24 +201,9 @@ public class LogFood extends AppCompatActivity {
                         // Ignore undeclared properties
                         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-                        // String productName = row.getString(0);
-                        // String name = row.getString(1);
-//                String name2 = row.getString("name");
-                        // Get dictionary corresponding to the database name
                         Dictionary valueMap = row.getDictionary(db.getName());
 
-                        // Convert from dictionary to corresponding University object
-                                        /*        Map ab = valueMap.toMap();
-                                                String name = (String) ab.get("name");
-                                                String serving_size = (String) ab.get("serving_size");
-                                                String calories = (String) ab.get("calories");
-                                                String allergens = (String) ab.get("allergens");*/
-
-                        //ProductRecycleView product = new ProductRecycleView(name,serving_size,calories,allergens);
-                        //ProductRecycleView university1 = objectMapper.convertValue(valueMap.toMap(),ProductRecycleView.class);
-                        Map mp= valueMap.toMap();
                         dailyData = objectMapper.convertValue(valueMap.toMap(),DailyValues.class);
-
 
                         totalCalories += dailyData.getTotalCalories();
                         totalFat+= dailyData.getTotalFat();
@@ -305,14 +227,6 @@ public class LogFood extends AppCompatActivity {
 
                 Double dailyCalories =0.0, dailySugar=0.0,dailyFat=0.0, dailyProtein=0.0,dailySalt=0.0;
 
-                //Code to save food data to couchbase
-                /*Application application = (Application) getApplication();
-                String username = application.getUsername();
-                db = application.getDatabase();
-
-                if (db == null) throw new IllegalArgumentException();*/
-
-
                 for(Product product: products){
 
                     product.setMeal_course(selectedMealCourse);
@@ -325,9 +239,9 @@ public class LogFood extends AppCompatActivity {
                     // Ignore undeclared properties
                     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-                    HashMap<String,Object> universityMap = objectMapper.convertValue(product,HashMap.class);
+                    HashMap<String,Object> productMap = objectMapper.convertValue(product,HashMap.class);
 
-                    MutableDocument mDoc= new MutableDocument(universityMap);
+                    MutableDocument mDoc= new MutableDocument(productMap);
                     String en = product.getNutriments().getEnergyValue();
 
                     dailyCalories+= Double.valueOf(en);
