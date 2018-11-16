@@ -50,8 +50,11 @@ import com.google.zxing.integration.android.IntentIntegrator;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,8 +73,6 @@ public class LogFood extends AppCompatActivity {
     Nutriments nutriments;
     Product productLog;
     private Database db;
-
-
     String date,imgUrl,selectedMealCourse;
 
     int year,day,month;
@@ -120,19 +121,13 @@ public class LogFood extends AppCompatActivity {
 
 
         // Get Nutriments Object
-        String jsonMyObject = "";
+        String nutrimentsJson = "";
         String productJson = "";
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            jsonMyObject = extras.getString("nutriments");
+            nutrimentsJson = extras.getString("nutriments");
             productJson = extras.getString("products");
         }
-        nutriments = new Gson().fromJson(jsonMyObject, Nutriments.class);
-
-        productLog = new Gson().fromJson(productJson, Product.class);
-
-        //Code for populating Recycler View
-        // Initialize products
 
         productLog = new Gson().fromJson(productJson, Product.class);
         //Code for populating Recycler View
@@ -142,8 +137,8 @@ public class LogFood extends AppCompatActivity {
 
         products.add(productLog);
 
+        // Create adapter passing in the products data
 
-        // Create adapter passing in the sample user data
         ProductsAdapter adapter = new ProductsAdapter(products);
 
         // Attach the adapter to the recyclerview to populate items
@@ -330,13 +325,11 @@ public class LogFood extends AppCompatActivity {
                     // Ignore undeclared properties
                     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-                    // HashMap<String,Object> universityMap = objectMapper.convertValue(product,HashMap.class);
                     HashMap<String,Object> universityMap = objectMapper.convertValue(product,HashMap.class);
 
                     MutableDocument mDoc= new MutableDocument(universityMap);
                     String en = product.getNutriments().getEnergyValue();
 
-                    Double val = new Double(en);
                     dailyCalories+= Double.valueOf(en);
                     dailyFat+= Double.valueOf(product.getNutriments().getFat());
                     dailyProtein += Double.valueOf(product.getNutriments().getProteins());
@@ -363,13 +356,9 @@ public class LogFood extends AppCompatActivity {
                     MutableDocument nDV= new MutableDocument(dv);
                     try {
                         db.save(nDV);
-//                    Toast toast = Toast.makeText(getApplicationContext(),
-//                            product + "product is logged successfully!", Toast.LENGTH_SHORT);
-//                    toast.show();
                     } catch (CouchbaseLiteException e) {
                         com.couchbase.lite.internal.support.Log.e(TAG, "Failed to save the doc - %s", e, nDV);
                     }
-
 
                     try {
                         db.save(mDoc);

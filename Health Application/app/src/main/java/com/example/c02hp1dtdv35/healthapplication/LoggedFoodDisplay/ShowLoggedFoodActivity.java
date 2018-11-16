@@ -42,7 +42,7 @@ public class ShowLoggedFoodActivity extends AppCompatActivity{
         // Initialize couchbase lite database manager
 
         Application application = (Application) getApplication();
-        
+
         db = application.getDatabase();
         if (db == null) throw new IllegalArgumentException();
 
