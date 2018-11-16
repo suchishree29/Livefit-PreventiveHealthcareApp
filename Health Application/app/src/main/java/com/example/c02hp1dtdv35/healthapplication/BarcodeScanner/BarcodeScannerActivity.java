@@ -40,7 +40,6 @@ public class BarcodeScannerActivity extends AppCompatActivity implements View.On
 
     }
 
-
     private void getData(String barcode) {
         this.url = this.baseUrl + barcode + ".json";
 
@@ -61,12 +60,8 @@ public class BarcodeScannerActivity extends AppCompatActivity implements View.On
                                 //Create the bundle
                                 Bundle bundle = new Bundle();
 
-                                //Add your data to bundle
-                                bundle.putString("product_name", product.getProductName());
+                                //Add your product image data to bundle
                                 bundle.putString("product_image", product.getImageSmallUrl());
-                                bundle.putString("serving_size", product.getServingSize());
-                                bundle.putString("calories", nutriments.getEnergyValue());
-                                bundle.putString("allergens", product.getAllergens());
 
                                 //Add the bundle to the intent
                                 myIntent.putExtra("products",new Gson().toJson(product));

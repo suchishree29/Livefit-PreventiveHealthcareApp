@@ -28,9 +28,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class LogFood extends AppCompatActivity {
 
@@ -41,7 +45,7 @@ public class LogFood extends AppCompatActivity {
     Nutriments nutriments;
     Product productLog;
     private Database db;
-    String product,serving_size,calories,allergens;
+    String product;
     String date,imgUrl,selectedMealCourse;
     int year,day,month;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -66,14 +70,14 @@ public class LogFood extends AppCompatActivity {
 
 
         // Get Nutriments Object
-        String jsonMyObject = "";
+        String nutrimentsJson = "";
         String productJson = "";
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            jsonMyObject = extras.getString("nutriments");
+            nutrimentsJson = extras.getString("nutriments");
             productJson = extras.getString("products");
         }
-        nutriments = new Gson().fromJson(jsonMyObject, Nutriments.class);
+        nutriments = new Gson().fromJson(nutrimentsJson, Nutriments.class);
         productLog = new Gson().fromJson(productJson, Product.class);
         //Code for populating Recycler View
         // Initialize products
@@ -81,7 +85,7 @@ public class LogFood extends AppCompatActivity {
 
         products.add(productLog);
 
-        // Create adapter passing in the sample user data
+        // Create adapter passing in the products data
         ProductsAdapter adapter = new ProductsAdapter(products);
 
         // Attach the adapter to the recyclerview to populate items
@@ -145,7 +149,7 @@ public class LogFood extends AppCompatActivity {
 
                 if (db == null) throw new IllegalArgumentException();
 
-                for(Product product: products){
+                for(Product productLog: products){
 
                     productLog.setMeal_course(selectedMealCourse);
                     productLog.setType("task-list");
@@ -157,10 +161,9 @@ public class LogFood extends AppCompatActivity {
                     // Ignore undeclared properties
                     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-                   // HashMap<String,Object> universityMap = objectMapper.convertValue(product,HashMap.class);
-                    HashMap<String,Object> universityMap = objectMapper.convertValue(productLog,HashMap.class);
+                    HashMap<String,Object> productMap = objectMapper.convertValue(productLog,HashMap.class);
 
-                    MutableDocument mDoc= new MutableDocument(universityMap);
+                    MutableDocument mDoc= new MutableDocument(productMap);
 
 
                     try {
