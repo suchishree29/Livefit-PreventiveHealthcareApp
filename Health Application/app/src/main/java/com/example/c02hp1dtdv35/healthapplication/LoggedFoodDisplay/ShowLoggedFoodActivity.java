@@ -42,25 +42,20 @@ public class ShowLoggedFoodActivity extends AppCompatActivity{
         // Initialize couchbase lite database manager
 
         Application application = (Application) getApplication();
-
         db = application.getDatabase();
         if (db == null) throw new IllegalArgumentException();
 
         // Set content layout
         setContentView(R.layout.activity_list);
-
+        getSupportActionBar().setTitle("Logged Foods");
         QueryForListOfProducts();
-
         // Get recycler view
         RecyclerView recyclerView = findViewById(R.id.rvLoggedProducts);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
-
     private void QueryForListOfProducts() {
         try {
-
-
             // 1. Create a liveQuery to fetch all documents from database
             query = QueryBuilder.select(SelectResult.all())
                     .from(DataSource.database(db))
@@ -73,34 +68,21 @@ public class ShowLoggedFoodActivity extends AppCompatActivity{
                                         public void changed(QueryChange change) {
                                             ResultSet resultRows = change.getResults();
                                             Result row;
-                                            //List<ProductRecycleView> universities = new ArrayList<ProductRecycleView>();
                                             List<Product> products = new ArrayList<Product>();
-                                            // 3. Iterate over changed rows, corresponding documents and map to University POJO
+                                            // 3. Iterate over changed rows, corresponding documents and map to Product POJO
                                             while ((row = resultRows.next()) != null) {
                                                 ObjectMapper objectMapper = new ObjectMapper();
                                                 // Ignore undeclared properties
                                                 objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-                                                // String productName = row.getString(0);
-                                                // String name = row.getString(1);
-                                                String name2 = row.getString("name");
                                                 // Get dictionary corresponding to the database name
                                                 Dictionary valueMap = row.getDictionary(db.getName());
 
-                                                // Convert from dictionary to corresponding University object
-                                        /*        Map ab = valueMap.toMap();
-                                                String name = (String) ab.get("name");
-                                                String serving_size = (String) ab.get("serving_size");
-                                                String calories = (String) ab.get("calories");
-                                                String allergens = (String) ab.get("allergens");*/
-
-                                                //ProductRecycleView product = new ProductRecycleView(name,serving_size,calories,allergens);
-                                                //ProductRecycleView university1 = objectMapper.convertValue(valueMap.toMap(),ProductRecycleView.class);
                                                 Product product = objectMapper.convertValue(valueMap.toMap(),Product.class);
                                                 products.add(product);
                                             }
 
-                                            // 4. Update the adapter with the newly added University documents
+                                            // 4. Update the adapter with the newly added products documents
                                             adapter.setProductList(products);
 
                                             runOnUiThread(new Runnable() {
@@ -110,7 +92,6 @@ public class ShowLoggedFoodActivity extends AppCompatActivity{
                                                     adapter.notifyDataSetChanged();
                                                 }
                                             });
-
                                         }
                                     }
             );
