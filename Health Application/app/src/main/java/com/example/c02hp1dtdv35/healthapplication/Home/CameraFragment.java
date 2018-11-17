@@ -67,7 +67,7 @@ public class CameraFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.activity_camera_screen, container, false);
+        View view=inflater.inflate(R.layout.activity_camera_copy, container, false);
         btnCamera=view.findViewById(R.id.btn_capture_image);
         btnBarcode=view.findViewById(R.id.btn_scan_barcode);
         txtContent =view.findViewById(R.id.txtContent);
