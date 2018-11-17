@@ -3,6 +3,7 @@ package com.example.c02hp1dtdv35.healthapplication.Login;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -20,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,19 +30,35 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.c02hp1dtdv35.healthapplication.Home.WatsonScreen;
 import com.example.c02hp1dtdv35.healthapplication.R;
+import com.example.c02hp1dtdv35.healthapplication.retrofit.ApiClient;
+import com.example.c02hp1dtdv35.healthapplication.retrofit.ApiInterface;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -64,16 +82,20 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-
+    private EditText firstName,lastName,email,password,confPassword,birthdate,Height,Weight,bloodglucose,cholestrol,test;
+    private RadioGroup radio;
+    private Switch switch1,switch2;
+    private Spinner spinner;
+    ArrayList<Signup> SignupArrayList=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle("SignUp");
+        //  getSupportActionBar().setTitle("SignUp");
         setContentView(R.layout.activity_sign_up);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-
+        init();
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -86,16 +108,185 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+       /* Button mEmailSignUpButton = (Button) findViewById(R.id.email_sign_up_button);
+        mEmailSignUpButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                //attemptLogin();
+                Intent i = new Intent(SignUpActivity.this,UserProfileActivity.class);
+                startActivity(i);
             }
         });
 
+*/
+        Button SignIn = (Button) findViewById(R.id.email_sign_in_button);
+        SignIn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //attemptLogin();
+                SignUpApiCall();
+                // Intent i = new Intent(SignUpActivity.this,LoginActivity.class);
+                // startActivity(i);
+            }
+
+        });
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    private void init() {
+        firstName = (EditText) findViewById(R.id.firstName);
+        lastName = (EditText) findViewById(R.id.lastName);
+        email = (EditText) findViewById(R.id.email);
+        password = (EditText) findViewById(R.id.password);
+       /*
+        confPassword = (EditText) findViewById(R.id.confPassword);
+        birthdate = (EditText) findViewById(R.id.birthdate);
+        Height = (EditText) findViewById(R.id.Height);
+        Weight = (EditText) findViewById(R.id.Weight);
+        bloodglucose = (EditText) findViewById(R.id.bloodglucose);
+        cholestrol = (EditText) findViewById(R.id.cholestrol);
+        test = (EditText) findViewById(R.id.test);
+        radio = (RadioGroup) findViewById(R.id.radio);
+        switch1 = (Switch) findViewById(R.id.switch1);
+        switch2  = (Switch) findViewById(R.id.switch2);
+        spinner = (Spinner)findViewById(R.id.spinner);
+*/
+
+
+    }
+
+/*
+    private void SignUpApiCall() {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+           //jsonObject.put("User_FirstName", firstName.getText().toString().trim());
+          //  jsonObject.put("User_LastName", lastName.getText().toString().trim());
+
+            jsonObject.put("User_ScreenName", email.getText().toString().trim());
+            jsonObject.put("User_Email", password.getText().toString().trim());
+
+            jsonObject.put("User_Profile_Picture", confPassword.getText().toString().trim());
+            jsonObject.put("User_Latitude", birthdate.getText().toString().trim());
+            jsonObject.put("User_Latitude", radio.toString().trim());
+            jsonObject.put("User_Longitude", Height.getText().toString().trim());
+            jsonObject.put("User_Longitude", Weight.getText().toString().trim());
+            jsonObject.put("User_Longitude", switch1.getText().toString().trim());
+            jsonObject.put("User_Longitude", switch2.getText().toString().trim());
+            jsonObject.put("User_Longitude", bloodglucose.getText().toString().trim());
+            jsonObject.put("User_Longitude", cholestrol.getText().toString().trim());
+            jsonObject.put("User_Longitude", spinner.toString().trim());
+            jsonObject.put("User_Longitude", test.getText().toString().trim())
+            jsonArray.put(jsonObject);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("System out", "UpdateProfileApi" + jsonArray.toString());
+        Call<ArrayList<UpdateProfile>> call = apiService.signUp(jsonArray.toString());
+        call.enqueue(new Callback<ArrayList<UpdateProfile>>() {
+            public void onResponse(Call<ArrayList<UpdateProfile>> call, Response<ArrayList<UpdateProfile>> response) {
+                if (response.body() != null) {
+                    if (response.body().get(0).getStatus().equalsIgnoreCase("true")) {
+
+                        //Constants.snackbar(getActivity(), ll_main, "" + response.body().get(0).getMessage());
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(1500);
+                                    (SignUpActivity.this).runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    });
+                                } catch (Exception e) {
+                                    CustomLog.w("Exception in thread", ""+e);
+                                }
+
+                            }
+                        }).start();
+
+                    } else {
+                        //Constants.snackbar(getActivity(), ll_main, "" + response.body().get(0).getMessage());
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<ArrayList<UpdateProfile>> call, Throwable t) {
+
+            }
+        });
+
+    }
+*/
+    private void SignUpApiCall() {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+
+        String json = "{" +
+//                "\"User_FirstName\":\"" + firstName.getText().toString().trim() + "\"," +
+//                "\"User_LastName\":\"" + lastName.getText().toString().trim() + "\"," +
+                "\"username\":\"" + email.getText().toString().trim() + "\"," +
+                "\"password\":\"" + password.getText().toString().trim() +
+//                + "\"," +
+//                "\"User_Password\":\"" + confPassword.getText().toString().trim() + "\"," +
+//                "\"User_Password\":\"" + birthdate.getText().toString().trim() + "\"," +
+//                "\"User_Password\":\"" + radio.toString().trim() + "\"," +
+//                "\"User_Password\":\"" + Height.getText().toString().trim() + "\"," +
+//                "\"User_Password\":\"" + Weight.getText().toString().trim() + "\"," +
+//                "\"User_Password\":\"" + bloodglucose.getText().toString().trim() + "\"," +
+//                "\"User_Password\":\"" + switch1.getText().toString().trim() + "\"," +
+//                "\"User_Password\":\"" + switch2.getText().toString().trim() + "\"," +
+//                "\"User_Password\":\"" + cholestrol.getText().toString().trim() + "\"," +
+//                "\"User_Password\":\"" + spinner.toString().trim() + "\"," +
+//                "\"User_Password\":\"" + test.getText().toString().trim() +
+                "\"}";
+       // CustomLog.d("System out", "sign up json___" + json);
+        Call<Signup> call = apiService.signup(email.getText().toString().trim(),password.getText().toString().trim());
+        call.enqueue(new Callback<Signup>() {
+            @Override
+            public void onResponse(Call<Signup> call, Response<Signup> response) {
+                if (response.body() != null) {
+                    if (response.body().getSuccess().equals(true)) {
+//                        SignupArrayList = response.body();
+//                        SignupArrayList.get(0).setPassword(mPasswordView.getText().toString().trim());
+//                        String json = Constants.convert_object_string(SignupArrayList.get(0));
+//                        Log.d("System out","password__"+SignupArrayList);
+//                        CustomLog.d("System out","password__"+SignupArrayList);
+//
+//                        //sessionManager.create_login_session(json);
+//                        //Constants.snackbar(getActivity(), ll_main, "" + response.body().get(0).getMessage());
+//
+//                        CustomLog.d("system out", response.body().get(0).getMsg());
+//                        CustomLog.d("System out", "sign up json___" + json);
+                        Intent i = new Intent(SignUpActivity.this,UserProfileActivity.class);
+                        startActivity(i);
+
+                        //finish();
+
+                        //Home.WatsonScreen();
+                    } else {
+                        //Constants.snackbar(getActivity(), ll_main, "" + response.body().get(0).getMsg());
+//                        CustomLog.d("System out", response.body().get(0).getMsg());
+                        CustomLog.d("system out", "else case:");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Signup> call, Throwable t) {
+
+            }
+        });
+
+       // Intent i = new Intent(SignUpActivity.this,LoginActivity.class);
+        //startActivity(i);
+
     }
 
     private void populateAutoComplete() {
@@ -115,7 +306,7 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
+                    .setAction(android.R.string.ok, new OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
                         public void onClick(View v) {
@@ -147,6 +338,8 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
+
+
     private void attemptLogin() {
         if (mAuthTask != null) {
             return;
@@ -159,6 +352,7 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+
 
         boolean cancel = false;
         View focusView = null;
@@ -183,7 +377,8 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
-            // form field with an error.
+            // form field with an error.kkkkkkkkl[]/\]
+
             focusView.requestFocus();
         } else {
             // Show a progress spinner, and kick off a background task to
@@ -192,8 +387,8 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
 
-            Intent signInActivityIntent= new Intent(this,LoginActivity.class);
-            startActivity(signInActivityIntent);
+            // Intent signInActivityIntent= new Intent(this,UserProfileActivity.class);
+            // startActivity(signInActivityIntent);
         }
     }
 

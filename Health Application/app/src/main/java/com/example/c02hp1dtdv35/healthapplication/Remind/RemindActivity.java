@@ -124,6 +124,5 @@ public class RemindActivity extends AppCompatActivity {
             }
         }
         System.out.println();
-
     }
 }
