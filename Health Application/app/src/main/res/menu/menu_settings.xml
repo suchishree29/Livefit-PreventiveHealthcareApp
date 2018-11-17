@@ -21,6 +21,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_userprofile"
+        android:title="User Profile"
+
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_get_logs"
         android:title="FOOD LOGS"
         app:showAsAction="never" />
