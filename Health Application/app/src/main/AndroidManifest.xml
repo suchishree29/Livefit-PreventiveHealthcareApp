@@ -51,6 +51,7 @@
         <activity android:name=".BarcodeScanner.ShowNutriments" />
 
         <activity android:name=".LoggedFoodDisplay.ShowLoggedFoodActivity" />
+        <activity android:name=".Login.UserProfileActivity" />
 
     </application>
 
