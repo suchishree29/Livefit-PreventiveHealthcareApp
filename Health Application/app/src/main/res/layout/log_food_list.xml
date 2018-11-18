@@ -18,7 +18,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="59dp"
+        android:layout_height="94dp"
         android:padding="5dp">
 
         <TextView
@@ -46,16 +46,14 @@
             android:text="@string/allergens"
             android:textStyle="bold" />
 
-        <!--<TextView-->
-            <!--android:id="@+id/nutrition_facts"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="35dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:linksClickable="true"-->
-            <!--android:onClick="onClickNutriments"-->
-
-            <!--android:textStyle="bold"-->
-            <!--android:text="NUTRITION FACTS" />-->
+        <TextView
+            android:id="@+id/nutrimentsLevelHighTxt"
+            android:layout_width="match_parent"
+            android:layout_height="21dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:textStyle="bold" />
     </RelativeLayout>
     <View
         android:id="@+id/divider"

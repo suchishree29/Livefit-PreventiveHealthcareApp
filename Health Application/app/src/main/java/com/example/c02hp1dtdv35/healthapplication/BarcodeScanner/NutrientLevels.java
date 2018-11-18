@@ -50,4 +50,34 @@ public class NutrientLevels {
         this.sugars = sugars;
     }
 
+    private String high = "";
+
+    public String getHigh() {
+        setHigh();
+        return high;
+    }
+
+    public void setHigh() {
+        if(getFat().equals("high"))
+        {
+            high = "fat ";
+        }
+
+        if(getSalt().equals("high"))
+        {
+            high = high + "Salt ";
+        }
+
+        if(getSaturatedFat().equals("high"))
+        {
+            high = high + "saturated-fat ";
+        }
+
+        if(getSugars().equals("high"))
+        {
+            high = high + "sugars ";
+        }
+    }
+
+
 }

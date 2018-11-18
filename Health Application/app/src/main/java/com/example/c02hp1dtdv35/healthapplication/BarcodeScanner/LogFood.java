@@ -55,11 +55,7 @@ public class LogFood extends AppCompatActivity {
     int year,day,month;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private static final String TAG = LogFood.class.getSimpleName();
-
-
     final ArrayList<Product> products = new ArrayList<>();
-
-
     private Query query;
     DailyValues dailyData;
     Double totalCalories =0.0, totalSugar=0.0,totalFat=0.0, totalProtein=0.0,totalSalt=0.0;
@@ -272,8 +268,6 @@ public class LogFood extends AppCompatActivity {
                     totalProtein += dailyProtein;
                     totalSugar += dailySugar;
                     totalSalt += dailySalt;
-
-
 
                 }
 
