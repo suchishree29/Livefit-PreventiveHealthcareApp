@@ -25,7 +25,7 @@ public class ProductsAdapter extends
     public class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
-        public TextView product_name,serving_size,calories,allergens;
+        public TextView product_name,serving_size,calories,allergens,nutrimentsHigh;
         Nutriments nutriments;
 
 
@@ -40,6 +40,7 @@ public class ProductsAdapter extends
             serving_size = itemView.findViewById(R.id.servingSizeTxt);
             calories = itemView.findViewById(R.id.caloriesTxt);
             allergens = itemView.findViewById(R.id.allergensTxt);
+            nutrimentsHigh = itemView.findViewById(R.id.nutrimentsLevelHighTxt);
 
             product_name.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v){
@@ -88,8 +89,11 @@ public class ProductsAdapter extends
             TextView textCalories = viewHolder.calories;
             textCalories.setText("Calories: " + productItem.getNutriments().getEnergyValue());
 
-            TextView textAllergens = viewHolder.allergens;
-            textAllergens.setText("Allergens: " + productItem.getAllergens());
+            viewHolder.allergens.setText("Allergens: " + productItem.getAllergens());
+
+            String high = productItem.getNutrientLevels().getHigh();
+            if(!high.isEmpty())
+                viewHolder.nutrimentsHigh.setText("High : " + high);
 
         }
 

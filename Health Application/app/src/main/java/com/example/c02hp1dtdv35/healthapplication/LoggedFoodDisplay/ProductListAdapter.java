@@ -15,8 +15,6 @@ import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.ShowNutriments;
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.google.gson.Gson;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,19 +23,19 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     private static List<Product> products = new ArrayList<>();
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView product_name,serving_size,calories,allergens;
+        public TextView product_name,serving_size,calories,allergens,loggedDate;
         public Context context;
         Nutriments nutriments;
-
 
         public ViewHolder(View itemView, final Context context) {
             super(itemView);
 
             this.context = context;
-            product_name = itemView.findViewById(R.id.product_name);
-            serving_size = itemView.findViewById(R.id.servingSizeTxt);
-            calories = itemView.findViewById(R.id.caloriesTxt);
-            allergens = itemView.findViewById(R.id.allergensTxt);
+            product_name = itemView.findViewById(R.id.productName);
+            serving_size = itemView.findViewById(R.id.servingSize);
+            calories = itemView.findViewById(R.id.calories);
+            allergens = itemView.findViewById(R.id.allergens);
+            loggedDate = itemView.findViewById(R.id.loggedDate);
 
             product_name.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v){
@@ -55,21 +53,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             });
         }
     }
-
-
-
-
+    
     private Context mContext;
 
     public ProductListAdapter(Context context) {
         mContext = context;
-
-
-
-    }
-
-    private Context getContext() {
-        return mContext;
     }
 
 
@@ -81,7 +69,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.log_food_list,parent,false);
+        View view = inflater.inflate(R.layout.show_food_list,parent,false);
 
         return new ViewHolder(view, context);
     }
@@ -94,6 +82,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.calories.setText("Calories: " + product.getNutriments().getEnergyValue());
         holder.allergens.setText("Allergens: " +product.getAllergens());
 
+        holder.loggedDate.setText("Logged Date: " +product.getMeal_date());
     }
 
     @Override

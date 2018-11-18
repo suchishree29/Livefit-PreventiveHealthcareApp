@@ -36,13 +36,16 @@ public class BarcodeScannerActivity extends AppCompatActivity implements View.On
         getSupportActionBar().setTitle("Barcode Scanner");
         scanBtn =  findViewById(R.id.scan_button);
         requestQueue = Volley.newRequestQueue(this);  // This setups up a new request queue which we will need to make HTTP requests.
-        scanBtn.setOnClickListener(this);
+        //scanBtn.setOnClickListener(this);
+
+        getData("021000010875");
 
     }
 
     private void getData(String barcode) {
         this.url = this.baseUrl + barcode + ".json";
-
+            //786162338006 water
+        //021000010875 macaroni
         JsonObjectRequest arrReq = new JsonObjectRequest(Request.Method.GET, url,
                 new Response.Listener<JSONObject>() {
                     @Override

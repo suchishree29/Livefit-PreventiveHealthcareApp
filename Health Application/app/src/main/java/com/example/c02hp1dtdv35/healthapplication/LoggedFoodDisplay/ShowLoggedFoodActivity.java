@@ -60,7 +60,7 @@ public class ShowLoggedFoodActivity extends AppCompatActivity{
             query = QueryBuilder.select(SelectResult.all())
                     .from(DataSource.database(db))
                     .where(Expression.property("type").equalTo(Expression.string("task-list")))
-                    .orderBy(Ordering.property("name").ascending());
+                    .orderBy(Ordering.property("meal_date").descending());
 
             // 2. Add a live query listener to continually monitor for changes
             query.addChangeListener(new QueryChangeListener() {

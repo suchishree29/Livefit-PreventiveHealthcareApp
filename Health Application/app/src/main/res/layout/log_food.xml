@@ -50,7 +50,6 @@
         android:layout_height="21dp"
         android:layout_weight="1"
         android:text="@string/meal_and_snacks_time"
-        android:textColorLink="@android:color/holo_blue_dark"
         android:textStyle="bold" />
 
     <Spinner
