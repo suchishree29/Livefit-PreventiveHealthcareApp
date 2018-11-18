@@ -50,7 +50,6 @@ public class LogFood extends AppCompatActivity {
     Product productLog;
     private Database db;
     String date,imgUrl,selectedMealCourse;
-    Boolean pressed = true;
 
     int year,day,month;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -210,7 +209,8 @@ public class LogFood extends AppCompatActivity {
                 query = QueryBuilder.select(SelectResult.all())
                         .from(DataSource.database(db))
                         .where(Expression.property("type").equalTo(Expression.string("daily-data"))
-                                .and(Expression.property("date").equalTo(Expression.string(date))));
+                                .and(Expression.property("date").equalTo(Expression.string(date)))
+                                .and(Expression.property("owner").equalTo(Expression.string(username))));
                 try {
                     ResultSet rs = query.execute();
 
@@ -275,28 +275,69 @@ public class LogFood extends AppCompatActivity {
                     AlertDialog alertDialog = new AlertDialog.Builder(LogFood.this).create();
                     alertDialog.setTitle("Alert");
                     alertDialog.setMessage("Total calories for the day has exceeded 600 limit. Do you still want to log this item?");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    pressed = true;
 
+                                    for (Product product : products) {
+                                        objectMapper = new ObjectMapper();
+                                        // Ignore undeclared properties
+                                        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+                                        HashMap<String, Object> productMap = objectMapper.convertValue(product, HashMap.class);
+
+                                        MutableDocument mDoc = new MutableDocument(productMap);
+
+                                        try {
+                                            db.save(mDoc);
+                                            Toast toast = Toast.makeText(getApplicationContext(),
+                                                    product + "product is logged successfully!", Toast.LENGTH_SHORT);
+                                            toast.show();
+                                        } catch (CouchbaseLiteException e) {
+                                            com.couchbase.lite.internal.support.Log.e(TAG, "Failed to save the doc - %s", e, mDoc);
+                                        }
+
+                                    }
+
+                                    DailyValues logDailyValue = new DailyValues();
+                                    if (dailyData == null)
+                                        dailyData = new DailyValues();
+
+                                    logDailyValue.setDate(date);
+                                    logDailyValue.setId(date);
+                                    logDailyValue.setTotalCalories(dailyCalories);
+                                    logDailyValue.setTotalFat(dailyFat);
+                                    logDailyValue.setTotalProtein(dailyProtein);
+                                    logDailyValue.setTotalSugar(dailySugar);
+                                    logDailyValue.setTotalSalt(dailySalt);
+                                    logDailyValue.setType("daily-data");
+                                    logDailyValue.setOwner(username);
+
+                                    objectMapper = new ObjectMapper();
+
+                                    HashMap<String, Object> dv = objectMapper.convertValue(logDailyValue, HashMap.class);
+                                    MutableDocument nDV = new MutableDocument(dv);
+                                    try {
+                                        db.save(nDV);
+                                    } catch (CouchbaseLiteException e) {
+                                        com.couchbase.lite.internal.support.Log.e(TAG, "Failed to save the doc - %s", e, nDV);
+                                    }
                                     dialog.dismiss();
 
 
                                 }
                             });
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Cancel",
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "No",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     //pressed = false;
-                                    pressed = false;
+
                                     dialog.dismiss();
                                 }
                             });
                     alertDialog.show();
                 }
-
-                if(pressed==true)
+                else
                 {
                     for (Product product : products) {
                         objectMapper = new ObjectMapper();
@@ -342,8 +383,10 @@ public class LogFood extends AppCompatActivity {
                         com.couchbase.lite.internal.support.Log.e(TAG, "Failed to save the doc - %s", e, nDV);
                     }
                 }
+
             }
         });
+
 
     }
 

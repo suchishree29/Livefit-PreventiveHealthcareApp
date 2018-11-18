@@ -58,22 +58,22 @@ public class NutrientLevels {
     }
 
     public void setHigh() {
-        if(getFat().equals("high"))
+        if(getFat() != null && getFat().equals("high"))
         {
             high = "fat ";
         }
 
-        if(getSalt().equals("high"))
+        if(getSalt()!= null && getSalt().equals("high"))
         {
             high = high + "Salt ";
         }
 
-        if(getSaturatedFat().equals("high"))
+        if(getSaturatedFat() != null && getSaturatedFat().equals("high"))
         {
             high = high + "saturated-fat ";
         }
 
-        if(getSugars().equals("high"))
+        if(getSugars() != null &&  getSugars().equals("high"))
         {
             high = high + "sugars ";
         }
