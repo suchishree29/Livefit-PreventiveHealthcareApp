@@ -84,8 +84,20 @@ public class LogFood extends AppCompatActivity {
         // Get Nutriments Object
         String productJson = "";
         Bundle extras = getIntent().getExtras();
+
+        String type ;
         if (extras != null) {
             productJson = extras.getString("products");
+            type = extras.getString("type");
+
+            if(type.equals("camera"))
+            {
+
+            }
+            else
+            {
+                productJson = extras.getString("products");
+            }
         }
 
         productLog = new Gson().fromJson(productJson, Product.class);
