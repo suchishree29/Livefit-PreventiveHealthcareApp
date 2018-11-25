@@ -131,7 +131,7 @@ public class WatsonScreen extends AppCompatActivity {
                 startActivity(userProfileIntent);
                 break;
             case R.id.action_log_food_camera:
-                Intent cameraIntent= new Intent(WatsonScreen.this,CameraFragment.class);
+                Intent cameraIntent= new Intent(WatsonScreen.this,CameraActivity.class);
                 startActivity(cameraIntent);
                 break;
 

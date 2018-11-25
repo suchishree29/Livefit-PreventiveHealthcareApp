@@ -53,7 +53,10 @@
 
         <activity android:name=".LoggedFoodDisplay.ShowLoggedFoodActivity" />
         <activity android:name=".Login.UserProfileActivity" />
+
         <receiver android:name=".Remind.util.TimeAlarm" />
+
+        <activity android:name=".Home.CameraActivity" />
 
         <receiver android:enabled="true" android:name=".Remind.util.BootUpReceiver"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
