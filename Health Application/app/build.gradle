@@ -58,8 +58,11 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.7.3'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
     if (nativeBuildSystem == 'cmake' || nativeBuildSystem == 'none') {
-        compile 'org.tensorflow:tensorflow-android:+'
+        implementation 'org.tensorflow:tensorflow-android:+'
     }
+    // Realm database
+    annotationProcessor 'io.realm:realm-android:0.84.1'
+    implementation 'io.realm:realm-android:0.84.1'
 }
 
 

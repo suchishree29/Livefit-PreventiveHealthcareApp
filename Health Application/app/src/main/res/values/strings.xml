@@ -70,5 +70,10 @@
         <item>Dinner</item>
     </string-array>
 
+    <string name="reminder_app_name">Set Reminder At</string>
+    <string name="title_activity_add_event">Add Event</string>
+    <string name="title_activity_events_listing">All Events</string>
+    <string name="Reminder">Reminder</string>
+
 
 </resources>

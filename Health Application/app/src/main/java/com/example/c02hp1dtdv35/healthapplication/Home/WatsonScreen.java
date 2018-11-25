@@ -23,6 +23,7 @@ import com.example.c02hp1dtdv35.healthapplication.Login.LoginActivity;
 import com.example.c02hp1dtdv35.healthapplication.Login.UserProfileActivity;
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.example.c02hp1dtdv35.healthapplication.Remind.RemindActivity;
+import com.example.c02hp1dtdv35.healthapplication.Remind.ReminderActivity;
 import com.example.c02hp1dtdv35.healthapplication.Watson.WatsonFragment;
 import com.example.c02hp1dtdv35.healthapplication.WeatherApi.WeatherActivity;
 
@@ -137,6 +138,10 @@ public class WatsonScreen extends AppCompatActivity {
             case R.id.action_food_barcode:
                 Intent barcodeScannerIntent= new Intent(WatsonScreen.this, BarcodeScannerActivity.class);
                 startActivity(barcodeScannerIntent);
+                break;
+            case R.id.action_remindActivity:
+                Intent reminderActIntent= new Intent(WatsonScreen.this, ReminderActivity.class);
+                startActivity(reminderActIntent);
                 break;
             case R.id.action_signout:
                 Intent signOutIntent= new Intent(WatsonScreen.this, LoginActivity.class);
