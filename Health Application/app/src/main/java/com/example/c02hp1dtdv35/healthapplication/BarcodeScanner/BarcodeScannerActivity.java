@@ -70,6 +70,7 @@ public class BarcodeScannerActivity extends AppCompatActivity implements View.On
                                 myIntent.putExtra("products",new Gson().toJson(product));
                                 myIntent.putExtra("nutriments", new Gson().toJson(nutriments));
                                 myIntent.putExtra("nutrientLevels", new Gson().toJson(nutrientLevels));
+                                myIntent.putExtra("type","camera");
                                 myIntent.putExtras(bundle);
                                 startActivity(myIntent);
                             } catch (Exception e) {

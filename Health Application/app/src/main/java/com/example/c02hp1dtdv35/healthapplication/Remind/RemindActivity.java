@@ -1,5 +1,6 @@
 package com.example.c02hp1dtdv35.healthapplication.Remind;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,9 +16,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.LogFood;
 import com.example.c02hp1dtdv35.healthapplication.Classifier;
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.example.c02hp1dtdv35.healthapplication.TensorFlowObjectDetectionAPIModel;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -124,5 +127,9 @@ public class RemindActivity extends AppCompatActivity {
             }
         }
         System.out.println();
+
+        Intent myIntent = new Intent(getApplicationContext(),LogFood.class);
+        myIntent.putExtra("products",new Gson().toJson(mappedRecognitions));
+        myIntent.putExtra("type","camera");
     }
 }
