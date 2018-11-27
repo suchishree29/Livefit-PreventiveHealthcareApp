@@ -31,6 +31,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.c02hp1dtdv35.healthapplication.Application;
+import com.example.c02hp1dtdv35.healthapplication.DataFetcher;
 import com.example.c02hp1dtdv35.healthapplication.Home.WatsonScreen;
 import com.example.c02hp1dtdv35.healthapplication.R;
 
@@ -222,6 +223,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void login() {
         Application application = (Application) getApplication();
+
 //        String name = nameInput.getText().toString();
 //        String pass = passwordInput.getText().toString();
         application.login("john", "pass");

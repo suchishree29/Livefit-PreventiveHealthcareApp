@@ -19,8 +19,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.c02hp1dtdv35.healthapplication.Application;
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.LogFood;
+import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.Product;
+import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.Products;
 import com.example.c02hp1dtdv35.healthapplication.Classifier;
+import com.example.c02hp1dtdv35.healthapplication.ImageUtils;
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.example.c02hp1dtdv35.healthapplication.Remind.RemindActivity;
 import com.example.c02hp1dtdv35.healthapplication.TensorFlowObjectDetectionAPIModel;
@@ -31,8 +35,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -161,6 +167,8 @@ public class CameraActivity extends AppCompatActivity {
 
         cropToFrameTransform = new Matrix();
 
+
+
         Bitmap cropCopyBitmap = Bitmap.createBitmap(thumbnail);
 //        final Canvas canvas1 = new Canvas(cropCopyBitmap);
         final Paint paint = new Paint();
@@ -178,6 +186,13 @@ public class CameraActivity extends AppCompatActivity {
         final List<Classifier.Recognition> mappedRecognitions =
                 new LinkedList<Classifier.Recognition>();
 
+
+        Application application = (Application) getApplication();
+
+        List<Product> prods = new ArrayList<>();
+
+
+        Map<String, Product> mProds = application.getProducts();
         for (final Classifier.Recognition result : results) {
             final RectF location = result.getLocation();
             if (location != null && result.getConfidence() >= minimumConfidence) {
@@ -188,13 +203,23 @@ public class CameraActivity extends AppCompatActivity {
                 cropToFrameTransform.mapRect(location);
                 result.setLocation(location);
                 mappedRecognitions.add(result);
+
+                if(mProds.containsKey("Apple"))
+                {
+                    prods.add(mProds.get(result.getTitle()));
+                }
             }
         }
 
         System.out.println();
 
-//        Intent myIntent = new Intent(getApplicationContext(),LogFood.class);
-//        myIntent.putExtra("products",new Gson().toJson(product));
+        Products products = new Products();
+        products.setProductList(prods);
+
+        Intent myIntent = new Intent(getApplicationContext(),LogFood.class);
+        myIntent.putExtra("productsCamera",new Gson().toJson(products));
+        myIntent.putExtra("products",new Gson().toJson(mProds.get("Apple")));
+        myIntent.putExtra("type","camera");
     }
 
 }

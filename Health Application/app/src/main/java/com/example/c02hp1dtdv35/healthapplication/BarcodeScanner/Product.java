@@ -13,6 +13,21 @@ public class Product {
     private String nutritionScoreDebug;
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        return productName != null ? productName.equals(product.productName) : product.productName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return productName != null ? productName.hashCode() : 0;
+    }
+
     public Product(NutrientLevels nutrientLevels, String nutritionScoreDebug, Nutriments nutriments, String allergens, String imageSmallUrl, String nutritionGradeFr, String productName, String servingSize, String nutritionGrades, String type, String owner, String meal_course, String meal_date) {
         this.nutrientLevels = nutrientLevels;
         this.nutritionScoreDebug = nutritionScoreDebug;
@@ -26,11 +41,11 @@ public class Product {
         this.type = type;
         this.owner = owner;
         this.meal_course = meal_course;
+
         this.meal_date = meal_date;
     }
 
     @SerializedName("nutriments")
-
     @Expose
     private Nutriments nutriments;
     @SerializedName("allergens")
@@ -66,7 +81,6 @@ public class Product {
     }
 
     @SerializedName("product_name")
-
     @Expose
     private String productName;
     @SerializedName("serving_size")
