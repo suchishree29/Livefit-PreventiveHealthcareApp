@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_weight="1"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context="com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.LogFood">
 
 <LinearLayout
     android:layout_width="match_parent"

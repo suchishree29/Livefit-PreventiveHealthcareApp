@@ -48,15 +48,11 @@
                     android:layout_height="wrap_content"
 
                     />
-
-
                 <Spinner
                     android:id="@+id/heightspinner2"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-
                     />
-
             </LinearLayout>
 
             <AutoCompleteTextView
@@ -132,15 +128,7 @@
                     android:layout_height="wrap_content" />
 
             </android.support.design.widget.TextInputLayout>
-<!--
-            <EditText
-                android:id="@+id/editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="test" />
--->
+
             <Button
                 android:id="@+id/save"
                 style="?android:textAppearanceSmall"
@@ -151,7 +139,6 @@
                 android:background="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
                 android:text="save"
                 android:textStyle="bold" />
-
 
         </LinearLayout>
     </ScrollView>

@@ -18,7 +18,7 @@ public class ShowReminderMessage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_msg);
 
-        txvMsg = (TextView)findViewById(R.id.reminder_msg);
+        txvMsg = findViewById(R.id.reminder_msg);
 
         Bundle extras = getIntent().getExtras();
         String msg = extras.getString("ReminderMsg");
