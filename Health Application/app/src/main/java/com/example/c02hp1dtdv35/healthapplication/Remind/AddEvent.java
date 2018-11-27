@@ -56,11 +56,11 @@ public class AddEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
 
-        edtEvent = (EditText)findViewById(R.id.event);
-        edtTime = (EditText)findViewById(R.id.time);
-        edtDate = (EditText)findViewById(R.id.date);
-        btnDone = (Button)findViewById(R.id.button);
-        rlSpeak = (RelativeLayout)findViewById(R.id.speak);
+        edtEvent = findViewById(R.id.event);
+        edtTime = findViewById(R.id.time);
+        edtDate = findViewById(R.id.date);
+        btnDone = findViewById(R.id.button);
+        rlSpeak = findViewById(R.id.speak);
 
 
         rlSpeak.setOnClickListener(new View.OnClickListener() {
@@ -171,16 +171,10 @@ public class AddEvent extends AppCompatActivity {
 
                     Toast.makeText(getBaseContext(), "Reminder Set for new Event", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(getBaseContext(), ReminderActivity.class));
-
-
                 }
-
-
                 else{
                     Toast.makeText(getBaseContext(), "Fill Up The Input fields", Toast.LENGTH_LONG).show();
                 }
-
-
             }
         });
 
