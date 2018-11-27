@@ -40,6 +40,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 public class LogFood extends AppCompatActivity {
 
@@ -79,7 +80,7 @@ public class LogFood extends AppCompatActivity {
         // Get Nutriments Object
         String productJson = "";
         Bundle extras = getIntent().getExtras();
-
+        List<Product> productsFromCamera;
         String type ;
         if (extras != null) {
             productJson = extras.getString("products");
@@ -87,42 +88,49 @@ public class LogFood extends AppCompatActivity {
 
             if(type.equals("camera"))
             {
-
+                productJson = extras.getString("productsCamera");
+                Products ps = new Gson().fromJson(productJson, Products.class);
+                products.addAll(ps.getProductList());
             }
             else
             {
                 productJson = extras.getString("products");
+                productLog = new Gson().fromJson(productJson, Product.class);
+
+                if(productLog.getNutriments().getEnergyValue() == null )
+                {
+                    productLog.getNutriments().setEnergyValue("0");
+                }
+
+                if(productLog.getNutriments().getFat() == null )
+                {
+                    productLog.getNutriments().setFat("0");
+                }
+                if(productLog.getNutriments().getProteins() == null )
+                {
+                    productLog.getNutriments().setProteins("0");
+                }
+                if(productLog.getNutriments().getSugars() == null )
+                {
+                    productLog.getNutriments().setSugars("0");
+                }
+
+                if(productLog.getNutriments().getSalt() == null )
+                {
+                    productLog.getNutriments().setSalt("0");
+                }
+                
+                products.add(productLog);
             }
         }
 
-        productLog = new Gson().fromJson(productJson, Product.class);
-        //Code for populating Recycler View
-        // Initialize products
 
-        if(productLog.getNutriments().getEnergyValue() == null )
-        {
-            productLog.getNutriments().setEnergyValue("0");
-        }
+//        Code for populating Recycler View
+//         Initialize products
 
-        if(productLog.getNutriments().getFat() == null )
-        {
-            productLog.getNutriments().setFat("0");
-        }
-        if(productLog.getNutriments().getProteins() == null )
-        {
-            productLog.getNutriments().setProteins("0");
-        }
-        if(productLog.getNutriments().getSugars() == null )
-        {
-            productLog.getNutriments().setSugars("0");
-        }
 
-        if(productLog.getNutriments().getSalt() == null )
-        {
-            productLog.getNutriments().setSalt("0");
-        }
 
-        products.add(productLog);
+
         // Create adapter passing in the products data
         ProductsAdapter adapter = new ProductsAdapter(products);
 

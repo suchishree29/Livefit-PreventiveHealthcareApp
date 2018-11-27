@@ -2,6 +2,7 @@ package com.example.c02hp1dtdv35.healthapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Handler;
 import android.support.multidex.MultiDex;
 import android.widget.Toast;
@@ -17,11 +18,21 @@ import com.couchbase.lite.ReplicatorChangeListener;
 import com.couchbase.lite.ReplicatorConfiguration;
 import com.couchbase.lite.URLEndpoint;
 import com.couchbase.lite.internal.support.Log;
+import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.Product;
 import com.example.c02hp1dtdv35.healthapplication.Home.WatsonScreen;
 import com.example.c02hp1dtdv35.healthapplication.Login.LoginActivity;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
@@ -30,7 +41,7 @@ public interface ReplicatorChangeListener {
     void changed(ReplicatorChange change);
 }
  */
-public class Application extends android.app.Application implements ReplicatorChangeListener {
+public class Application extends android.app.Application implements ReplicatorChangeListener, IDataFetchResponse {
 
     private static final String TAG = Application.class.getSimpleName();
 
@@ -46,6 +57,8 @@ public class Application extends android.app.Application implements ReplicatorCh
 
     private Database backup = null;
     private Replicator backupReplicator = null;
+
+    private Map<String, Product> sampleData =new HashMap<>();;
 
     @Override
     public void onCreate() {
@@ -64,6 +77,10 @@ public class Application extends android.app.Application implements ReplicatorCh
 
     public Database getDatabase() {
         return database;
+    }
+
+    public Map<String, Product> getProducts() {
+        return sampleData;
     }
 
     public String getUsername() {
@@ -98,6 +115,41 @@ public class Application extends android.app.Application implements ReplicatorCh
 
     public void login(String username, String password) {
         this.username = username;
+//        DataFetcher fetcher = new DataFetcher(this,this);
+//        fetcher.execute();
+        String fileName = "university_sample.txt";
+        AssetManager assetManager = getAssets();
+
+
+
+
+        StringBuilder stringBuilder = new StringBuilder();
+        List<Product> universities = null;
+
+        Map<String, Product> mProds = new HashMap<>();
+        try {
+            // 1. Load data from local sample data file
+            InputStream inputStream = assetManager.open(fileName);
+            // 2. use Jackson library to map the JSON to List of University POJO
+            ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false).setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+            universities = Arrays.asList(mapper.readValue(inputStream, Product[].class));
+
+            for (Product prod: universities)
+            {
+                mProds.put(prod.getProductName(), prod);
+            }
+            // return universities;
+           // return mProds;
+            sampleData = mProds;
+        } catch (IOException e ) {
+            e.printStackTrace();
+           // return null;
+        }
+        catch (Exception e ) {
+            e.printStackTrace();
+            // return null;
+        }
+
         startSession(username, password);
     }
 
@@ -244,6 +296,18 @@ public class Application extends android.app.Application implements ReplicatorCh
             Toast.makeText(getApplicationContext(), "Authentication Error: Your username or password is not correct.", Toast.LENGTH_LONG).show();
             logout();
         }
+
+    }
+
+    @Override public void postResult(Map<String, Product> jsonData) {
+        // Store the JSON data that is loaded from assets file .
+        // This data will inserted into the Couchbase Lite DB whenever
+        // a request to "fetch data" is made by the user in order to simulate
+        // database updates
+        sampleData = jsonData;
+
+        // Initialize Query to fetch documents
+        //QueryForListOfUniversities();
 
     }
 
