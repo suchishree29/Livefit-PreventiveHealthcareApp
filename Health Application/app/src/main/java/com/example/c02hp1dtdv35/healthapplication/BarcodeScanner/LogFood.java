@@ -3,6 +3,8 @@ package com.example.c02hp1dtdv35.healthapplication.BarcodeScanner;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -72,11 +74,6 @@ public class LogFood extends AppCompatActivity {
         RecyclerView rvProducts = findViewById(R.id.rvProducts);
         logBtn = findViewById(R.id.logBtn);
 
-        //Get the bundle
-        Bundle bundle = getIntent().getExtras();
-        imgUrl = bundle.getString("product_image");
-        Picasso.get().load(imgUrl).into(prodImg);
-
         // Get Nutriments Object
         String productJson = "";
         Bundle extras = getIntent().getExtras();
@@ -88,12 +85,21 @@ public class LogFood extends AppCompatActivity {
 
             if(type.equals("camera"))
             {
+                byte[] byteArray = getIntent().getByteArrayExtra("product_image");
+                Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                prodImg.setImageBitmap(bmp);
+
                 productJson = extras.getString("productsCamera");
                 Products ps = new Gson().fromJson(productJson, Products.class);
                 products.addAll(ps.getProductList());
             }
             else
             {
+                //Get the bundle
+                Bundle bundle = getIntent().getExtras();
+                imgUrl = bundle.getString("product_image");
+                Picasso.get().load(imgUrl).into(prodImg);
+
                 productJson = extras.getString("products");
                 productLog = new Gson().fromJson(productJson, Product.class);
 

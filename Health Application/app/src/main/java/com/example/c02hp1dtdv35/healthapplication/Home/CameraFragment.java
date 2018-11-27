@@ -364,6 +364,12 @@ public class CameraFragment extends Fragment {
         products.setProductList(prods);
 
         Intent myIntent = new Intent(getActivity(),LogFood.class);
+        //Convert to byte array
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        thumbnail.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+
+        myIntent.putExtra("product_image", byteArray);
         myIntent.putExtra("productsCamera",new Gson().toJson(products));
         myIntent.putExtra("products",new Gson().toJson(mProds.get("Apple")));
         myIntent.putExtra("type","camera");
