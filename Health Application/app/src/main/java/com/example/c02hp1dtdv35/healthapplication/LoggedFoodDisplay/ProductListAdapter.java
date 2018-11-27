@@ -53,7 +53,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             });
         }
     }
-    
+
     private Context mContext;
 
     public ProductListAdapter(Context context) {
