@@ -21,20 +21,18 @@ import com.example.c02hp1dtdv35.healthapplication.Application;
 import com.example.c02hp1dtdv35.healthapplication.Home.WatsonScreen;
 import com.example.c02hp1dtdv35.healthapplication.R;
 
-import java.util.ArrayList;
 
 public class UserProfileActivity extends AppCompatActivity {
 
 
-    EditText height, weight, Bloodglucose, Cholestrol;
+    EditText weight, Bloodglucose, Cholesterol, firstName, lastName, emailId;
     Switch Switch1,Switch2;
-    private Spinner spinner;
-    ArrayList<Login> loginArrayList=new ArrayList<>();
-    String[] diseases_array = {"High Blood Pressure", "Low Blood Pressure", "Diabetes", "Cholestrol"};
+    String[] diseases_array = {"High Blood Pressure", "Low Blood Pressure", "Diabetes", "Cholesterol"};
     String[] heightarray1 = {"1","2","3","4","5","6","7","8"};
     String[] heightarray2 = {"1","2","3","4","5","6","7","8","9","10","11"};
+    String[] allergens_array = {"Eggs", "Milk", "Peanuts", "Fish", "Wheat", "Soy"};
     private Database db;
-    String diseases, Height, Weight,bloodglucose,cholestrol,heightfoot,heightinches;
+    String diseases,allergens,Weight,bloodglucose,cholesterol,heightfoot,heightinches;
     private static final String TAG = UserProfileActivity.class.getSimpleName();
 
 
@@ -42,53 +40,49 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        weight = findViewById(R.id.Weight);
+        firstName = findViewById(R.id.firstNameTxt);
+        lastName = findViewById(R.id.lastNameTxt);
+        emailId = findViewById(R.id.emailTxt);
 
+        Switch1 =  findViewById(R.id.switch1);
+        Switch2 = findViewById(R.id.switch2);
 
-        // height = (EditText) findViewById(R.id.Height);
-
-        weight = (EditText) findViewById(R.id.Weight);
-
-        Switch1 = (Switch) findViewById(R.id.switch1);
-        Switch2 = (Switch) findViewById(R.id.switch2);
-
-        Bloodglucose = (EditText) findViewById(R.id.bloodglucose);
-        Cholestrol = (EditText) findViewById(R.id.cholestrol);
-
-
+        Bloodglucose = findViewById(R.id.bloodglucose);
+        Cholesterol = findViewById(R.id.cholesterol);
 
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter adapter =  new ArrayAdapter(this,android.R.layout.simple_spinner_item,diseases_array);
-// Specify the layout to use when the list of choices appears
+        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
+        // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+
+        final Spinner allergensSpinner = findViewById(R.id.alergensSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter allergensAdapter =  new ArrayAdapter(this,android.R.layout.simple_spinner_item,allergens_array);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        allergensSpinner.setAdapter(allergensAdapter);
+
 
         final Spinner heightspinner1 = (Spinner) findViewById(R.id.heightspinner1);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter adapter1 =  new ArrayAdapter(this,android.R.layout.simple_spinner_item,heightarray1);
-// Specify the layout to use when the list of choices appears
+        // Specify the layout to use when the list of choices appears
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
+        // Apply the adapter to the spinner
         heightspinner1.setAdapter(adapter1);
 
         final Spinner heightspinner2 = (Spinner) findViewById(R.id.heightspinner2);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter adapter2 =  new ArrayAdapter(this,android.R.layout.simple_spinner_item,heightarray2);
-// Specify the layout to use when the list of choices appears
+        // Specify the layout to use when the list of choices appears
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
+        // Apply the adapter to the spinner
         heightspinner2.setAdapter(adapter2);
 
         Button button = (Button) findViewById(R.id.save);
@@ -113,9 +107,10 @@ public class UserProfileActivity extends AppCompatActivity {
                 //Height = height.getText().toString();
                 Weight = weight.getText().toString();
                 bloodglucose = Bloodglucose.getText().toString();
-                cholestrol = Cholestrol.getText().toString();
+                cholesterol = Cholesterol.getText().toString();
 
                 diseases = spinner.getSelectedItem().toString();
+                allergens = allergensSpinner.getSelectedItem().toString();
                 heightfoot = heightspinner1.getSelectedItem().toString();
                 heightinches = heightspinner2.getSelectedItem().toString();
 
@@ -127,11 +122,10 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 if (db == null) throw new IllegalArgumentException();
                 MutableDocument mDoc = new MutableDocument();
-                mDoc.setString("height in foot",heightfoot);
-                mDoc.setString("height in inches",heightinches);
+                mDoc.setString("height",heightfoot + " " + heightinches);
                 mDoc.setString("weight",Weight);
                 mDoc.setString("bloodglucose",bloodglucose);
-                mDoc.setString("cholestrol", cholestrol);
+                mDoc.setString("cholesterol", cholesterol);
                 mDoc.setString("diseases", diseases);
                 mDoc.setString("Smoking", statusSwitch1);
                 mDoc.setString("Alcoholic", statusSwitch2);
@@ -141,7 +135,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     db.save(mDoc);
 
                     Toast toast = Toast.makeText(getApplicationContext(),
-                            height + "details are added successfully!", Toast.LENGTH_SHORT);
+                            "Details are added successfully!", Toast.LENGTH_SHORT);
                     toast.show();
 
                     Intent i = new Intent(UserProfileActivity.this,WatsonScreen.class);
@@ -152,72 +146,6 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-/*
-        private void SignUpApiCall() {
-            // get & set progressbar dialog
-            //ShowDialog();
-            ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-
-            String json = "[{\"User_FirstName\":\"" + et_signup_firstname.getText().toString().trim() + "\"," +
-                    "\"User_LastName\":\"" + et_signup_lastname.getText().toString().trim() + "\"," +
-                    "\"User_ScreenName\":\"" + et_signup_screenname.getText().toString().trim() + "\"," +
-                    "\"User_Email\":\"" + et_signup_email.getText().toString().trim() + "\"," +
-                    "\"User_Password\":\"" + et_signup_pswd.getText().toString().trim() + "\"," +
-                    "\"User_Latitude\":\"1234561\"," +
-                    "\"User_Longitude\":\"1234561\"," +
-                    "\"User_Device_Type\":\"android\"," +
-                    "\"User_Device_ID\":\"cxczxczxxcczxcxz\"," +
-                    "\"api_type\":\"android\"," +
-                    "\"api_userid\":\"\"," +
-                    "\"Version\":\"1\"}]";
-            CustomLog.d("System out", "sign up json___" + json);
-            Call<ArrayList<SignUp>> call = apiService.signUp(json);
-            call.enqueue(new Callback<ArrayList<SignUp>>() {
-                @Override
-                public void onResponse(Call<ArrayList<SignUp>> call, Response<ArrayList<SignUp>> response) {
-                    if (response.body() != null) {
-                        DismissDialog();
-                        if (response.body().get(0).getStatus().equalsIgnoreCase("true")) {
-
-                            Constants.snackbar(getActivity(), ll_main, "" + response.body().get(0).getMessage());
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        Thread.sleep(1500);
-                                        (getActivity()).runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                ((MainActivity) getActivity()).replace_fragmnet(new LoginFragment());
-                                            }
-                                        });
-                                    } catch (Exception e) {
-                                        CustomLog.w("Exception in thread", ""+e);
-                                    }
-
-                                }
-                            }).start();
-
-                        } else {
-                            //Constants.snackbar(getActivity(), ll_main, "" + response.body().get(0).getMessage());
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ArrayList<SignUp>> call, Throwable t) {
-                    //Constants.snackbar(getActivity(), ll_main, "" + getResources().getString(R.string.server_error));
-
-                }
-            });
-
-        }
-
-*/
 
     }
 }

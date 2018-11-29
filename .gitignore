@@ -2,3 +2,9 @@
 .idea/*
 .DS_Store
 Health Application/.idea/*
+.DS_Store
+Health Application/.idea/codeStyles/Project.xml
+Health Application/.idea/misc.xml
+Health Application/.idea/gradle.xml
+Health Application/.idea/runConfigurations.xml
+Health Application/.idea/modules.xml

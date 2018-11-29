@@ -85,10 +85,14 @@ public class LogFood extends AppCompatActivity {
 
             if(type.equals("camera"))
             {
-                byte[] byteArray = getIntent().getByteArrayExtra("product_image");
-                Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                prodImg.setImageBitmap(bmp);
 
+                byte[] byteArray = getIntent().getByteArrayExtra("product_image");
+                if(byteArray != null) {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                    if(bmp != null) {
+                        prodImg.setImageBitmap(bmp);
+                    }
+                }
                 productJson = extras.getString("productsCamera");
                 Products ps = new Gson().fromJson(productJson, Products.class);
                 products.addAll(ps.getProductList());
