@@ -56,7 +56,8 @@
 
         <receiver android:name=".Remind.util.TimeAlarm" />
 
-        <activity android:name=".Home.CameraActivity" />
+        <activity android:name=".Home.DetectorActivity"
+            android:screenOrientation="portrait"/>
 
         <receiver android:enabled="true" android:name=".Remind.util.BootUpReceiver"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">

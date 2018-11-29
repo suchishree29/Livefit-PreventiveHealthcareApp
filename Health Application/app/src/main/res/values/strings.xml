@@ -75,5 +75,9 @@
     <string name="title_activity_events_listing">All Events</string>
     <string name="Reminder">Reminder</string>
 
+    <string name="description_info">Info</string>
+    <string name="request_permission">This sample needs camera permission.</string>
+    <string name="camera_error">This device doesn\'t support Camera2 API.</string>
+
 
 </resources>
