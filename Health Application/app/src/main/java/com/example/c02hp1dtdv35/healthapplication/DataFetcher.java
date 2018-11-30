@@ -33,7 +33,7 @@ public class DataFetcher extends AsyncTask<Void,Void,Map<String, Product>> {
 
     @Override
     protected Map<String, Product> doInBackground(Void... voids) {
-        String fileName = "university_sample.txt";
+        String fileName = "cached_products.txt";
         StringBuilder stringBuilder = new StringBuilder();
         List<Product> universities = null;
 

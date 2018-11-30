@@ -114,14 +114,14 @@ public class WatsonScreen extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
-            case R.id.action_weatherApi:
-                Intent weatherIntent= new Intent(WatsonScreen.this, WeatherActivity.class);
-                startActivity(weatherIntent);
-                break;
-            case R.id.action_remind:
-                Intent reminderIntent= new Intent(WatsonScreen.this, RemindActivity.class);
-                startActivity(reminderIntent);
-                break;
+//            case R.id.action_weatherApi:
+//                Intent weatherIntent= new Intent(WatsonScreen.this, WeatherActivity.class);
+//                startActivity(weatherIntent);
+//                break;
+//            case R.id.action_remind:
+//                Intent reminderIntent= new Intent(WatsonScreen.this, RemindActivity.class);
+//                startActivity(reminderIntent);
+//                break;
             case R.id.action_get_logs:
                 Intent foodLogsIntent= new Intent(WatsonScreen.this, ShowLoggedFoodActivity.class);
                 startActivity(foodLogsIntent);
