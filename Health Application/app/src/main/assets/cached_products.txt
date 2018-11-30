@@ -37,7 +37,7 @@
       "sugars_unit": "g",
       "iron_value": "6",
       "trans-fat_100g": "0",
-      "energy_value": "220",
+      "energy_value": "95",
       "cholesterol_unit": "mg",
       "energy_serving": "920",
       "vitamin-c_100g": "0",
@@ -80,7 +80,7 @@
       "carbohydrates_100g": "70.7",
       "nutrition-score-uk_100g": 15,
       "salt_100g": "2.06",
-      "energy": "920",
+      "energy": "95",
       "vitamin-a_unit": "% DV",
       "calcium_100g": "0.103",
       "sodium_serving": "0.47",
@@ -97,10 +97,10 @@
       "carbohydrates_unit": "g",
       "energy-from-fat": "105"
     },
-    "allergens": "wheat, whey, milkfat, milk",
+    "allergens": "",
     "nutrition_grade_fr": "d",
     "product_name": "apple",
-    "serving_size": "58 g",
+    "serving_size": "182 g",
     "nutrition_grades": "d"
   },
   {
@@ -142,9 +142,9 @@
         "sugars_unit": "g",
         "iron_value": "6",
         "trans-fat_100g": "0",
-        "energy_value": "220",
+        "energy_value": "45",
         "cholesterol_unit": "mg",
-        "energy_serving": "920",
+        "energy_serving": "45",
         "vitamin-c_100g": "0",
         "iron": "0.00108",
         "trans-fat_serving": "0",
@@ -202,10 +202,10 @@
         "carbohydrates_unit": "g",
         "energy-from-fat": "105"
       },
-      "allergens": "wheat, whey, milkfat, milk",
+      "allergens": " ",
       "nutrition_grade_fr": "d",
       "product_name": "orange",
-      "serving_size": "100 g",
+      "serving_size": "96 g",
       "nutrition_grades": "d"
     },
     {
@@ -247,7 +247,7 @@
           "sugars_unit": "g",
           "iron_value": "6",
           "trans-fat_100g": "0",
-          "energy_value": "220",
+          "energy_value": "105",
           "cholesterol_unit": "mg",
           "energy_serving": "920",
           "vitamin-c_100g": "0",
@@ -307,9 +307,9 @@
           "carbohydrates_unit": "g",
           "energy-from-fat": "105"
         },
-        "allergens": "wheat, whey, milkfat, milk",
+        "allergens": " ",
         "nutrition_grade_fr": "d",
         "product_name": "banana",
-        "serving_size": "200 g",
+        "serving_size": "118 g",
         "nutrition_grades": "d"
       }]

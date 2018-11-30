@@ -2,6 +2,7 @@ package com.example.c02hp1dtdv35.healthapplication.BarcodeScanner;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,6 +95,7 @@ public class ProductsAdapter extends
             String high = productItem.getNutrientLevels().getHigh();
             if(!high.isEmpty())
                 viewHolder.nutrimentsHigh.setText("High : " + high);
+                viewHolder.nutrimentsHigh.setTextColor(Color.RED);
 
         }
 

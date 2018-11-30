@@ -43,9 +43,9 @@
         <activity
             android:name=".Home.WatsonScreen"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".WeatherApi.WeatherActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <!--<activity-->
+            <!--android:name=".WeatherApi.WeatherActivity"-->
+            <!--android:theme="@style/AppTheme.NoActionBar" />-->
         <activity android:name=".Remind.RemindActivity" />
         <activity android:name=".BarcodeScanner.BarcodeScannerActivity" />
         <activity android:name=".BarcodeScanner.LogFood" />

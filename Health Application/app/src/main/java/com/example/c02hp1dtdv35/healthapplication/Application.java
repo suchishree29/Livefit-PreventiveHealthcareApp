@@ -1,10 +1,8 @@
 package com.example.c02hp1dtdv35.healthapplication;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Handler;
-import android.support.multidex.MultiDex;
 import android.widget.Toast;
 
 import com.couchbase.lite.BasicAuthenticator;
@@ -117,7 +115,7 @@ public class Application extends android.app.Application implements ReplicatorCh
         this.username = username;
 //        DataFetcher fetcher = new DataFetcher(this,this);
 //        fetcher.execute();
-        String fileName = "university_sample.txt";
+        String fileName = "cached_products.txt";
         AssetManager assetManager = getAssets();
 
 

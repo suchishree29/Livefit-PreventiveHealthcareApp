@@ -5,15 +5,15 @@
 
 
 
-    <item
-        android:id="@+id/action_weatherApi"
-        android:title="@string/action_watherApi"
-        app:showAsAction="never" />
+    <!--<item-->
+        <!--android:id="@+id/action_weatherApi"-->
+        <!--android:title="@string/action_watherApi"-->
+        <!--app:showAsAction="never" />-->
 
-    <item
-        android:id="@+id/action_remind"
-        android:title="@string/action_reminder"
-        app:showAsAction="never" />
+    <!--<item-->
+        <!--android:id="@+id/action_remind"-->
+        <!--android:title="@string/action_reminder"-->
+        <!--app:showAsAction="never" />-->
 
     <item
         android:id="@+id/action_log_food_camera"

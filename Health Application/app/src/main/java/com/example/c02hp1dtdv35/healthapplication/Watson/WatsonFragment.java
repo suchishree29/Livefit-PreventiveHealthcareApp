@@ -107,7 +107,7 @@ public class WatsonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.activity_watson_screen, container, false);
-        watsonUserInput=view.findViewById(R.id.watsonUserInput);
+        //watsonUserInput=view.findViewById(R.id.watsonUserInput);
 
 //        mContext = getActivity().getApplicationContext();
 //        conversation_username = mContext.getString(R.string.conversation_username);
