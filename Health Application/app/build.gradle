@@ -63,6 +63,8 @@ dependencies {
     // Realm database
     annotationProcessor 'io.realm:realm-android:0.84.1'
     implementation 'io.realm:realm-android:0.84.1'
+
+    implementation 'com.github.pratikbutani:MultiSelectSpinner:08d324c98'
 }
 
 
