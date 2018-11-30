@@ -22,7 +22,7 @@
 
     <item
         android:id="@+id/action_userprofile"
-        android:title="User Profile"
+        android:title="USER PROFILE"
 
         app:showAsAction="never" />
 
