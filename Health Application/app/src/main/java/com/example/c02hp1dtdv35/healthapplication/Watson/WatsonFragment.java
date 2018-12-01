@@ -21,6 +21,9 @@ import com.ibm.watson.developer_cloud.android.library.audio.MicrophoneInputStrea
 import com.ibm.watson.developer_cloud.android.library.audio.StreamPlayer;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -106,7 +109,7 @@ public class WatsonFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.activity_watson_screen, container, false);
+        View view = inflater.inflate(R.layout.watson_fragment, container, false);
         //watsonUserInput=view.findViewById(R.id.watsonUserInput);
 
 //        mContext = getActivity().getApplicationContext();
@@ -119,9 +122,20 @@ public class WatsonFragment extends Fragment {
 //        TTS_password = mContext.getString(R.string.TTS_password);
 //        analytics_APIKEY = mContext.getString(R.string.mobileanalytics_apikey);
 
+        GraphView graph = view.findViewById(R.id.graph);
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+                new DataPoint(0, 1),
+                new DataPoint(1, 5),
+                new DataPoint(2, 3),
+                new DataPoint(3, 2),
+                new DataPoint(4, 6)
+        });
+        graph.addSeries(series);
 
+        return view;
 
-        return inflater.inflate(R.layout.watson_fragment, container, false);
+        //return inflater.inflate(R.layout.watson_fragment, container, false);
+
 
     }
 //    private void analytics(){
