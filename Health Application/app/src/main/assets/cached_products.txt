@@ -1,7 +1,7 @@
 [{
     "nutrient_levels": {
       "fat": "moderate",
-      "salt": "high",
+      "salt": "moderate",
       "saturated-fat": "moderate",
       "sugars": "moderate"
     },
@@ -106,7 +106,7 @@
   {
       "nutrient_levels": {
         "fat": "moderate",
-        "salt": "high",
+        "salt": "moderate",
         "saturated-fat": "moderate",
         "sugars": "moderate"
       },
@@ -211,7 +211,7 @@
     {
         "nutrient_levels": {
           "fat": "moderate",
-          "salt": "high",
+          "salt": "moderate",
           "saturated-fat": "moderate",
           "sugars": "moderate"
         },
