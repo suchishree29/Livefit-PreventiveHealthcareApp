@@ -7,15 +7,24 @@ import android.widget.Toast;
 
 import com.couchbase.lite.BasicAuthenticator;
 import com.couchbase.lite.CouchbaseLiteException;
+import com.couchbase.lite.DataSource;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.DatabaseConfiguration;
+import com.couchbase.lite.Dictionary;
 import com.couchbase.lite.Endpoint;
+import com.couchbase.lite.Expression;
+import com.couchbase.lite.Query;
+import com.couchbase.lite.QueryBuilder;
 import com.couchbase.lite.Replicator;
 import com.couchbase.lite.ReplicatorChange;
 import com.couchbase.lite.ReplicatorChangeListener;
 import com.couchbase.lite.ReplicatorConfiguration;
+import com.couchbase.lite.Result;
+import com.couchbase.lite.ResultSet;
+import com.couchbase.lite.SelectResult;
 import com.couchbase.lite.URLEndpoint;
 import com.couchbase.lite.internal.support.Log;
+import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.DailyValues;
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.Product;
 import com.example.c02hp1dtdv35.healthapplication.Home.WatsonScreen;
 import com.example.c02hp1dtdv35.healthapplication.Login.LoginActivity;
@@ -28,6 +37,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +57,7 @@ public class Application extends android.app.Application implements ReplicatorCh
     private final static boolean SYNC_ENABLED = true;
 
     private final static String DATABASE_NAME = "staging";
-    private final static String SYNCGATEWAY_URL = "ws://10.0.0.220:4984/staging";
+    private final static String SYNCGATEWAY_URL = "ws://ec2-34-209-114-84.us-west-2.compute.amazonaws.com:4984/staging";
 
     private Database database = null;
     private Replicator replicator;
@@ -56,7 +66,9 @@ public class Application extends android.app.Application implements ReplicatorCh
     private Database backup = null;
     private Replicator backupReplicator = null;
 
-    private Map<String, Product> sampleData =new HashMap<>();;
+    private DailyValues dailyDataOnLoad =null;
+
+    private Map<String, Product> sampleData =new HashMap<>();
 
     @Override
     public void onCreate() {
@@ -92,11 +104,8 @@ public class Application extends android.app.Application implements ReplicatorCh
         openDatabase(username);
         this.username = username;
         startReplication(username, password);
-
         localBackup(username);
-
-        // TODO: After authenticated, move to next screen
-        showApp();
+        //showApp();
     }
 
     // show loginUI
@@ -118,6 +127,52 @@ public class Application extends android.app.Application implements ReplicatorCh
         String fileName = "cached_products.txt";
         AssetManager assetManager = getAssets();
 
+        startSession(username, password);
+
+
+        int year,day,month;
+        String date;
+        DailyValues dailyData =null;
+
+        Double totalCalories =0.0, totalSugar=0.0,totalFat=0.0, totalProtein=0.0,totalSalt=0.0;
+
+        Calendar cal = Calendar.getInstance();
+        year = cal.get(Calendar.YEAR);
+        month = cal.get(Calendar.MONTH);
+        day = cal.get(Calendar.DAY_OF_MONTH);
+
+        date = (month+1) +"/" + day + "/" + year;
+        Query query;   query = QueryBuilder.select(SelectResult.all())
+                .from(DataSource.database(database))
+                .where(Expression.property("type").equalTo(Expression.string("daily-data"))
+                        .and(Expression.property("date").equalTo(Expression.string(date)))
+                        .and(Expression.property("owner").equalTo(Expression.string(username))));
+        try {
+            ResultSet rs = query.execute();
+
+            Result row;
+
+            while ((row = rs.next()) != null) {
+                ObjectMapper objectMapper = new ObjectMapper();
+                // Ignore undeclared properties
+                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                Dictionary valueMap = row.getDictionary(database.getName());
+
+                dailyData = objectMapper.convertValue(valueMap.toMap(),DailyValues.class);
+                totalCalories += dailyData.getTotalCalories();
+                totalFat+= dailyData.getTotalFat();
+                totalProtein += dailyData.getTotalProtein();
+                totalSugar += dailyData.getTotalSugar();
+                totalSalt += dailyData.getTotalSalt();
+
+            }
+
+            dailyDataOnLoad = new DailyValues("", date,totalCalories,totalSugar,totalFat,totalProtein,totalSalt,"",username);
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
 
 
 
@@ -137,18 +192,16 @@ public class Application extends android.app.Application implements ReplicatorCh
                 mProds.put(prod.getProductName(), prod);
             }
             // return universities;
-           // return mProds;
+            // return mProds;
             sampleData = mProds;
         } catch (IOException e ) {
             e.printStackTrace();
-           // return null;
+            // return null;
         }
         catch (Exception e ) {
             e.printStackTrace();
             // return null;
         }
-
-        startSession(username, password);
     }
 
     public void logout() {
@@ -307,6 +360,60 @@ public class Application extends android.app.Application implements ReplicatorCh
         // Initialize Query to fetch documents
         //QueryForListOfUniversities();
 
+    }
+
+
+    private void setDailyData()
+    {
+
+        int year,day,month;
+        String date;
+        DailyValues dailyData =null;
+
+        Double totalCalories =0.0, totalSugar=0.0,totalFat=0.0, totalProtein=0.0,totalSalt=0.0;
+
+        Calendar cal = Calendar.getInstance();
+        year = cal.get(Calendar.YEAR);
+        month = cal.get(Calendar.MONTH);
+        day = cal.get(Calendar.DAY_OF_MONTH);
+
+        date = (month+1) +"/" + day + "/" + year;
+        Query query;   query = QueryBuilder.select(SelectResult.all())
+                .from(DataSource.database(database))
+                .where(Expression.property("type").equalTo(Expression.string("daily-data"))
+                        .and(Expression.property("date").equalTo(Expression.string(date)))
+                        .and(Expression.property("owner").equalTo(Expression.string(username))));
+        try {
+            ResultSet rs = query.execute();
+
+            Result row;
+
+            while ((row = rs.next()) != null) {
+                ObjectMapper objectMapper = new ObjectMapper();
+                // Ignore undeclared properties
+                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                Dictionary valueMap = row.getDictionary(database.getName());
+
+                dailyData = objectMapper.convertValue(valueMap.toMap(),DailyValues.class);
+                totalCalories += dailyData.getTotalCalories();
+                totalFat+= dailyData.getTotalFat();
+                totalProtein += dailyData.getTotalProtein();
+                totalSugar += dailyData.getTotalSugar();
+                totalSalt += dailyData.getTotalSalt();
+
+            }
+
+            dailyDataOnLoad = new DailyValues("", date,totalCalories,totalSugar,totalFat,totalProtein,totalSalt,"",username);
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+
+    public DailyValues getDailyDataOnLoad()
+    {
+        return dailyDataOnLoad;
     }
 
 //    protected void attachBaseContext(Context base) {

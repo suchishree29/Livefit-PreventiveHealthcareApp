@@ -200,16 +200,19 @@ public class UserProfileActivity extends AppCompatActivity {
             lastName.setText(fromDB.getLastName());
             emailId.setText(fromDB.getEmailId());
 
-            String[] heightInches = fromDB.getHeight().split(" ");
+            if(fromDB.getHeight() != null) {
+                String[] heightInches = fromDB.getHeight().split(" ");
 
-            heightspinner1.setSelection(getIndex(heightspinner1, heightInches[0]));
+                heightspinner1.setSelection(getIndex(heightspinner1, heightInches[0]));
 
-            heightspinner2.setSelection(getIndex(heightspinner2, heightInches[1]));
+                heightspinner2.setSelection(getIndex(heightspinner2, heightInches[1]));
+            }
 
 //            heightspinner1.se
 //            heightspinner2
 
             String gend = fromDB.getGender();
+
             RadioButton radioMale = (RadioButton) findViewById(R.id.radiobutton_male);
             RadioButton radiofemale = (RadioButton) findViewById(R.id.radiobutton_female);
 
@@ -217,28 +220,30 @@ public class UserProfileActivity extends AppCompatActivity {
 
             RadioGroup mGroup = (RadioGroup) findViewById(R.id.radiogroup_gender);
 
-            if(gend.equals("male"))
-            {
-                mGroup.check(radioMale.getId());
+            if(gend != null) {
+                if (gend.equals("male")) {
+                    mGroup.check(radioMale.getId());
+                } else
+                    mGroup.check(radiofemale.getId());
             }
-            else
-                mGroup.check(radiofemale.getId());
-
 
             Switch1.setChecked(fromDB.isSmoker());
 
             Switch2.setChecked(fromDB.isAlcoholic());
 
-            for(String disease : fromDB.getDiseases())
-            {
-                //list1.indexOf(disease);
-                listArray1.get(list1.indexOf(disease)).setSelected(true);
+            if(fromDB.getDiseases() != null) {
+
+                for (String disease : fromDB.getDiseases()) {
+                    //list1.indexOf(disease);
+                    listArray1.get(list1.indexOf(disease)).setSelected(true);
+                }
             }
 
-            for(String allergen : fromDB.getAllergens())
-            {
-                //list1.indexOf(disease);
-                listArray.get(list.indexOf(allergen)).setSelected(true);
+            if(fromDB.getAllergens() != null) {
+                for (String allergen : fromDB.getAllergens()) {
+                    //list1.indexOf(disease);
+                    listArray.get(list.indexOf(allergen)).setSelected(true);
+                }
             }
 
         }

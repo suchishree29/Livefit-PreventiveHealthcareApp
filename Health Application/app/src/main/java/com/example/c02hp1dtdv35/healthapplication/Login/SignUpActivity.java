@@ -35,11 +35,19 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.couchbase.lite.CouchbaseLiteException;
+import com.couchbase.lite.Database;
+import com.couchbase.lite.MutableDocument;
+import com.couchbase.lite.Query;
+import com.example.c02hp1dtdv35.healthapplication.Application;
 import com.example.c02hp1dtdv35.healthapplication.Home.WatsonScreen;
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.example.c02hp1dtdv35.healthapplication.retrofit.ApiClient;
 import com.example.c02hp1dtdv35.healthapplication.retrofit.ApiInterface;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,6 +55,8 @@ import org.json.JSONObject;
 
 import java.security.PrivateKey;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -86,6 +96,9 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
     private RadioGroup radio;
     private Switch switch1,switch2;
     private Spinner spinner;
+    private Database db;
+
+    private Query query;
     ArrayList<Signup> SignupArrayList=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -259,11 +272,43 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
 //                        Log.d("System out","password__"+SignupArrayList);
 //                        CustomLog.d("System out","password__"+SignupArrayList);
 //
+
+                        Application application = (Application) getApplication();
+//        String name = nameInput.getText().toString();
+//        String pass = passwordInput.getText().toString();
+                        application.login(email.getText().toString().trim(),password.getText().toString().trim());
+                        //application.login("john", "pass");
+                        db = application.getDatabase();
+                        if (db == null) throw new IllegalArgumentException();
 //                        //sessionManager.create_login_session(json);
 //                        //Constants.snackbar(getActivity(), ll_main, "" + response.body().get(0).getMessage());
 //
 //                        CustomLog.d("system out", response.body().get(0).getMsg());
 //                        CustomLog.d("System out", "sign up json___" + json);
+                        UserProfile userProfile = new UserProfile();
+
+                        userProfile.setEmailId(email.getText().toString().trim());
+                        userProfile.setFirstName(firstName.getText().toString().trim());
+                        userProfile.setLastName(lastName.getText().toString().trim());
+                        userProfile.setType("profile");
+                        userProfile.setDateUpdated(new Date());
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        // Ignore undeclared properties
+                        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+                        HashMap<String, Object> userMap = objectMapper.convertValue(userProfile, HashMap.class);
+
+                        MutableDocument mDoc = new MutableDocument(userMap);
+
+                        try {
+                            db.save(mDoc);
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    "User detils saved!", Toast.LENGTH_SHORT);
+                            toast.show();
+                        } catch (CouchbaseLiteException e) {
+                            com.couchbase.lite.internal.support.Log.e("SignUpActivity", "Failed to save the doc - %s", e, mDoc);
+                        }
+
                         Intent i = new Intent(SignUpActivity.this,UserProfileActivity.class);
                         startActivity(i);
 
