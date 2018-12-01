@@ -60,7 +60,7 @@ public class LogFood extends AppCompatActivity {
     private Spinner spinner;
     Product productLog;
     private Database db;
-    String date,imgUrl,selectedMealCourse;
+    String date,imgUrl,selectedMealCourse,todayDate;
 
     int year,day,month;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -72,6 +72,8 @@ public class LogFood extends AppCompatActivity {
     Double dailyCalories =0.0, dailySugar=0.0,dailyFat=0.0, dailyProtein=0.0,dailySalt=0.0;
 
     ObjectMapper objectMapper;
+
+    DailyValues dailyDataOnLoad =null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,12 +147,6 @@ public class LogFood extends AppCompatActivity {
         }
 
 
-//        Code for populating Recycler View
-//         Initialize products
-
-
-
-
         // Create adapter passing in the products data
         ProductsAdapter adapter = new ProductsAdapter(products);
 
@@ -176,45 +172,50 @@ public class LogFood extends AppCompatActivity {
         month = cal.get(Calendar.MONTH);
         day = cal.get(Calendar.DAY_OF_MONTH);
 
-        date = (month+1) +"/" + day + "/" + year;
-        dateTxt.setText("Day : " + date);
+        todayDate = (month+1) +"/" + day + "/" + year;
+        date =todayDate;
+        dateTxt.setText("Day : " + todayDate);
 
 
         Application application = (Application) getApplication();
         final String username = application.getUsername();
+        dailyDataOnLoad = application.getDailyDataOnLoad();
         db = application.getDatabase();
 
         if (db == null) throw new IllegalArgumentException();
 
-        query = QueryBuilder.select(SelectResult.all())
-                .from(DataSource.database(db))
-                .where(Expression.property("type").equalTo(Expression.string("daily-data"))
-                        .and(Expression.property("date").equalTo(Expression.string(date)))
-                        .and(Expression.property("owner").equalTo(Expression.string(username))));
-        try {
-            ResultSet rs = query.execute();
+        if(dailyDataOnLoad == null) {
+            query = QueryBuilder.select(SelectResult.all())
+                    .from(DataSource.database(db))
+                    .where(Expression.property("type").equalTo(Expression.string("daily-data"))
+                            .and(Expression.property("date").equalTo(Expression.string(date)))
+                            .and(Expression.property("owner").equalTo(Expression.string(username))));
+            try {
+                ResultSet rs = query.execute();
 
-            Result row;
+                Result row;
 
-            while ((row = rs.next()) != null) {
-                ObjectMapper objectMapper = new ObjectMapper();
-                // Ignore undeclared properties
-                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-                Dictionary valueMap = row.getDictionary(db.getName());
+                while ((row = rs.next()) != null) {
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    // Ignore undeclared properties
+                    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                    Dictionary valueMap = row.getDictionary(db.getName());
 
-                dailyData = objectMapper.convertValue(valueMap.toMap(),DailyValues.class);
-                totalCalories += dailyData.getTotalCalories();
-                totalFat+= dailyData.getTotalFat();
-                totalProtein += dailyData.getTotalProtein();
-                totalSugar += dailyData.getTotalSugar();
-                totalSalt += dailyData.getTotalSalt();
+                    dailyData = objectMapper.convertValue(valueMap.toMap(), DailyValues.class);
+                    totalCalories += dailyData.getTotalCalories();
+                    totalFat += dailyData.getTotalFat();
+                    totalProtein += dailyData.getTotalProtein();
+                    totalSugar += dailyData.getTotalSugar();
+                    totalSalt += dailyData.getTotalSalt();
 
+                }
+
+                dailyDataOnLoad = new DailyValues("", todayDate,totalCalories,totalSugar,totalFat,totalProtein,totalSalt,"",username);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
 
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
         }
 
 
@@ -297,6 +298,8 @@ public class LogFood extends AppCompatActivity {
 
                     String en = product.getNutriments().getEnergyValue();
 
+
+
                     dailyCalories+= Double.valueOf(en);
                     dailyFat+= Double.valueOf(product.getNutriments().getFat());
                     dailyProtein += Double.valueOf(product.getNutriments().getProteins());
@@ -311,7 +314,7 @@ public class LogFood extends AppCompatActivity {
 
                 }
 
-                if(totalCalories > 600){
+                if(totalCalories > 600 && dailyCalories>0){
                     AlertDialog alertDialog = new AlertDialog.Builder(LogFood.this).create();
                     alertDialog.setTitle("Alert");
                     alertDialog.setMessage("Total calories for the day has exceeded 600 limit. Do you still want to log this item?");
@@ -359,6 +362,14 @@ public class LogFood extends AppCompatActivity {
                                     MutableDocument nDV = new MutableDocument(dv);
                                     try {
                                         db.save(nDV);
+                                        if(todayDate.equals(date))
+                                        {
+                                            dailyDataOnLoad.setTotalSalt(totalSalt);
+                                            dailyDataOnLoad.setTotalSugar(totalSugar);
+                                            dailyDataOnLoad.setTotalProtein(totalProtein);
+                                            dailyDataOnLoad.setTotalFat(totalFat);
+                                            dailyDataOnLoad.setTotalCalories(totalCalories);
+                                        }
                                     } catch (CouchbaseLiteException e) {
                                         com.couchbase.lite.internal.support.Log.e(TAG, "Failed to save the doc - %s", e, nDV);
                                     }
@@ -403,8 +414,8 @@ public class LogFood extends AppCompatActivity {
                     if (dailyData == null)
                         dailyData = new DailyValues();
 
-                    logDailyValue.setDate(date);
-                    logDailyValue.setId(date);
+                    logDailyValue.setDate(todayDate);
+                    logDailyValue.setId(todayDate);
                     logDailyValue.setTotalCalories(dailyCalories);
                     logDailyValue.setTotalFat(dailyFat);
                     logDailyValue.setTotalProtein(dailyProtein);
@@ -419,6 +430,15 @@ public class LogFood extends AppCompatActivity {
                     MutableDocument nDV = new MutableDocument(dv);
                     try {
                         db.save(nDV);
+
+                        if(todayDate.equals(date))
+                        {
+                            dailyDataOnLoad.setTotalSalt(totalSalt);
+                            dailyDataOnLoad.setTotalSugar(totalSugar);
+                            dailyDataOnLoad.setTotalProtein(totalProtein);
+                            dailyDataOnLoad.setTotalFat(totalFat);
+                            dailyDataOnLoad.setTotalCalories(totalCalories);
+                        }
                     } catch (CouchbaseLiteException e) {
                         com.couchbase.lite.internal.support.Log.e(TAG, "Failed to save the doc - %s", e, nDV);
                     }

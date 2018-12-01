@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 
 public class Constants {
     static File cacheDir;
-    public static final String BASE_URL = "http://ec2-13-57-182-205.us-west-1.compute.amazonaws.com:3000/api/";
+    public static final String BASE_URL = "http://ec2-13-57-3-176.us-west-1.compute.amazonaws.com:3000/api/";
     public static final String Image_URL = "http://";
     public static final String User_Profile_URL = "http://";
     public static final String MyPREFERENCES = "MyPrefs" ;
