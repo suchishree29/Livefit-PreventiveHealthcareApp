@@ -58,12 +58,10 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private RadioGroup radioGroup;
     private RadioButton radioButton;
-
     boolean smoker, alcoholic;
 
-
-    List<String> list1=     new ArrayList<String>(Arrays.asList(diseases_array));
-       List<String> list=     new ArrayList<String>(Arrays.asList(allergens_array));
+    List<String> list1= new ArrayList<String>(Arrays.asList(diseases_array));
+    List<String> list=  new ArrayList<String>(Arrays.asList(allergens_array));
     private Database db;
     String Weight,bloodglucose,cholesterol,heightfoot,heightinches, firstname, lastname, email,gender;
 
@@ -78,6 +76,7 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        getSupportActionBar().setTitle("User Profile");
 
         Application application = (Application) getApplication();
         final String username = application.getUsername();
@@ -105,12 +104,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 Dictionary valueMap = row.getDictionary(db.getName());
 
                fromDB = objectMapper.convertValue(valueMap.toMap(),UserProfile.class);
-//
-//                totalCalories += dailyData.getTotalCalories();
-//                totalFat+= dailyData.getTotalFat();
-//                totalProtein += dailyData.getTotalProtein();
-//                totalSugar += dailyData.getTotalSugar();
-//                totalSalt += dailyData.getTotalSalt();
                 break;
 
             }
@@ -208,9 +201,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 heightspinner2.setSelection(getIndex(heightspinner2, heightInches[1]));
             }
 
-//            heightspinner1.se
-//            heightspinner2
-
             String gend = fromDB.getGender();
 
             RadioButton radioMale = (RadioButton) findViewById(R.id.radiobutton_male);
@@ -282,12 +272,8 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String statusSwitch1, statusSwitch2;
                 smoker = Switch1.isChecked();
                 alcoholic = Switch2.isChecked();
-
-
-                //Height = height.getText().toString();
                 Weight = weight.getText().toString();
 
                 firstname = firstName.getText().toString();
@@ -295,13 +281,10 @@ public class UserProfileActivity extends AppCompatActivity {
                 lastname = lastName.getText().toString();
                 bloodglucose = Bloodglucose.getText().toString();
                 cholesterol = Cholesterol.getText().toString();
-
-                //diseases = spinner.getSelectedItem().toString();
-               // allergens = allergensSpinner.getSelectedItem().toString();
                 heightfoot = heightspinner1.getSelectedItem().toString();
                 heightinches = heightspinner2.getSelectedItem().toString();
 
-                radioGroup = (RadioGroup) findViewById(R.id.radiogroup_gender);
+                radioGroup = findViewById(R.id.radiogroup_gender);
                 int selectedId = radioGroup.getCheckedRadioButtonId();
 
                 // find the radiobutton by returned id
@@ -322,28 +305,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
               //  UserProfile user = new UserProfile();
                 if (db == null) throw new IllegalArgumentException();
-//                MutableDocument mDoc = new MutableDocument();
-//                mDoc.setString("height",heightfoot + " " + heightinches);
-//                mDoc.setString("weight",Weight);
-//                mDoc.setString("bloodglucose",bloodglucose);
-//                mDoc.setString("cholesterol", cholesterol);
-//                mDoc.setString("diseases", diseases);
-//                mDoc.setString("Smoking", statusSwitch1);
-//                mDoc.setString("Alcoholic", statusSwitch2);
-//                mDoc.setString("type", "task-list");
-//                mDoc.setString("owner", username);
-//                try {
-//                    db.save(mDoc);
-//
-//                    Toast toast = Toast.makeText(getApplicationContext(),
-//                            "Details are added successfully!", Toast.LENGTH_SHORT);
-//                    toast.show();
-//
-//                    Intent i = new Intent(UserProfileActivity.this,WatsonScreen.class);
-//                    startActivity(i);
-//                } catch (CouchbaseLiteException e) {
-//                    com.couchbase.lite.internal.support.Log.e(TAG, "Failed to save the doc - %s", e, mDoc);
-//                }
 
                 ObjectMapper objectMapper = new ObjectMapper();
                 // Ignore undeclared properties
@@ -356,15 +317,16 @@ public class UserProfileActivity extends AppCompatActivity {
                 try {
                     db.save(mDoc);
                     Toast toast = Toast.makeText(getApplicationContext(),
-                             "User detils saved!", Toast.LENGTH_SHORT);
+                             "User details saved!", Toast.LENGTH_SHORT);
                     toast.show();
+                    Intent homeScreenIntent= new Intent(UserProfileActivity.this,WatsonScreen.class);
+                    startActivity(homeScreenIntent);
+
                 } catch (CouchbaseLiteException e) {
                     com.couchbase.lite.internal.support.Log.e(TAG, "Failed to save the doc - %s", e, mDoc);
                 }
             }
         });
-
-
     }
 
     private int getIndex(Spinner spinner, String myString){

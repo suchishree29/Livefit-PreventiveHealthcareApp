@@ -1,48 +1,21 @@
 package com.example.c02hp1dtdv35.healthapplication.Home;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.RectF;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.c02hp1dtdv35.healthapplication.Application;
-import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.LogFood;
-import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.Product;
-import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.Products;
-import com.example.c02hp1dtdv35.healthapplication.Classifier;
-import com.example.c02hp1dtdv35.healthapplication.ImageUtils;
 import com.example.c02hp1dtdv35.healthapplication.R;
-import com.example.c02hp1dtdv35.healthapplication.Remind.RemindActivity;
-import com.example.c02hp1dtdv35.healthapplication.TensorFlowObjectDetectionAPIModel;
-import com.google.gson.Gson;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 
 /**

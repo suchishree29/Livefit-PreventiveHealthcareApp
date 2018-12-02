@@ -57,7 +57,7 @@ public class Application extends android.app.Application implements ReplicatorCh
     private final static boolean SYNC_ENABLED = true;
 
     private final static String DATABASE_NAME = "staging";
-    private final static String SYNCGATEWAY_URL = "ws://ec2-34-209-114-84.us-west-2.compute.amazonaws.com:4984/staging";
+    private final static String SYNCGATEWAY_URL = "ws://ec2-34-209-11-84.us-west-2.compute.amazonaws.com:4984/staging";
 
     private Database database = null;
     private Replicator replicator;
