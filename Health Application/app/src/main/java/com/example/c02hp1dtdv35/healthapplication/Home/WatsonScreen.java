@@ -22,7 +22,6 @@ import com.example.c02hp1dtdv35.healthapplication.LoggedFoodDisplay.ShowLoggedFo
 import com.example.c02hp1dtdv35.healthapplication.Login.LoginActivity;
 import com.example.c02hp1dtdv35.healthapplication.Login.UserProfileActivity;
 import com.example.c02hp1dtdv35.healthapplication.R;
-import com.example.c02hp1dtdv35.healthapplication.Remind.RemindActivity;
 import com.example.c02hp1dtdv35.healthapplication.Remind.ReminderActivity;
 import com.example.c02hp1dtdv35.healthapplication.Watson.WatsonFragment;
 import com.example.c02hp1dtdv35.healthapplication.WeatherApi.WeatherActivity;
@@ -48,7 +47,7 @@ public class WatsonScreen extends AppCompatActivity {
     }
 
    private void initTabBar(){
-        mToolbar=(Toolbar)findViewById(R.id.toolbar);
+        mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActionBar actionBar=getSupportActionBar();
