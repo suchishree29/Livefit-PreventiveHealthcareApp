@@ -38,6 +38,7 @@ import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.Product;
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.ProductVO;
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.Products;
 import com.example.c02hp1dtdv35.healthapplication.Classifier;
+import com.example.c02hp1dtdv35.healthapplication.Login.UserProfileActivity;
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.example.c02hp1dtdv35.healthapplication.TensorFlowObjectDetectionAPIModel;
 import com.google.gson.Gson;
@@ -166,7 +167,9 @@ public class CameraFragment extends Fragment {
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openCamera();
+//                openCamera();
+                Intent cameraScreenIntent= new Intent(getActivity(),DetectorActivity.class);
+                startActivity(cameraScreenIntent);
             }
         });
         btnBarcode.setOnClickListener(new View.OnClickListener() {
