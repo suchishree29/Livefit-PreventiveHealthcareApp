@@ -34,6 +34,7 @@ import android.widget.TextView;
 import com.example.c02hp1dtdv35.healthapplication.Application;
 import com.example.c02hp1dtdv35.healthapplication.Home.WatsonScreen;
 import com.example.c02hp1dtdv35.healthapplication.R;
+import com.example.c02hp1dtdv35.healthapplication.UserHomeActivity;
 import com.example.c02hp1dtdv35.healthapplication.retrofit.ApiClient;
 import com.example.c02hp1dtdv35.healthapplication.retrofit.ApiInterface;
 
@@ -170,7 +171,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //        String pass = passwordInput.getText().toString();
                         application.login(username, pass);
                        // application.login("john", "pass");
-                        Intent i = new Intent(LoginActivity.this,WatsonScreen.class);
+                        Intent i = new Intent(LoginActivity.this,UserHomeActivity.class);
                         startActivity(i);
 
                         //finish();
@@ -300,7 +301,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
-        Intent homeScreenIntent= new Intent(this,WatsonScreen.class);
+        // Intent homeScreenIntent= new Intent(this,WatsonScreen.class);
+        Intent homeScreenIntent= new Intent(this,UserHomeActivity.class);
         startActivity(homeScreenIntent);
     }
 

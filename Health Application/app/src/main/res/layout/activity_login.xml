@@ -82,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:background="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
+                    android:background="@color/logo_color"
                     android:text="Login To Your Account"
                     android:textStyle="bold" />
 
@@ -93,7 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:background="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
+                    android:background="@color/logo_color"
                     android:text="@string/action_sign_up"
                     android:textStyle="bold" />
 
