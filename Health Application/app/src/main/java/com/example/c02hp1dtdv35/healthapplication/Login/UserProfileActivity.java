@@ -107,6 +107,8 @@ public class UserProfileActivity extends AppCompatActivity {
                 break;
 
             }
+
+
         }
         catch(Exception ex)
         {
@@ -186,7 +188,8 @@ public class UserProfileActivity extends AppCompatActivity {
         {
             weight.setText(fromDB.getWeight());
             firstName.setText(fromDB.getFirstName());
-
+            allergensList = fromDB.getAllergens();
+            diseasesList = fromDB.getDiseases();
             Bloodglucose.setText(fromDB.getBloodGlucose());
 
             Cholesterol.setText(fromDB.getCholestorol());
@@ -242,6 +245,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
             @Override
             public void onItemsSelected(List<KeyPairBoolData> items) {
+                diseasesList= new ArrayList<>();
 
                 for (int i = 0; i < items.size(); i++) {
                     if (items.get(i).isSelected()) {
@@ -256,6 +260,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
             @Override
             public void onItemsSelected(List<KeyPairBoolData> items) {
+                allergensList= new ArrayList<>();
 
                 for (int i = 0; i < items.size(); i++) {
                     if (items.get(i).isSelected()) {
