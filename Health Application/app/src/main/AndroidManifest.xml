@@ -45,44 +45,49 @@
         <activity
             android:name=".Home.WatsonScreen"
             android:theme="@style/AppTheme.NoActionBar" />
-        <!--<activity-->
-            <!--android:name=".WeatherApi.WeatherActivity"-->
-            <!--android:theme="@style/AppTheme.NoActionBar" />-->
+        <!-- <activity -->
+        <!-- android:name=".WeatherApi.WeatherActivity" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
         <activity android:name=".BarcodeScanner.BarcodeScannerActivity" />
         <activity android:name=".BarcodeScanner.LogFood" />
         <activity android:name=".BarcodeScanner.ShowNutriments" />
-
         <activity android:name=".LoggedFoodDisplay.ShowLoggedFoodActivity" />
         <activity android:name=".Login.UserProfileActivity" />
 
         <receiver android:name=".Remind.util.TimeAlarm" />
 
-        <activity android:name=".Home.DetectorActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Home.DetectorActivity"
+            android:screenOrientation="portrait" />
 
-        <receiver android:enabled="true" android:name=".Remind.util.BootUpReceiver"
+        <receiver
+            android:name=".Remind.util.BootUpReceiver"
+            android:enabled="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
-
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
+
         <activity
             android:name=".Remind.AddEvent"
             android:label="@string/title_activity_add_event"
-            android:windowSoftInputMode="adjustNothing"
-            android:theme="@style/AppTheme">
-        </activity>
-
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing"></activity>
         <activity
             android:name=".Remind.ShowReminderMessage"
             android:label="@string/Reminder"
-            android:theme="@style/AppTheme">
-        </activity>
-
-        <activity android:name=".Remind.ReminderActivity" android:label="@string/reminder_app_name" />
-<activity android:name=".UserHomeActivity"></activity>
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".Remind.ReminderActivity"
+            android:label="@string/reminder_app_name" />
+        <activity android:name=".UserHomeActivity" />
+        <activity
+            android:name=".Home.DashboardActivity"
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

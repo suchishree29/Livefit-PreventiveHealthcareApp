@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.BarcodeScannerActivity;
 import com.example.c02hp1dtdv35.healthapplication.Home.CameraActivity;
+import com.example.c02hp1dtdv35.healthapplication.Home.DashboardActivity;
 import com.example.c02hp1dtdv35.healthapplication.Home.DetectorActivity;
 import com.example.c02hp1dtdv35.healthapplication.LoggedFoodDisplay.ShowLoggedFoodActivity;
 import com.example.c02hp1dtdv35.healthapplication.Login.UserProfileActivity;
@@ -77,12 +78,12 @@ public class UserHomeActivity extends AppCompatActivity {
             }
         });
 
-//        dashboard.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(UserHomeActivity.this, .class);
-//                startActivity(intent);
-//            }
-//        });
+        dashboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserHomeActivity.this, DashboardActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

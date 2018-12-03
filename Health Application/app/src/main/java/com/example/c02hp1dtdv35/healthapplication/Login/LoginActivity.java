@@ -85,6 +85,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
+        Application application = (Application) getApplication();
+//        String name = nameInput.getText().toString();
+//        String pass = passwordInput.getText().toString();
+        application.login("cc@gmail.com", "cc");
+        // application.login("john", "pass");
+        Intent i = new Intent(LoginActivity.this,UserHomeActivity.class);
+        startActivity(i);
+
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

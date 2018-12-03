@@ -65,7 +65,7 @@ dependencies {
 
     implementation 'com.github.pratikbutani:MultiSelectSpinner:08d324c98'
 
-    implementation ('com.jjoe64:graphview:4.2.2'){
+    implementation('com.jjoe64:graphview:4.2.2') {
         exclude group: "com.android.support"
     }
     implementation 'com.android.support:gridlayout-v7:26.1.0'
