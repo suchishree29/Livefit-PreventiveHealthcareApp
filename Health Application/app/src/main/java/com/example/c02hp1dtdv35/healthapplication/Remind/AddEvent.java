@@ -84,14 +84,16 @@ public class AddEvent extends AppCompatActivity {
             }
         });
 
+        c1 = Calendar.getInstance();
+        mHour = c1.get(Calendar.HOUR_OF_DAY);
+        mMinute = c1.get(Calendar.MINUTE);
 
+        timeToNotify = mHour+":"+mMinute;
+        formattedTime = FormatTime(mHour, mMinute);
+        edtTime.setText(formattedTime);
         edtTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-            c1 = Calendar.getInstance();
-            mHour = c1.get(Calendar.HOUR_OF_DAY);
-            mMinute = c1.get(Calendar.MINUTE);
 
                 // Launch Time Picker Dialog
             TimePickerDialog timePickerDialog = new TimePickerDialog(AddEvent.this,
@@ -111,14 +113,14 @@ public class AddEvent extends AppCompatActivity {
 
       });
 
+        c2 = Calendar.getInstance();
+        mYear = c2.get(Calendar.YEAR);
+        mMonth = c2.get(Calendar.MONTH);
+        mDay = c2.get(Calendar.DAY_OF_MONTH);
+        edtDate.setText(mDay + "-" + (mMonth + 1) + "-" + mYear);
         edtDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                c2 = Calendar.getInstance();
-                mYear = c2.get(Calendar.YEAR);
-                mMonth = c2.get(Calendar.MONTH);
-                mDay = c2.get(Calendar.DAY_OF_MONTH);
 
                 // Launch Date Picker Dialog
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AddEvent.this,

@@ -16,9 +16,6 @@ import android.support.v4.app.NotificationCompat;
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.example.c02hp1dtdv35.healthapplication.Remind.ShowReminderMessage;
 
-/**
- * Created by asu on 17-Aug-16.
- */
 public class TimeAlarm extends BroadcastReceiver {
 
     private NotificationManager nm;

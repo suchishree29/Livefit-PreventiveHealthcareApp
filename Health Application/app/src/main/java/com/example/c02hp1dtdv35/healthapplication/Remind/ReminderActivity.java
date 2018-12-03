@@ -29,15 +29,13 @@ public class ReminderActivity extends AppCompatActivity {
     private Realm myRealm;
     private RealmResults<EventModelDB> results1;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events_listing);
 
-        rvListings = (RecyclerView) findViewById(R.id.events);
-
-        list = new ArrayList<ListingsModel>();
+        rvListings = findViewById(R.id.events);
+        list = new ArrayList<>();
 
         // read the saved values in database
         myRealm = Realm.getInstance(getBaseContext());
@@ -50,10 +48,8 @@ public class ReminderActivity extends AppCompatActivity {
             model.setTime(c.getTime());
             model.setDate(c.getDate());
             model.setTimestamp(c.getTimestamp());
-
             list.add(model);
         }
-
         adapter = new ListingsAdapter(list, getBaseContext());
         rvListings.setAdapter(adapter);
         mLayoutManager = new LinearLayoutManager(this);
@@ -66,7 +62,6 @@ public class ReminderActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -82,7 +77,6 @@ public class ReminderActivity extends AppCompatActivity {
                     .show();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
