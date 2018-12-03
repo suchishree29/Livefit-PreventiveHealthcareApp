@@ -5,4 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="bg_bubble_watbot">#ecf0f1</color>
     <color name="bg_bubble_self">#62caa6</color>
+    <color name="logo_color">#3b9fb3</color>
+    <color name="logo_transperent">#894faec1</color>
+    <color name="card_bkd">#f4f4f4</color>
 </resources>

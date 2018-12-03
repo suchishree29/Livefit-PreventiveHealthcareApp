@@ -13,8 +13,8 @@
         android:layout_height="35dp"
         android:layout_weight="1"
         android:textStyle="bold"
-        android:textColor="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
-        android:textColorLink="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
+        android:textColor="@color/logo_color"
+        android:textColorLink="@color/logo_color"
         android:text="@string/product_name" />
 
     <RelativeLayout

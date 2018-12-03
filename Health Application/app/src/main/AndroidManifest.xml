@@ -11,7 +11,9 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <uses-feature
-        android:name="android.hardware.Camera2" android:required="true" />
+        android:name="android.hardware.Camera2"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -80,6 +82,7 @@
         </activity>
 
         <activity android:name=".Remind.ReminderActivity" android:label="@string/reminder_app_name" />
+<activity android:name=".UserHomeActivity"></activity>
     </application>
 
 </manifest>

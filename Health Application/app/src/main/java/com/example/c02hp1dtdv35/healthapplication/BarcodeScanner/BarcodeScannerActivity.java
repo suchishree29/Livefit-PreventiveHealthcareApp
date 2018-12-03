@@ -19,11 +19,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 import org.json.JSONObject;
+
 import com.android.volley.toolbox.Volley;
 import com.android.volley.RequestQueue;
 
-public class BarcodeScannerActivity extends AppCompatActivity implements View.OnClickListener{
-    private Button scanBtn;
+import steelkiwi.com.library.DotsLoaderView;
+
+public class BarcodeScannerActivity extends AppCompatActivity {
+    private DotsLoaderView scanLoader;
     private RequestQueue requestQueue;
 
     String baseUrl = "https://world.openfoodfacts.org/api/v0/product/";
@@ -34,17 +37,16 @@ public class BarcodeScannerActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode_scanner);
         getSupportActionBar().setTitle("Barcode Scanner");
-        scanBtn =  findViewById(R.id.scan_button);
+        scanLoader = findViewById(R.id.dotsLoaderView);
         requestQueue = Volley.newRequestQueue(this);  // This setups up a new request queue which we will need to make HTTP requests.
-        //scanBtn.setOnClickListener(this);
-
-        getData("021000010875");
-
+        IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+        scanIntegrator.initiateScan();
+        scanLoader.show();
     }
 
     private void getData(String barcode) {
         this.url = this.baseUrl + barcode + ".json";
-            //786162338006 water
+        //786162338006 water
         //021000010875 macaroni
         JsonObjectRequest arrReq = new JsonObjectRequest(Request.Method.GET, url,
                 new Response.Listener<JSONObject>() {
@@ -55,11 +57,11 @@ public class BarcodeScannerActivity extends AppCompatActivity implements View.On
 
                             try {
                                 Gson gson = new Gson();
-                                ProductVO productVO =  gson.fromJson(response.toString(), ProductVO.class);
+                                ProductVO productVO = gson.fromJson(response.toString(), ProductVO.class);
                                 Product product = productVO.getProduct();
                                 Nutriments nutriments = product.getNutriments();
                                 NutrientLevels nutrientLevels = product.getNutrientLevels();
-                                Intent myIntent = new Intent(getApplicationContext(),LogFood.class);
+                                Intent myIntent = new Intent(getApplicationContext(), LogFood.class);
                                 //Create the bundle
                                 Bundle bundle = new Bundle();
 
@@ -67,10 +69,10 @@ public class BarcodeScannerActivity extends AppCompatActivity implements View.On
                                 bundle.putString("product_image", product.getImageSmallUrl());
 
                                 //Add the bundle to the intent
-                                myIntent.putExtra("products",new Gson().toJson(product));
+                                myIntent.putExtra("products", new Gson().toJson(product));
                                 myIntent.putExtra("nutriments", new Gson().toJson(nutriments));
                                 myIntent.putExtra("nutrientLevels", new Gson().toJson(nutrientLevels));
-                                myIntent.putExtra("type","barcode");
+                                myIntent.putExtra("type", "barcode");
                                 myIntent.putExtras(bundle);
                                 startActivity(myIntent);
                             } catch (Exception e) {
@@ -78,7 +80,7 @@ public class BarcodeScannerActivity extends AppCompatActivity implements View.On
                                 Log.e("Volley", "Invalid JSON Object.");
                             }
                         } else {
-                            Toast.makeText(BarcodeScannerActivity.this,"NO Data Found",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BarcodeScannerActivity.this, "NO Data Found", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -88,21 +90,13 @@ public class BarcodeScannerActivity extends AppCompatActivity implements View.On
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // If there a HTTP error then add a note to our repo list.
-                         Log.e("Volley", error.toString());
+                        Log.e("Volley", error.toString());
                     }
                 }
         );
         // Add the request we just defined to our request queue.
         // The request queue will automatically handle the request as soon as it can.
         requestQueue.add(arrReq);
-    }
-
-    public void onClick (View v){
-        if(v.getId()==R.id.scan_button){
-            IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-            scanIntegrator.initiateScan();
-
-        }
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -113,7 +107,7 @@ public class BarcodeScannerActivity extends AppCompatActivity implements View.On
             getData(scanContent);
 
 
-        }else{
+        } else {
             Toast toast = Toast.makeText(getApplicationContext(),
                     "No scan data received!", Toast.LENGTH_SHORT);
             toast.show();
