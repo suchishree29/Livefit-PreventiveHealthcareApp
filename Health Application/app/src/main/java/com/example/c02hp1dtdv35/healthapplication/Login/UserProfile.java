@@ -30,6 +30,8 @@ public class UserProfile {
 
     private String cholestorol;
 
+    private String goalcalories;
+
     private Date dateUpdated;
 
     private ArrayList<String> diseases;
@@ -49,41 +51,6 @@ public class UserProfile {
         this.type = type;
     }
 
-    @Override
-    public String toString() {
-        return "UserProfile{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", emailId='" + emailId + '\'' +
-                ", gender='" + gender + '\'' +
-                ", height='" + height + '\'' +
-                ", weight='" + weight + '\'' +
-                ", type='" + type + '\'' +
-                ", smoker=" + smoker +
-                ", alcoholic=" + alcoholic +
-                ", bloodGlucose='" + bloodGlucose + '\'' +
-                ", cholestorol='" + cholestorol + '\'' +
-                ", diseases=" + diseases +
-                ", Allergens=" + Allergens +
-                '}';
-    }
-
-    public UserProfile(String firstName, String lastName, String emailId, String gender, String height, String weight, String type, boolean smoker, boolean alcoholic, String bloodGlucose, String cholestorol, Date dateUpdated, ArrayList<String> diseases, ArrayList<String> allergens) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.emailId = emailId;
-        this.gender = gender;
-        this.height = height;
-        this.weight = weight;
-        this.type = type;
-        this.smoker = smoker;
-        this.alcoholic = alcoholic;
-        this.bloodGlucose = bloodGlucose;
-        this.cholestorol = cholestorol;
-        this.dateUpdated = dateUpdated;
-        this.diseases = diseases;
-        Allergens = allergens;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -165,6 +132,14 @@ public class UserProfile {
         this.cholestorol = cholestorol;
     }
 
+    public String getGoalcalories() {
+        return goalcalories;
+    }
+
+    public void setGoalcalories(String goalcalories) {
+        this.goalcalories = goalcalories;
+    }
+
     public ArrayList<String> getDiseases() {
         return diseases;
     }
@@ -179,5 +154,45 @@ public class UserProfile {
 
     public void setAllergens(ArrayList<String> allergens) {
         Allergens = allergens;
+    }
+
+    public UserProfile(String firstName, String lastName, String emailId, String gender, String goalcalories, String height, String weight, String type, boolean smoker, boolean alcoholic, String bloodGlucose, String cholestorol, Date dateUpdated, ArrayList<String> diseases, ArrayList<String> allergens) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailId = emailId;
+        this.gender = gender;
+        this.height = height;
+        this.weight = weight;
+        this.type = type;
+        this.smoker = smoker;
+        this.alcoholic = alcoholic;
+        this.bloodGlucose = bloodGlucose;
+        this.cholestorol = cholestorol;
+        this.goalcalories = goalcalories;
+        this.dateUpdated = dateUpdated;
+        this.diseases = diseases;
+
+        Allergens = allergens;
+    }
+
+    @Override
+    public String toString() {
+        return "UserProfile{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", emailId='" + emailId + '\'' +
+                ", gender='" + gender + '\'' +
+                ", height='" + height + '\'' +
+                ", weight='" + weight + '\'' +
+                ", type='" + type + '\'' +
+                ", smoker=" + smoker +
+                ", alcoholic=" + alcoholic +
+                ", bloodGlucose='" + bloodGlucose + '\'' +
+                ", cholestorol='" + cholestorol + '\'' +
+                ", goalcalories='" + goalcalories + '\'' +
+                ", dateUpdated=" + dateUpdated +
+                ", diseases=" + diseases +
+                ", Allergens=" + Allergens +
+                '}';
     }
 }

@@ -36,7 +36,7 @@
                 android:id="@+id/firstNameTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="First Name"
+                android:hint="@string/first_name"
                 android:maxLines="1"
                 android:singleLine="true" />
 
@@ -44,7 +44,7 @@
                 android:id="@+id/lastNameTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Last Name"
+                android:hint="@string/last_name"
                 android:maxLines="1"
                 android:singleLine="true" />
 
@@ -52,7 +52,7 @@
                 android:id="@+id/emailTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email Id"
+                android:hint="@string/email_id"
                 android:maxLines="1"
                 android:singleLine="true" />
 
@@ -67,14 +67,14 @@
                     android:id="@+id/radiobutton_male"
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:text="male" />
+                    android:text="@string/male" />
 
                 <RadioButton
                     android:id="@+id/radiobutton_female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:baselineAligned="false"
-                    android:text="female" />
+                    android:text="@string/female" />
             </RadioGroup>
 
             <LinearLayout
@@ -87,8 +87,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:text="Height  " />
+                    android:text="@string/height" />
 
                 <Spinner
                     android:id="@+id/heightspinner1"
@@ -107,7 +106,7 @@
                 android:id="@+id/Weight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Weight in Lbs"
+                android:hint="@string/weight_in_lbs"
                 android:maxLines="1"
                 android:singleLine="true" />
 
@@ -119,7 +118,7 @@
                     android:id="@+id/switch1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Smoking" />
+                    android:text="@string/smoking" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -131,7 +130,7 @@
                     android:id="@+id/switch2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Alcohol Consumption" />
+                    android:text="@string/alcohol_consumption" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -144,7 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Blood Glucose (mg/dL)"
+                    android:hint="@string/blood_glucose_mg_dl"
                     android:inputType="date"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -160,8 +159,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Cholesterol (mg/dL)"
+                    android:hint="@string/cholesterol_mg_dl"
                     android:inputType="date"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/goalCalorie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/goal_calories"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -174,7 +188,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Diseases  " />
+                    android:text="@string/diseases" />
 
                 <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
                     android:id="@+id/diseasesSpinner"
@@ -192,7 +206,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Alergens  " />
+                    android:text="@string/alergens" />
 
                 <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
                     android:id="@+id/alergensSpinner"
@@ -215,7 +229,7 @@
                 android:layout_marginTop="16dp"
 
                 android:background="@color/logo_color"
-                android:text="save profile"
+                android:text="@string/save_profile"
                 android:textStyle="bold" />
 
         </LinearLayout>
