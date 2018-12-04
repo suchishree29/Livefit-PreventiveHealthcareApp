@@ -49,7 +49,7 @@ import java.util.List;
 public class UserProfileActivity extends AppCompatActivity {
 
 
-    EditText weight, Bloodglucose, Cholesterol, firstName, lastName, emailId;
+    EditText weight, Bloodglucose, Cholesterol, firstName, lastName, emailId, goalCalories;
     Switch Switch1,Switch2;
     String[] diseases_array = {"High Blood Pressure", "Low Blood Pressure", "Diabetes", "Cholesterol"};
     String[] heightarray1 = {"1","2","3","4","5","6","7","8"};
@@ -63,7 +63,7 @@ public class UserProfileActivity extends AppCompatActivity {
     List<String> list1= new ArrayList<String>(Arrays.asList(diseases_array));
     List<String> list=  new ArrayList<String>(Arrays.asList(allergens_array));
     private Database db;
-    String Weight,bloodglucose,cholesterol,heightfoot,heightinches, firstname, lastname, email,gender;
+    String Weight,bloodglucose,cholesterol,heightfoot,heightinches, firstname, lastname, email,gender,goalcalories;
 
     private static final String TAG = UserProfileActivity.class.getSimpleName();
 
@@ -126,13 +126,9 @@ public class UserProfileActivity extends AppCompatActivity {
 
         Bloodglucose = findViewById(R.id.bloodglucose);
         Cholesterol = findViewById(R.id.cholesterol);
+        goalCalories = findViewById(R.id.goalCalorie);
 
-
-
-
-
-
-        MultiSpinnerSearch allerList = (MultiSpinnerSearch) findViewById(R.id.alergensSpinner);
+        MultiSpinnerSearch allerList =  findViewById(R.id.alergensSpinner);
         final List<KeyPairBoolData> listArray = new ArrayList<KeyPairBoolData>();
 
         for(int i=0; i<list.size(); i++) {
@@ -143,14 +139,7 @@ public class UserProfileActivity extends AppCompatActivity {
             listArray.add(h);
         }
 
-/***
- * -1 is no by default selection
- * 0 to length will select corresponding values
- */
-
-
-
-        final MultiSpinnerSearch diseaseList = (MultiSpinnerSearch) findViewById(R.id.diseasesSpinner);
+        final MultiSpinnerSearch diseaseList =  findViewById(R.id.diseasesSpinner);
         final List<KeyPairBoolData> listArray1 = new ArrayList<KeyPairBoolData>();
 
         for(int i=0; i<list1.size(); i++) {
@@ -160,13 +149,6 @@ public class UserProfileActivity extends AppCompatActivity {
             h.setSelected(false);
             listArray1.add(h);
         }
-
-/***
- * -1 is no by default selection
- * 0 to length will select corresponding values
- */
-
-
 
         final Spinner heightspinner1 = (Spinner) findViewById(R.id.heightspinner1);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -196,6 +178,8 @@ public class UserProfileActivity extends AppCompatActivity {
             lastName.setText(fromDB.getLastName());
             emailId.setText(fromDB.getEmailId());
 
+            goalCalories.setText(fromDB.getGoalcalories());
+
             if(fromDB.getHeight() != null) {
                 String[] heightInches = fromDB.getHeight().split(" ");
 
@@ -204,24 +188,21 @@ public class UserProfileActivity extends AppCompatActivity {
                 heightspinner2.setSelection(getIndex(heightspinner2, heightInches[1]));
             }
 
-            String gend = fromDB.getGender();
+            String gender = fromDB.getGender();
 
-            RadioButton radioMale = (RadioButton) findViewById(R.id.radiobutton_male);
-            RadioButton radiofemale = (RadioButton) findViewById(R.id.radiobutton_female);
+            RadioButton radioMale =  findViewById(R.id.radiobutton_male);
+            RadioButton radioFemale =  findViewById(R.id.radiobutton_female);
 
+            RadioGroup mGroup =  findViewById(R.id.radiogroup_gender);
 
-
-            RadioGroup mGroup = (RadioGroup) findViewById(R.id.radiogroup_gender);
-
-            if(gend != null) {
-                if (gend.equals("male")) {
+            if(gender != null) {
+                if (gender.equals("male")) {
                     mGroup.check(radioMale.getId());
                 } else
-                    mGroup.check(radiofemale.getId());
+                    mGroup.check(radioFemale.getId());
             }
 
             Switch1.setChecked(fromDB.isSmoker());
-
             Switch2.setChecked(fromDB.isAlcoholic());
 
             if(fromDB.getDiseases() != null) {
@@ -271,7 +252,7 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-        Button button = (Button) findViewById(R.id.save);
+        Button button = findViewById(R.id.save);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -280,35 +261,28 @@ public class UserProfileActivity extends AppCompatActivity {
                 smoker = Switch1.isChecked();
                 alcoholic = Switch2.isChecked();
                 Weight = weight.getText().toString();
-
                 firstname = firstName.getText().toString();
-
                 lastname = lastName.getText().toString();
                 bloodglucose = Bloodglucose.getText().toString();
                 cholesterol = Cholesterol.getText().toString();
                 heightfoot = heightspinner1.getSelectedItem().toString();
                 heightinches = heightspinner2.getSelectedItem().toString();
+                goalcalories = goalCalories.getText().toString();
 
                 radioGroup = findViewById(R.id.radiogroup_gender);
                 int selectedId = radioGroup.getCheckedRadioButtonId();
 
                 // find the radiobutton by returned id
-                radioButton = (RadioButton) findViewById(selectedId);
-
+                radioButton = findViewById(selectedId);
                 gender = radioButton.getText().toString();
 
                 //Code to save food data to couchbase
 
                 System.out.println("Database : " + db + "   Username:  " + username);
                 email = username;
-                //                mDoc.setString("Smoking", statusSwitch1);
-//                mDoc.setString("Alcoholic", statusSwitch2);
 
+                UserProfile user = new UserProfile( firstname,  lastname,  email,  gender, goalcalories ,heightfoot + " " + heightinches  ,Weight, "profile",  smoker,  alcoholic,  bloodglucose,  cholesterol, new Date() , diseasesList, allergensList);
 
-                UserProfile user = new UserProfile( firstname,  lastname,  email,  gender, heightfoot + " " + heightinches  ,Weight, "profile",  smoker,  alcoholic,  bloodglucose,  cholesterol, new Date() , diseasesList, allergensList);
-
-
-              //  UserProfile user = new UserProfile();
                 if (db == null) throw new IllegalArgumentException();
 
                 ObjectMapper objectMapper = new ObjectMapper();
