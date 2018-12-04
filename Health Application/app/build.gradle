@@ -70,6 +70,7 @@ dependencies {
     }
     implementation 'com.android.support:gridlayout-v7:26.1.0'
     implementation 'com.steelkiwi:dots-loader-view:1.0.0'
+    implementation 'com.numetriclabz.numandroidcharts:numandroidcharts:1.0.12'
 }
 
 apply plugin: 'com.google.gms.google-services'
