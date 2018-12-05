@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Health Application</string>
+    <string name="app_name">LivFit</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

@@ -33,7 +33,7 @@
                 android:layout_width="350dp"
                 android:layout_height="200dp"
                 android:layout_alignParentTop="true"
-                android:src="@mipmap/liv1" />
+                android:src="@mipmap/applogo" />
 
             <LinearLayout
                 android:id="@+id/email_login_form"
