@@ -7,18 +7,18 @@
     android:orientation="vertical"
     tools:context="com.example.c02hp1dtdv35.healthapplication.Home.DashboardActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:orientation="horizontal"
-        android:weightSum="4">
-        <com.jjoe64.graphview.GraphView
-            android:layout_width="match_parent"
-            android:layout_height="200dip"
-            android:id="@+id/graph" />
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@android:color/white"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:weightSum="4">-->
+        <!--<com.jjoe64.graphview.GraphView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="200dip"-->
+            <!--android:id="@+id/graph" />-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
