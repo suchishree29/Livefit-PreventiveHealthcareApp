@@ -35,6 +35,7 @@ import com.couchbase.lite.Database;
 import com.couchbase.lite.Dictionary;
 import com.couchbase.lite.Expression;
 import com.couchbase.lite.MutableDocument;
+import com.couchbase.lite.Ordering;
 import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryBuilder;
 import com.couchbase.lite.Result;
@@ -42,6 +43,7 @@ import com.couchbase.lite.ResultSet;
 import com.couchbase.lite.SelectResult;
 import com.example.c02hp1dtdv35.healthapplication.Application;
 
+import com.example.c02hp1dtdv35.healthapplication.Login.UserProfile;
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.example.c02hp1dtdv35.healthapplication.UserHomeActivity;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -182,8 +184,16 @@ public class LogFood extends AppCompatActivity {
 
         Application application = (Application) getApplication();
         final String username = application.getUsername();
-        dailyDataOnLoad = application.getDailyDataOnLoad();
+       dailyDataOnLoad = application.getDailyDataOnLoad();
+
+       // dailyDataOnLoad = null;
         db = application.getDatabase();
+
+        totalCalories += dailyDataOnLoad.getTotalCalories();
+        totalFat += dailyDataOnLoad.getTotalFat();
+        totalProtein += dailyDataOnLoad.getTotalProtein();
+        totalSugar += dailyDataOnLoad.getTotalSugar();
+        totalSalt += dailyDataOnLoad.getTotalSalt();
 
         if (db == null) throw new IllegalArgumentException();
 
@@ -317,10 +327,91 @@ public class LogFood extends AppCompatActivity {
 
                 }
 
-                if(totalCalories > 600 && dailyCalories>0){
+                UserProfile fromDB = null;
+
+                query = QueryBuilder.select(SelectResult.all())
+                        .from(DataSource.database(db))
+                        .where(Expression.property("type").equalTo(Expression.string("profile")))
+                        .orderBy(Ordering.property("dateUpdated").descending());
+
+                try {
+                    ResultSet rs = query.execute();
+
+                    Result row;
+
+
+
+                    while ((row = rs.next()) != null) {
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        // Ignore undeclared properties
+                        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+                        Dictionary valueMap = row.getDictionary(db.getName());
+
+                        fromDB = objectMapper.convertValue(valueMap.toMap(),UserProfile.class);
+                        break;
+
+                    }
+
+
+                }
+                catch(Exception ex)
+                {
+                    ex.printStackTrace();
+                }
+
+
+                Double val = Double.MAX_VALUE;
+
+                String goalCalorie = "";
+
+                ArrayList<String> allergensAlert = new ArrayList<>();
+                boolean hasAllergicproduct= false;
+
+
+                if(fromDB!=null)
+                {
+                    goalCalorie = fromDB.getGoalcalories();
+                     val = new Double(goalCalorie);
+                    if(goalCalorie == null || goalCalorie.isEmpty())
+                    {
+                        val = Double.MAX_VALUE;
+                    }
+
+                    ArrayList<String> allergies = fromDB.getAllergens();
+
+
+
+
+
+                    for(Product product: products){
+
+                        String aller = product.getAllergens();
+
+                        if(aller == null || aller.isEmpty())
+                        {
+                            break;
+                        }
+
+                        String[] allergiesArray =  aller.split(",");
+
+                        for(String allergy : allergiesArray)
+                        {
+                            if(allergies.contains(allergy))
+                            {
+                                hasAllergicproduct = true;
+                                allergensAlert.add(allergy);
+                            }
+                        }
+                    }
+
+
+                }
+
+                if(totalCalories > val && dailyCalories>0){
                     AlertDialog alertDialog = new AlertDialog.Builder(LogFood.this).create();
                     alertDialog.setTitle("Alert");
-                    alertDialog.setMessage("Total calories for the day has exceeded 600 limit. Do you still want to log this item?");
+                    alertDialog.setMessage("Total calories for the day has exceeded your calorie limit:"+ goalCalorie +". Do you still want to log this item?");
                     alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {

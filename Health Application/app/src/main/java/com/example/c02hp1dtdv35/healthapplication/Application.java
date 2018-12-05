@@ -63,7 +63,7 @@ public class Application extends android.app.Application implements ReplicatorCh
 
     private static final int TF_API_INPUT_SIZE = 300;
 
-    private Classifier detector;
+    private static Classifier detector = null;
 
     private final static String DATABASE_NAME = "staging";
     private final static String SYNCGATEWAY_URL = "ws://ec2-34-209-11-84.us-west-2.compute.amazonaws.com:4984/staging";
