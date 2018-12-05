@@ -377,6 +377,8 @@ public class LogFood extends AppCompatActivity {
                                         com.couchbase.lite.internal.support.Log.e(TAG, "Failed to save the doc - %s", e, nDV);
                                     }
                                     dialog.dismiss();
+                                    Intent setIntent = new Intent(LogFood.this, UserHomeActivity.class);
+                                    startActivity(setIntent);
 
 
                                 }
@@ -387,6 +389,8 @@ public class LogFood extends AppCompatActivity {
                                     //pressed = false;
 
                                     dialog.dismiss();
+                                    Intent setIntent = new Intent(LogFood.this, UserHomeActivity.class);
+                                    startActivity(setIntent);
                                 }
                             });
                     alertDialog.show();
@@ -442,6 +446,9 @@ public class LogFood extends AppCompatActivity {
                             dailyDataOnLoad.setTotalFat(totalFat);
                             dailyDataOnLoad.setTotalCalories(totalCalories);
                         }
+
+                        Intent setIntent = new Intent(LogFood.this, UserHomeActivity.class);
+                        startActivity(setIntent);
                     } catch (CouchbaseLiteException e) {
                         com.couchbase.lite.internal.support.Log.e(TAG, "Failed to save the doc - %s", e, nDV);
                     }

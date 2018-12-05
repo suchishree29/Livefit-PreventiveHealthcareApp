@@ -77,8 +77,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
   private static final int TF_OD_API_INPUT_SIZE = 300;
     private static final String TF_OD_API_MODEL_FILE = "file:///android_asset/frozen_inference_graph.pb";
-    //private static final String TF_OD_API_MODEL_FILE = "file:///android_asset/saved_model.pb";
-    //"file:///android_asset/ssd_mobilenet_v1_android_export.pb";
+//    private static final String TF_OD_API_MODEL_FILE = "file:///android_asset/ssd_mobilenet_v1_android_export.pb";
 //  private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/coco_labels_list.txt";
     private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/livefit_labels_list.txt";
 
@@ -102,7 +101,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   private static final DetectorMode MODE = DetectorMode.TF_OD_API;
 
   // Minimum detection confidence to track a detection.
-  private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.6f;
+  private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.8f;
   private static final float MINIMUM_CONFIDENCE_MULTIBOX = 0.1f;
   private static final float MINIMUM_CONFIDENCE_YOLO = 0.25f;
 
@@ -146,19 +145,23 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     int cropSize = TF_OD_API_INPUT_SIZE;
 
-    try {
-        detector = TensorFlowObjectDetectionAPIModel.create(
-                getAssets(), TF_OD_API_MODEL_FILE, TF_OD_API_LABELS_FILE, TF_OD_API_INPUT_SIZE);
-        cropSize = TF_OD_API_INPUT_SIZE;
-      } catch (final IOException e) {
-        LOGGER.e("Exception initializing classifier!", e);
-        Toast toast =
-                Toast.makeText(
-                        getApplicationContext(), "Classifier could not be initialized", Toast.LENGTH_SHORT);
-        toast.show();
-        finish();
-      }
+//    try {
+//        detector = TensorFlowObjectDetectionAPIModel.create(
+//                getAssets(), TF_OD_API_MODEL_FILE, TF_OD_API_LABELS_FILE, TF_OD_API_INPUT_SIZE);
+//        cropSize = TF_OD_API_INPUT_SIZE;
+//      } catch (final IOException e) {
+//        LOGGER.e("Exception initializing classifier!", e);
+//        Toast toast =
+//                Toast.makeText(
+//                        getApplicationContext(), "Classifier could not be initialized", Toast.LENGTH_SHORT);
+//        toast.show();
+//        finish();
+//      }
 
+    Application application = (Application) getApplication();
+
+    detector = application.getDetector();
+    cropSize = TF_OD_API_INPUT_SIZE;
 
     previewWidth = size.getWidth();
     previewHeight = size.getHeight();
@@ -388,7 +391,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                 for (final Classifier.Recognition result : results) {
                   final RectF location = result.getLocation();
-                  if (location != null && result.getConfidence() >= minimumConfidence) {
+                  if ((result.getTitle().equals("apple") || result.getTitle().equals("orange") || result.getTitle().equals("banana"))
+                          && location != null && result.getConfidence() >= minimumConfidence) {
                     canvas.drawRect(location, paint);
 
                     cropToFrameTransform.mapRect(location);

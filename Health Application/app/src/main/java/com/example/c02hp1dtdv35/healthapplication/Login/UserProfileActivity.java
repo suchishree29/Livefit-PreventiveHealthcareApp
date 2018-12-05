@@ -36,6 +36,7 @@ import com.example.c02hp1dtdv35.healthapplication.Application;
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.DailyValues;
 import com.example.c02hp1dtdv35.healthapplication.Home.WatsonScreen;
 import com.example.c02hp1dtdv35.healthapplication.R;
+import com.example.c02hp1dtdv35.healthapplication.UserHomeActivity;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -298,7 +299,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(),
                              "User details saved!", Toast.LENGTH_SHORT);
                     toast.show();
-                    Intent homeScreenIntent= new Intent(UserProfileActivity.this,WatsonScreen.class);
+                    Intent homeScreenIntent= new Intent(UserProfileActivity.this,UserHomeActivity.class);
                     startActivity(homeScreenIntent);
 
                 } catch (CouchbaseLiteException e) {
