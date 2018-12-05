@@ -311,8 +311,6 @@ public class LogFood extends AppCompatActivity {
 
                     String en = product.getNutriments().getEnergyValue();
 
-
-
                     dailyCalories+= Double.valueOf(en);
                     dailyFat+= Double.valueOf(product.getNutriments().getFat());
                     dailyProtein += Double.valueOf(product.getNutriments().getProteins());
@@ -339,8 +337,6 @@ public class LogFood extends AppCompatActivity {
 
                     Result row;
 
-
-
                     while ((row = rs.next()) != null) {
                         ObjectMapper objectMapper = new ObjectMapper();
                         // Ignore undeclared properties
@@ -352,14 +348,11 @@ public class LogFood extends AppCompatActivity {
                         break;
 
                     }
-
-
                 }
                 catch(Exception ex)
                 {
                     ex.printStackTrace();
                 }
-
 
                 Double val = Double.MAX_VALUE;
 
@@ -367,7 +360,6 @@ public class LogFood extends AppCompatActivity {
 
                 ArrayList<String> allergensAlert = new ArrayList<>();
                 boolean hasAllergicproduct= false;
-
 
                 if(fromDB!=null)
                 {
@@ -378,11 +370,7 @@ public class LogFood extends AppCompatActivity {
                         val = Double.MAX_VALUE;
                     }
 
-                    ArrayList<String> allergies = fromDB.getAllergens();
-
-
-
-
+                    ArrayList<String> allergiesfromDB = fromDB.getAllergens();
 
                     for(Product product: products){
 
@@ -397,7 +385,7 @@ public class LogFood extends AppCompatActivity {
 
                         for(String allergy : allergiesArray)
                         {
-                            if(allergies.contains(allergy))
+                            if(allergiesfromDB.contains(allergy.trim()))
                             {
                                 hasAllergicproduct = true;
                                 allergensAlert.add(allergy);
@@ -408,10 +396,22 @@ public class LogFood extends AppCompatActivity {
 
                 }
 
-                if(totalCalories > val && dailyCalories>0){
+
+                if((totalCalories > val && dailyCalories>0)|| hasAllergicproduct){
+                    String message = "";
+                    if(hasAllergicproduct) {
+                        message += "Food you are going to have has allergens: " + allergensAlert.toString() + " ";
+                    }
+
+                    if(totalCalories > val && dailyCalories>0)
+                    {
+                        message=  message + "\n" + "Total calories for the day has exceeded your calorie limit:"+ goalCalorie;
+                    }
+
+                    message = message+ "\n"  + "Do you still want to log this item?";
                     AlertDialog alertDialog = new AlertDialog.Builder(LogFood.this).create();
                     alertDialog.setTitle("Alert");
-                    alertDialog.setMessage("Total calories for the day has exceeded your calorie limit:"+ goalCalorie +". Do you still want to log this item?");
+                    alertDialog.setMessage(message);
                     alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
