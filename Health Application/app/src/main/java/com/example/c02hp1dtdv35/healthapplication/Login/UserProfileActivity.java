@@ -55,7 +55,7 @@ public class UserProfileActivity extends AppCompatActivity {
     String[] diseases_array = {"High Blood Pressure", "Low Blood Pressure", "Diabetes", "Cholesterol"};
     String[] heightarray1 = {"1","2","3","4","5","6","7","8"};
     String[] heightarray2 = {"1","2","3","4","5","6","7","8","9","10","11"};
-    String[] allergens_array = {"Eggs", "Milk", "Peanuts", "Fish", "Wheat", "Soy"};
+    String[] allergens_array = {"eggs", "milk", "peanuts", "fish", "wheat", "soy"};
 
     private RadioGroup radioGroup;
     private RadioButton radioButton;
