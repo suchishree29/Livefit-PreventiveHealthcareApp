@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.c02hp1dtdv35.healthapplication.R;
+import com.example.c02hp1dtdv35.healthapplication.UserHomeActivity;
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -58,6 +60,10 @@ public class BarcodeScannerActivity extends AppCompatActivity {
                             try {
                                 Gson gson = new Gson();
                                 ProductVO productVO = gson.fromJson(response.toString(), ProductVO.class);
+                                if(productVO.getCode() == null || productVO.getCode().isEmpty())
+                                {
+                                    onBackPressed();
+                                }
                                 Product product = productVO.getProduct();
                                 Nutriments nutriments = product.getNutriments();
                                 NutrientLevels nutrientLevels = product.getNutrientLevels();
@@ -112,6 +118,23 @@ public class BarcodeScannerActivity extends AppCompatActivity {
                     "No scan data received!", Toast.LENGTH_SHORT);
             toast.show();
         }
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
+                && keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) { ;
+            onBackPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Intent setIntent = new Intent(getApplicationContext(), UserHomeActivity.class);
+        startActivity(setIntent);
     }
 
 }
