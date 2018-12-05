@@ -5,21 +5,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.BarcodeScannerActivity;
-import com.example.c02hp1dtdv35.healthapplication.Home.CameraActivity;
 import com.example.c02hp1dtdv35.healthapplication.Home.DashboardActivity;
 import com.example.c02hp1dtdv35.healthapplication.Home.DetectorActivity;
 import com.example.c02hp1dtdv35.healthapplication.LoggedFoodDisplay.ShowLoggedFoodActivity;
+import com.example.c02hp1dtdv35.healthapplication.Login.LoginActivity;
 import com.example.c02hp1dtdv35.healthapplication.Login.UserProfileActivity;
-import com.example.c02hp1dtdv35.healthapplication.R;
 import com.example.c02hp1dtdv35.healthapplication.Remind.ReminderActivity;
 
 public class UserHomeActivity extends AppCompatActivity {
 
     // UI references.
     private ImageView userProfile;
+    private Button signout;
     private CardView dashboard;
     private CardView foodLog;
     private CardView camera;
@@ -37,6 +38,7 @@ public class UserHomeActivity extends AppCompatActivity {
         camera = findViewById(R.id.camera);
         barcode = findViewById(R.id.barcode);
         reminder = findViewById(R.id.reminder);
+        signout = findViewById(R.id.logoutBtn);
 
         userProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +85,14 @@ public class UserHomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(UserHomeActivity.this, DashboardActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent signOutIntent = new Intent(UserHomeActivity.this, LoginActivity.class);
+                startActivity(signOutIntent);
             }
         });
     }
