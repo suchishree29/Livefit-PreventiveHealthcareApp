@@ -83,7 +83,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:background="@color/logo_color"
-                    android:text="Login To Your Account"
+                    android:text="Login"
+                    android:textColor="@color/cast_expanded_controller_text_color"
                     android:textStyle="bold" />
 
 
@@ -95,6 +96,7 @@
                     android:layout_marginTop="16dp"
                     android:background="@color/logo_color"
                     android:text="@string/action_sign_up"
+                    android:textColor="@color/cast_expanded_controller_text_color"
                     android:textStyle="bold" />
 
             </LinearLayout>
