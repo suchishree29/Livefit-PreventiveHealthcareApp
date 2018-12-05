@@ -56,6 +56,15 @@ public class Application extends android.app.Application implements ReplicatorCh
     private final static boolean LOGIN_FLOW_ENABLED = true;
     private final static boolean SYNC_ENABLED = true;
 
+    private static final String TF_API_MODEL_FILE = "file:///android_asset/frozen_inference_graph.pb";
+    //    private static final String TF_OD_API_MODEL_FILE = "file:///android_asset/ssd_mobilenet_v1_android_export.pb";
+//  private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/coco_labels_list.txt";
+    private static final String TF_API_LABELS_FILE = "file:///android_asset/livefit_labels_list.txt";
+
+    private static final int TF_API_INPUT_SIZE = 300;
+
+    private Classifier detector;
+
     private final static String DATABASE_NAME = "staging";
     private final static String SYNCGATEWAY_URL = "ws://ec2-34-209-11-84.us-west-2.compute.amazonaws.com:4984/staging";
 
@@ -128,6 +137,20 @@ public class Application extends android.app.Application implements ReplicatorCh
         AssetManager assetManager = getAssets();
 
         startSession(username, password);
+
+
+        try {
+            detector = TensorFlowObjectDetectionAPIModel.create(
+                    getAssets(), TF_API_MODEL_FILE, TF_API_LABELS_FILE, TF_API_INPUT_SIZE);
+
+        } catch (final IOException e) {
+//            LOGGER.e("Exception initializing classifier!", e);
+//            Toast toast =
+//                    Toast.makeText(
+//                            getApplicationContext(), "Classifier could not be initialized", Toast.LENGTH_SHORT);
+//            toast.show();
+//            finish();
+        }
 
 
         int year,day,month;
@@ -414,6 +437,11 @@ public class Application extends android.app.Application implements ReplicatorCh
     public DailyValues getDailyDataOnLoad()
     {
         return dailyDataOnLoad;
+    }
+
+    public Classifier getDetector()
+    {
+        return detector;
     }
 
 //    protected void attachBaseContext(Context base) {
