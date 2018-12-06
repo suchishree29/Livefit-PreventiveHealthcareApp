@@ -66,8 +66,8 @@ public class Application extends android.app.Application implements ReplicatorCh
     private static Classifier detector = null;
 
     private final static String DATABASE_NAME = "staging";
-    private final static String SYNCGATEWAY_URL = "ws://ec2-34-209-11-84.us-west-2.compute.amazonaws.com:4984/staging";
-
+    //private final static String SYNCGATEWAY_URL = "ws://ec2-34-209-11-84.us-west-2.compute.amazonaws.com:4984/staging";
+    private final static String SYNCGATEWAY_URL = "ws://10.0.0.220:4984/staging";
     private Database database = null;
     private Replicator replicator;
     private String username = DATABASE_NAME;
@@ -153,49 +153,49 @@ public class Application extends android.app.Application implements ReplicatorCh
         }
 
 
-        int year,day,month;
-        String date;
-        DailyValues dailyData =null;
-
-        Double totalCalories =0.0, totalSugar=0.0,totalFat=0.0, totalProtein=0.0,totalSalt=0.0;
-
-        Calendar cal = Calendar.getInstance();
-        year = cal.get(Calendar.YEAR);
-        month = cal.get(Calendar.MONTH);
-        day = cal.get(Calendar.DAY_OF_MONTH);
-
-        date = (month+1) +"/" + day + "/" + year;
-        Query query;   query = QueryBuilder.select(SelectResult.all())
-                .from(DataSource.database(database))
-                .where(Expression.property("type").equalTo(Expression.string("daily-data"))
-                        .and(Expression.property("date").equalTo(Expression.string(date)))
-                        .and(Expression.property("owner").equalTo(Expression.string(username))));
-        try {
-            ResultSet rs = query.execute();
-
-            Result row;
-
-            while ((row = rs.next()) != null) {
-                ObjectMapper objectMapper = new ObjectMapper();
-                // Ignore undeclared properties
-                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-                Dictionary valueMap = row.getDictionary(database.getName());
-
-                dailyData = objectMapper.convertValue(valueMap.toMap(),DailyValues.class);
-                totalCalories += dailyData.getTotalCalories();
-                totalFat+= dailyData.getTotalFat();
-                totalProtein += dailyData.getTotalProtein();
-                totalSugar += dailyData.getTotalSugar();
-                totalSalt += dailyData.getTotalSalt();
-
-            }
-
-            dailyDataOnLoad = new DailyValues("", date,totalCalories,totalSugar,totalFat,totalProtein,totalSalt,"",username);
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
+//        int year,day,month;
+//        String date;
+//        DailyValues dailyData =null;
+//
+//        Double totalCalories =0.0, totalSugar=0.0,totalFat=0.0, totalProtein=0.0,totalSalt=0.0;
+//
+//        Calendar cal = Calendar.getInstance();
+//        year = cal.get(Calendar.YEAR);
+//        month = cal.get(Calendar.MONTH);
+//        day = cal.get(Calendar.DAY_OF_MONTH);
+//
+//        date = (month+1) +"/" + day + "/" + year;
+//        Query query;   query = QueryBuilder.select(SelectResult.all())
+//                .from(DataSource.database(database))
+//                .where(Expression.property("type").equalTo(Expression.string("daily-data"))
+//                        .and(Expression.property("date").equalTo(Expression.string(date)))
+//                        .and(Expression.property("owner").equalTo(Expression.string(username))));
+//        try {
+//            ResultSet rs = query.execute();
+//
+//            Result row;
+//
+//            while ((row = rs.next()) != null) {
+//                ObjectMapper objectMapper = new ObjectMapper();
+//                // Ignore undeclared properties
+//                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//                Dictionary valueMap = row.getDictionary(database.getName());
+//
+//                dailyData = objectMapper.convertValue(valueMap.toMap(),DailyValues.class);
+//                totalCalories += dailyData.getTotalCalories();
+//                totalFat+= dailyData.getTotalFat();
+//                totalProtein += dailyData.getTotalProtein();
+//                totalSugar += dailyData.getTotalSugar();
+//                totalSalt += dailyData.getTotalSalt();
+//
+//            }
+//
+//            dailyDataOnLoad = new DailyValues("", date,totalCalories,totalSugar,totalFat,totalProtein,totalSalt,"",username);
+//        }
+//        catch(Exception ex)
+//        {
+//            ex.printStackTrace();
+//        }
 
 
 
@@ -386,53 +386,7 @@ public class Application extends android.app.Application implements ReplicatorCh
     }
 
 
-    private void setDailyData()
-    {
 
-        int year,day,month;
-        String date;
-        DailyValues dailyData =null;
-
-        Double totalCalories =0.0, totalSugar=0.0,totalFat=0.0, totalProtein=0.0,totalSalt=0.0;
-
-        Calendar cal = Calendar.getInstance();
-        year = cal.get(Calendar.YEAR);
-        month = cal.get(Calendar.MONTH);
-        day = cal.get(Calendar.DAY_OF_MONTH);
-
-        date = (month+1) +"/" + day + "/" + year;
-        Query query;   query = QueryBuilder.select(SelectResult.all())
-                .from(DataSource.database(database))
-                .where(Expression.property("type").equalTo(Expression.string("daily-data"))
-                        .and(Expression.property("date").equalTo(Expression.string(date)))
-                        .and(Expression.property("owner").equalTo(Expression.string(username))));
-        try {
-            ResultSet rs = query.execute();
-
-            Result row;
-
-            while ((row = rs.next()) != null) {
-                ObjectMapper objectMapper = new ObjectMapper();
-                // Ignore undeclared properties
-                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-                Dictionary valueMap = row.getDictionary(database.getName());
-
-                dailyData = objectMapper.convertValue(valueMap.toMap(),DailyValues.class);
-                totalCalories += dailyData.getTotalCalories();
-                totalFat+= dailyData.getTotalFat();
-                totalProtein += dailyData.getTotalProtein();
-                totalSugar += dailyData.getTotalSugar();
-                totalSalt += dailyData.getTotalSalt();
-
-            }
-
-            dailyDataOnLoad = new DailyValues("", date,totalCalories,totalSugar,totalFat,totalProtein,totalSalt,"",username);
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-    }
 
     public DailyValues getDailyDataOnLoad()
     {

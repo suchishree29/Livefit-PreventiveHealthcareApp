@@ -12,6 +12,7 @@ import com.couchbase.lite.DataSource;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.Dictionary;
 import com.couchbase.lite.Expression;
+import com.couchbase.lite.Ordering;
 import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryBuilder;
 import com.couchbase.lite.Result;
@@ -19,6 +20,7 @@ import com.couchbase.lite.ResultSet;
 import com.couchbase.lite.SelectResult;
 import com.example.c02hp1dtdv35.healthapplication.Application;
 import com.example.c02hp1dtdv35.healthapplication.BarcodeScanner.DailyValues;
+import com.example.c02hp1dtdv35.healthapplication.Login.UserProfile;
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,12 +42,14 @@ public class DashboardActivity extends AppCompatActivity {
 
     private Database database;
 
+     String username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
        // graph = findViewById(R.id.graph);
-        BarChart barChart = (BarChart) findViewById(R.id.barChart);
+        BarChart barChart =  findViewById(R.id.barChart);
 
         String date1,date2,date3,date4,date5;
         int year,day,month;
@@ -89,41 +93,60 @@ public class DashboardActivity extends AppCompatActivity {
         value.add(new ChartData(dv2.getTotalCalories().floatValue(), date2));
         value.add(new ChartData(dv1.getTotalCalories().floatValue(), date1));
 
+
+        UserProfile fromDB = null;
+        Query query;
+        query = QueryBuilder.select(SelectResult.all())
+                .from(DataSource.database(database))
+                .where(Expression.property("type").equalTo(Expression.string("profile")))
+                .orderBy(Ordering.property("dateUpdated").descending());
+
+        try {
+            ResultSet rs = query.execute();
+
+            Result row;
+
+
+
+            while ((row = rs.next()) != null) {
+                ObjectMapper objectMapper = new ObjectMapper();
+                // Ignore undeclared properties
+                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+                Dictionary valueMap = row.getDictionary(database.getName());
+
+                fromDB = objectMapper.convertValue(valueMap.toMap(),UserProfile.class);
+                break;
+
+            }
+
+
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
 //        value.add(new ChartData(4f, "2001"));//values.add(new ChartData(y,&quot;X-Labels&quot;));<br />
 //        value.add(new ChartData(9f, "2002"));
 //        value.add(new ChartData(18f, "2003"));
 //        value.add(new ChartData(6f, "2004"));
 //        value.add(new ChartData(15f, "2005"));
 
+
+        String goalCalorie = fromDB.getGoalcalories();
+        Float val = new Float(goalCalorie);
+
         List<ChartData> trendLines = new ArrayList();
-        trendLines.add(new ChartData(16f, 18f, "Target"));
+        trendLines.add(new ChartData(val, val+10, "Target"));
          barChart.setData(value);
          barChart.setTrendZones(trendLines);
 //         barChart.set
-        barChart.setGesture(true);
+        barChart.setGesture(false);
 
-//        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[] {
-//                new DataPoint(0, 1),
-//                new DataPoint(1, 5),
-//                new DataPoint(2, 3),
-//                new DataPoint(3, 2),
-//                new DataPoint(4, 6)
-//        });
-//        series.setSpacing(1);
-//        graph.addSeries(series);
-//
-//        double xInterval=1.0;
-//        graph.getViewport().setXAxisBoundsManual(true);
-//
-//        LineGraphSeries<DataPoint> series1 = new LineGraphSeries<>(new DataPoint[] {
-//                new DataPoint(0, 5),
-//                new DataPoint(1, 5),
-//                new DataPoint(2, 5),
-//                new DataPoint(3, 5),
-//                new DataPoint(4, 5)
-//        });
-//        series.setColor(Color.GREEN);
-//        graph.addSeries(series1);
+        barChart.setDescription("Calorie Goals VS Intake");
+
+
     }
 
     DailyValues dailyValuesForDate(String date)
@@ -132,7 +155,7 @@ public class DashboardActivity extends AppCompatActivity {
         DailyValues dailyDataOnLoad = null;
 
         Application application = (Application) getApplication();
-        final String username = application.getUsername();
+         username= application.getUsername();
 
 
         // dailyDataOnLoad = null;
@@ -143,7 +166,8 @@ public class DashboardActivity extends AppCompatActivity {
         Double totalCalories =0.0, totalSugar=0.0,totalFat=0.0, totalProtein=0.0,totalSalt=0.0;
 
 
-        Query query;   query = QueryBuilder.select(SelectResult.all())
+        Query query;
+        query = QueryBuilder.select(SelectResult.all())
             .from(DataSource.database(database))
             .where(Expression.property("type").equalTo(Expression.string("daily-data"))
                     .and(Expression.property("date").equalTo(Expression.string(date)))
@@ -168,7 +192,7 @@ public class DashboardActivity extends AppCompatActivity {
 
             }
 
-            dailyDataOnLoad = new DailyValues("", date,totalCalories,totalSugar,totalFat,totalProtein,totalSalt,"",username);
+            dailyDataOnLoad = new DailyValues( date,  totalCalories,  totalSugar,  totalFat,  totalProtein,  totalSalt,  "daily-data",  username);
         }
         catch(Exception ex)
         {

@@ -6,19 +6,15 @@ package com.example.c02hp1dtdv35.healthapplication.BarcodeScanner;
 
 public class DailyValues {
 
-    private String id;
+
     private String date;
     private Double totalCalories;
     private Double totalSugar;
     private Double totalFat;
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+
+
 
     private Double totalProtein;
     private Double totalSalt;
@@ -46,8 +42,8 @@ public class DailyValues {
 
     }
 
-    public DailyValues(String id, String date, Double totalCalories, Double totalSugar, Double totalFat, Double totalProtein, Double totalSalt, String type, String owner) {
-        this.id = id;
+    public DailyValues( String date, Double totalCalories, Double totalSugar, Double totalFat, Double totalProtein, Double totalSalt, String type, String owner) {
+
         this.date = date;
         this.totalCalories = totalCalories;
         this.totalSugar = totalSugar;
