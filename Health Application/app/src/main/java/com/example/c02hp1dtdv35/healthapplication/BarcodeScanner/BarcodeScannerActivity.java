@@ -44,7 +44,7 @@ public class BarcodeScannerActivity extends AppCompatActivity {
 //        IntentIntegrator scanIntegrator = new IntentIntegrator(this);
 //        scanIntegrator.initiateScan();
         getData("021000010875");
-//        scanLoader.show();
+        scanLoader.show();
     }
 
     private void getData(String barcode) {

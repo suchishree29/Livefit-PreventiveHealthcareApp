@@ -64,13 +64,14 @@ dependencies {
     implementation 'io.realm:realm-android:0.84.1'
 
     implementation 'com.github.pratikbutani:MultiSelectSpinner:08d324c98'
-
-    implementation('com.jjoe64:graphview:4.2.2') {
-        exclude group: "com.android.support"
-    }
     implementation 'com.android.support:gridlayout-v7:26.1.0'
     implementation 'com.steelkiwi:dots-loader-view:1.0.0'
     implementation 'com.numetriclabz.numandroidcharts:numandroidcharts:1.0.12'
+    implementation('com.jjoe64:graphview:4.2.2') {
+        exclude group: "com.android.support"
+    }
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'
