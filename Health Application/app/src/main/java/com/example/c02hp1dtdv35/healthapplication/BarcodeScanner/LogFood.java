@@ -326,7 +326,8 @@ public class LogFood extends AppCompatActivity {
 
                 query = QueryBuilder.select(SelectResult.all())
                         .from(DataSource.database(db))
-                        .where(Expression.property("type").equalTo(Expression.string("profile")))
+                        .where(Expression.property("type").equalTo(Expression.string("profile"))
+                         .and(Expression.property("owner").equalTo(Expression.string(username))))
                         .orderBy(Ordering.property("dateUpdated").descending());
 
                 try {

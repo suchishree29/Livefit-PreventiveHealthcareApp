@@ -34,6 +34,7 @@ public class ShowLoggedFoodActivity extends AppCompatActivity{
     private Query query;
 
     private Database db;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class ShowLoggedFoodActivity extends AppCompatActivity{
         Application application = (Application) getApplication();
         db = application.getDatabase();
         if (db == null) throw new IllegalArgumentException();
-
+        username = application.getUsername();
         // Set content layout
         setContentView(R.layout.activity_list);
         getSupportActionBar().setTitle("Logged Foods");
@@ -59,7 +60,8 @@ public class ShowLoggedFoodActivity extends AppCompatActivity{
             // 1. Create a liveQuery to fetch all documents from database
             query = QueryBuilder.select(SelectResult.all())
                     .from(DataSource.database(db))
-                    .where(Expression.property("type").equalTo(Expression.string("task-list")))
+                    .where(Expression.property("type").equalTo(Expression.string("task-list"))
+                    .and(Expression.property("owner").equalTo(Expression.string(username))))
                     .orderBy(Ordering.property("meal_date").descending());
 
             // 2. Add a live query listener to continually monitor for changes

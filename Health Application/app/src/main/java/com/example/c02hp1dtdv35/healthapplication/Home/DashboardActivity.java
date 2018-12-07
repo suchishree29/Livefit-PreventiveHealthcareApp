@@ -92,7 +92,8 @@ public class DashboardActivity extends AppCompatActivity {
         Query query;
         query = QueryBuilder.select(SelectResult.all())
                 .from(DataSource.database(database))
-                .where(Expression.property("type").equalTo(Expression.string("profile")))
+                .where(Expression.property("type").equalTo(Expression.string("profile"))
+                        .and(Expression.property("owner").equalTo(Expression.string(username))))
                 .orderBy(Ordering.property("dateUpdated").descending());
 
         try {
