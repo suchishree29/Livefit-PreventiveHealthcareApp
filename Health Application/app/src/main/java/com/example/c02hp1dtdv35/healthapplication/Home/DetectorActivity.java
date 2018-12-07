@@ -145,23 +145,23 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     int cropSize = TF_OD_API_INPUT_SIZE;
 
-//    try {
-//        detector = TensorFlowObjectDetectionAPIModel.create(
-//                getAssets(), TF_OD_API_MODEL_FILE, TF_OD_API_LABELS_FILE, TF_OD_API_INPUT_SIZE);
-//        cropSize = TF_OD_API_INPUT_SIZE;
-//      } catch (final IOException e) {
-//        LOGGER.e("Exception initializing classifier!", e);
-//        Toast toast =
-//                Toast.makeText(
-//                        getApplicationContext(), "Classifier could not be initialized", Toast.LENGTH_SHORT);
-//        toast.show();
-//        finish();
-//      }
+    try {
+        detector = TensorFlowObjectDetectionAPIModel.create(
+                getAssets(), TF_OD_API_MODEL_FILE, TF_OD_API_LABELS_FILE, TF_OD_API_INPUT_SIZE);
+        cropSize = TF_OD_API_INPUT_SIZE;
+      } catch (final IOException e) {
+        LOGGER.e("Exception initializing classifier!", e);
+        Toast toast =
+                Toast.makeText(
+                        getApplicationContext(), "Classifier could not be initialized", Toast.LENGTH_SHORT);
+        toast.show();
+        finish();
+      }
 
-    Application application = (Application) getApplication();
-
-    detector = application.getDetector();
-    cropSize = TF_OD_API_INPUT_SIZE;
+//    Application application = (Application) getApplication();
+//
+//    detector = application.getDetector();
+//    cropSize = TF_OD_API_INPUT_SIZE;
 
     previewWidth = size.getWidth();
     previewHeight = size.getHeight();
@@ -242,7 +242,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     public void clickNew(View v)
     {
-        Toast.makeText(this, "Show some text on the screen.", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Show some text on the screen.", Toast.LENGTH_LONG).show();
         Application application = (Application) getApplication();
 
         List<Product> prods = new ArrayList<>();
