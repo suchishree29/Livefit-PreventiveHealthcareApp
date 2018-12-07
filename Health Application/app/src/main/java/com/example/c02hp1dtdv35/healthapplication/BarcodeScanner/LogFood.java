@@ -425,7 +425,7 @@ public class LogFood extends AppCompatActivity {
                                         try {
                                             db.save(mDoc);
                                             Toast toast = Toast.makeText(getApplicationContext(),
-                                                    product + "product is logged successfully!", Toast.LENGTH_SHORT);
+                                                     ":product is logged successfully!", Toast.LENGTH_SHORT);
                                             toast.show();
                                         } catch (CouchbaseLiteException e) {
                                             com.couchbase.lite.internal.support.Log.e(TAG, "Failed to save the doc - %s", e, mDoc);
@@ -490,7 +490,7 @@ public class LogFood extends AppCompatActivity {
                         try {
                             db.save(mDoc);
                             Toast toast = Toast.makeText(getApplicationContext(),
-                                    product + "product is logged successfully!", Toast.LENGTH_SHORT);
+                                     "product is logged successfully!", Toast.LENGTH_SHORT);
                             toast.show();
                         } catch (CouchbaseLiteException e) {
                             com.couchbase.lite.internal.support.Log.e(TAG, "Failed to save the doc - %s", e, mDoc);
