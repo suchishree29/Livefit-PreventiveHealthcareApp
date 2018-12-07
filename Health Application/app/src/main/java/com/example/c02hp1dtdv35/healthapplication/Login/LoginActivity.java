@@ -85,11 +85,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
-//        Application application = (Application) getApplication();
+       // Application application = (Application) getApplication();
 ////        String name = nameInput.getText().toString();
 ////        String pass = passwordInput.getText().toString();
-//        application.login("cc@gmail.com", "cc");
-//        // application.login("john", "pass");
+        //application.login("cc@gmail.com", "cc");
+        // application.login("john", "pass");
 //        Intent i = new Intent(LoginActivity.this,UserHomeActivity.class);
 //        startActivity(i);
 
@@ -178,7 +178,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //        String name = nameInput.getText().toString();
 //        String pass = passwordInput.getText().toString();
                         application.login(username, pass);
-                       // application.login("john", "pass");
+                        //application.login("john", "pass");
+                        //application.login("cc@gmail.com", "cc");
                         Intent i = new Intent(LoginActivity.this,UserHomeActivity.class);
                         startActivity(i);
 
