@@ -41,9 +41,9 @@ public class BarcodeScannerActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Barcode Scanner");
         scanLoader = findViewById(R.id.dotsLoaderView);
         requestQueue = Volley.newRequestQueue(this);  // This setups up a new request queue which we will need to make HTTP requests.
-//        IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-//        scanIntegrator.initiateScan();
-        getData("021000010875");
+        IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+        scanIntegrator.initiateScan();
+        //getData("021000010875");
         scanLoader.show();
     }
 
