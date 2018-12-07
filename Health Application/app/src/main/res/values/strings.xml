@@ -95,6 +95,9 @@
     <string name="email_id">Email Id</string>
     <string name="last_name">Last Name</string>
     <string name="first_name">First Name</string>
+    <string name="camera">Camera</string>
+    <string name="signout">SignOut</string>
+    <string name="dashboard">Dashboard</string>
 
 
 </resources>

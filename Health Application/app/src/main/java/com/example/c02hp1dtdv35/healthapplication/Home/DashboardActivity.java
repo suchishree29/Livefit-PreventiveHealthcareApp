@@ -1,13 +1,7 @@
 package com.example.c02hp1dtdv35.healthapplication.Home;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-
 import com.couchbase.lite.DataSource;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.Dictionary;
@@ -126,13 +120,6 @@ public class DashboardActivity extends AppCompatActivity {
         {
             ex.printStackTrace();
         }
-
-//        value.add(new ChartData(4f, "2001"));//values.add(new ChartData(y,&quot;X-Labels&quot;));<br />
-//        value.add(new ChartData(9f, "2002"));
-//        value.add(new ChartData(18f, "2003"));
-//        value.add(new ChartData(6f, "2004"));
-//        value.add(new ChartData(15f, "2005"));
-
 
         String goalCalorie = fromDB.getGoalcalories();
         Float val = new Float(goalCalorie);
