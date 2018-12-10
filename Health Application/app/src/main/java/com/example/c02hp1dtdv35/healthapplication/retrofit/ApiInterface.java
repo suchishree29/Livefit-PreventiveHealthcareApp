@@ -17,9 +17,6 @@ import retrofit2.http.PartMap;
 import com.example.c02hp1dtdv35.healthapplication.Login.Login;
 import com.example.c02hp1dtdv35.healthapplication.Login.Signup;
 
-/**
- * Created by ADMIN on 15/06/2017.
- */
 
 public interface ApiInterface {
     @FormUrlEncoded

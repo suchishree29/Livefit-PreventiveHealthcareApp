@@ -20,7 +20,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,7 +31,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.c02hp1dtdv35.healthapplication.Application;
-import com.example.c02hp1dtdv35.healthapplication.Home.WatsonScreen;
 import com.example.c02hp1dtdv35.healthapplication.R;
 import com.example.c02hp1dtdv35.healthapplication.UserHomeActivity;
 import com.example.c02hp1dtdv35.healthapplication.retrofit.ApiClient;
@@ -56,11 +54,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
@@ -82,16 +75,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         getSupportActionBar().setTitle("LivFit");
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = findViewById(R.id.email);
         populateAutoComplete();
 
-       // Application application = (Application) getApplication();
-////        String name = nameInput.getText().toString();
-////        String pass = passwordInput.getText().toString();
-        //application.login("cc@gmail.com", "cc");
-        // application.login("john", "pass");
-//        Intent i = new Intent(LoginActivity.this,UserHomeActivity.class);
-//        startActivity(i);
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -105,14 +91,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
 
-        Button mEmailSignUpButton=(Button)findViewById(R.id.email_sign_up_button);
+        Button mEmailSignUpButton= findViewById(R.id.email_sign_up_button);
 
         mEmailSignUpButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                // attemptLogin();
 
                 Intent i = new Intent(LoginActivity.this,SignUpActivity.class);
                 startActivity(i);
@@ -135,8 +120,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 }
                             });
                 }
-
-                //actionSignUp();
             }
         });
 
@@ -163,32 +146,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 if (response.body() != null) {
 
                     if (response.body().getSuccess().equals(true)) {
-//                        loginArrayList = response.body();
-//                        loginArrayList.get(0).setPassword(mPasswordView.getText().toString().trim());
-//                        String json = Constants.convert_object_string(loginArrayList.get(0));
-//                        Log.d("System out","password__"+loginArrayList);
-//                        CustomLog.d("System out","password__"+loginArrayList);
-
-                        //sessionManager.create_login_session(json);
-                        //Constants.snackbar(getActivity(), ll_main, "" + response.body().get(0).getMessage());
-
-//                        CustomLog.d("system out", response.body().get(0).getMsg());
 
                         Application application = (Application) getApplication();
-//        String name = nameInput.getText().toString();
-//        String pass = passwordInput.getText().toString();
                         application.login(username, pass);
-                        //application.login("john", "pass");
-                        //application.login("cc@gmail.com", "cc");
                         Intent i = new Intent(LoginActivity.this,UserHomeActivity.class);
                         startActivity(i);
-
-                        //finish();
-
-                        //Home.WatsonScreen();
                     } else {
-                        //Constants.snackbar(getActivity(), ll_main, "" + response.body().get(0).getMsg());
-//                        CustomLog.d("System out", response.body().get(0).getMsg());
                         CustomLog.d("system out", "else case:");
                     }
                 }
@@ -199,20 +162,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             }
         });
-
-    }
-
-    private void login() {
-        Application application = (Application) getApplication();
-//        String name = nameInput.getText().toString();
-//        String pass = passwordInput.getText().toString();
-        application.login("john", "pass");
-    }
-
-    private void actionSignUp() {
-
-        Intent signUpScreenIntent= new Intent(this,SignUpActivity.class);
-        startActivity(signUpScreenIntent);
 
     }
 
@@ -258,7 +207,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         }
     }
-
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -310,7 +258,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
-        // Intent homeScreenIntent= new Intent(this,WatsonScreen.class);
         Intent homeScreenIntent= new Intent(this,UserHomeActivity.class);
         startActivity(homeScreenIntent);
     }

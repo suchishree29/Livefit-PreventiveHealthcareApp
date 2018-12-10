@@ -74,14 +74,6 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -121,17 +113,6 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
             }
         });
 
-       /* Button mEmailSignUpButton = (Button) findViewById(R.id.email_sign_up_button);
-        mEmailSignUpButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //attemptLogin();
-                Intent i = new Intent(SignUpActivity.this,UserProfileActivity.class);
-                startActivity(i);
-            }
-        });
-
-*/
         Button SignIn = (Button) findViewById(R.id.email_sign_in_button);
         SignIn.setOnClickListener(new OnClickListener() {
             @Override
@@ -152,20 +133,6 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
         lastName = (EditText) findViewById(R.id.lastName);
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
-       /*
-        confPassword = (EditText) findViewById(R.id.confPassword);
-        birthdate = (EditText) findViewById(R.id.birthdate);
-        Height = (EditText) findViewById(R.id.Height);
-        Weight = (EditText) findViewById(R.id.Weight);
-        bloodglucose = (EditText) findViewById(R.id.bloodglucose);
-        cholestrol = (EditText) findViewById(R.id.cholestrol);
-        test = (EditText) findViewById(R.id.test);
-        radio = (RadioGroup) findViewById(R.id.radio);
-        switch1 = (Switch) findViewById(R.id.switch1);
-        switch2  = (Switch) findViewById(R.id.switch2);
-        spinner = (Spinner)findViewById(R.id.spinner);
-*/
-
 
     }
 
@@ -242,49 +209,21 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
         String json = "{" +
-//                "\"User_FirstName\":\"" + firstName.getText().toString().trim() + "\"," +
-//                "\"User_LastName\":\"" + lastName.getText().toString().trim() + "\"," +
                 "\"username\":\"" + email.getText().toString().trim() + "\"," +
                 "\"password\":\"" + password.getText().toString().trim() +
-//                + "\"," +
-//                "\"User_Password\":\"" + confPassword.getText().toString().trim() + "\"," +
-//                "\"User_Password\":\"" + birthdate.getText().toString().trim() + "\"," +
-//                "\"User_Password\":\"" + radio.toString().trim() + "\"," +
-//                "\"User_Password\":\"" + Height.getText().toString().trim() + "\"," +
-//                "\"User_Password\":\"" + Weight.getText().toString().trim() + "\"," +
-//                "\"User_Password\":\"" + bloodglucose.getText().toString().trim() + "\"," +
-//                "\"User_Password\":\"" + switch1.getText().toString().trim() + "\"," +
-//                "\"User_Password\":\"" + switch2.getText().toString().trim() + "\"," +
-//                "\"User_Password\":\"" + cholestrol.getText().toString().trim() + "\"," +
-//                "\"User_Password\":\"" + spinner.toString().trim() + "\"," +
-//                "\"User_Password\":\"" + test.getText().toString().trim() +
                 "\"}";
-       // CustomLog.d("System out", "sign up json___" + json);
         Call<Signup> call = apiService.signup(email.getText().toString().trim(),password.getText().toString().trim());
         call.enqueue(new Callback<Signup>() {
             @Override
             public void onResponse(Call<Signup> call, Response<Signup> response) {
                 if (response.body() != null) {
                     if (response.body().getSuccess().equals(true)) {
-//                        SignupArrayList = response.body();
-//                        SignupArrayList.get(0).setPassword(mPasswordView.getText().toString().trim());
-//                        String json = Constants.convert_object_string(SignupArrayList.get(0));
-//                        Log.d("System out","password__"+SignupArrayList);
-//                        CustomLog.d("System out","password__"+SignupArrayList);
-//
 
                         Application application = (Application) getApplication();
-//        String name = nameInput.getText().toString();
-//        String pass = passwordInput.getText().toString();
                         application.login(email.getText().toString().trim(),password.getText().toString().trim());
-                        //application.login("john", "pass");
                         db = application.getDatabase();
                         if (db == null) throw new IllegalArgumentException();
-//                        //sessionManager.create_login_session(json);
-//                        //Constants.snackbar(getActivity(), ll_main, "" + response.body().get(0).getMessage());
-//
-//                        CustomLog.d("system out", response.body().get(0).getMsg());
-//                        CustomLog.d("System out", "sign up json___" + json);
+
                         UserProfile userProfile = new UserProfile();
 
                         userProfile.setEmailId(email.getText().toString().trim());
@@ -312,12 +251,7 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
                         Intent i = new Intent(SignUpActivity.this,UserProfileActivity.class);
                         startActivity(i);
 
-                        //finish();
-
-                        //Home.WatsonScreen();
                     } else {
-                        //Constants.snackbar(getActivity(), ll_main, "" + response.body().get(0).getMsg());
-//                        CustomLog.d("System out", response.body().get(0).getMsg());
                         CustomLog.d("system out", "else case:");
                     }
                 }
@@ -328,10 +262,6 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
 
             }
         });
-
-       // Intent i = new Intent(SignUpActivity.this,LoginActivity.class);
-        //startActivity(i);
-
     }
 
     private void populateAutoComplete() {
@@ -562,13 +492,13 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
+//            for (String credential : DUMMY_CREDENTIALS) {
+//                String[] pieces = credential.split(":");
+//                if (pieces[0].equals(mEmail)) {
+//                    // Account exists, return true if the password matches.
+//                    return pieces[1].equals(mPassword);
+//                }
+//            }
 
             // TODO: register the new account here.
             return true;

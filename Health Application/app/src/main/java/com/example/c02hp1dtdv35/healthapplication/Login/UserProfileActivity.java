@@ -87,16 +87,13 @@ public class UserProfileActivity extends AppCompatActivity {
 
         query = QueryBuilder.select(SelectResult.all())
                 .from(DataSource.database(db))
-                .where(Expression.property("type").equalTo(Expression.string("profile"))
-                        .and(Expression.property("owner").equalTo(Expression.string(username))))
+                .where(Expression.property("type").equalTo(Expression.string("profile")))
                 .orderBy(Ordering.property("dateUpdated").descending());
 
         try {
             ResultSet rs = query.execute();
 
             Result row;
-
-
 
             while ((row = rs.next()) != null) {
                 ObjectMapper objectMapper = new ObjectMapper();

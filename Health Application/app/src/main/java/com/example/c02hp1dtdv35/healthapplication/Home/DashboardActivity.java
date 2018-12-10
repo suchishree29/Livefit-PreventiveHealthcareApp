@@ -92,8 +92,7 @@ public class DashboardActivity extends AppCompatActivity {
         Query query;
         query = QueryBuilder.select(SelectResult.all())
                 .from(DataSource.database(database))
-                .where(Expression.property("type").equalTo(Expression.string("profile"))
-                        .and(Expression.property("owner").equalTo(Expression.string(username))))
+                .where(Expression.property("type").equalTo(Expression.string("profile")))
                 .orderBy(Ordering.property("dateUpdated").descending());
 
         try {
@@ -159,7 +158,7 @@ public class DashboardActivity extends AppCompatActivity {
             .from(DataSource.database(database))
             .where(Expression.property("type").equalTo(Expression.string("daily-data"))
                     .and(Expression.property("date").equalTo(Expression.string(date)))
-                    .and(Expression.property("owner").equalTo(Expression.string(username))));
+                   );
         try {
             ResultSet rs = query.execute();
 

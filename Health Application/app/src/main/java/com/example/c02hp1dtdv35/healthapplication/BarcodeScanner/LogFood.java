@@ -75,10 +75,7 @@ public class LogFood extends AppCompatActivity {
     DailyValues dailyData;
     Double totalCalories =0.0, totalSugar=0.0,totalFat=0.0, totalProtein=0.0,totalSalt=0.0;
     Double dailyCalories =0.0, dailySugar=0.0,dailyFat=0.0, dailyProtein=0.0,dailySalt=0.0;
-
     ObjectMapper objectMapper;
-
-    //DailyValues dailyDataOnLoad =null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +97,6 @@ public class LogFood extends AppCompatActivity {
 
             if(type.equals("camera"))
             {
-
                 byte[] byteArray = getIntent().getByteArrayExtra("product_image");
                 if(byteArray != null) {
                     final Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
@@ -188,16 +184,13 @@ public class LogFood extends AppCompatActivity {
 
         db = application.getDatabase();
 
-
-
         if (db == null) throw new IllegalArgumentException();
 
 
             query = QueryBuilder.select(SelectResult.all())
                     .from(DataSource.database(db))
                     .where(Expression.property("type").equalTo(Expression.string("daily-data"))
-                            .and(Expression.property("date").equalTo(Expression.string(date)))
-                            .and(Expression.property("owner").equalTo(Expression.string(username))));
+                            .and(Expression.property("date").equalTo(Expression.string(date))));
             try {
                 ResultSet rs = query.execute();
 
@@ -215,17 +208,10 @@ public class LogFood extends AppCompatActivity {
                     totalProtein += dailyData.getTotalProtein();
                     totalSugar += dailyData.getTotalSugar();
                     totalSalt += dailyData.getTotalSalt();
-
                 }
-
-
-
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-
-
-
 
         dateTxt.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -258,8 +244,7 @@ public class LogFood extends AppCompatActivity {
                 query = QueryBuilder.select(SelectResult.all())
                         .from(DataSource.database(db))
                         .where(Expression.property("type").equalTo(Expression.string("daily-data"))
-                                .and(Expression.property("date").equalTo(Expression.string(date)))
-                                .and(Expression.property("owner").equalTo(Expression.string(username))));
+                                .and(Expression.property("date").equalTo(Expression.string(date))));
                 try {
                     ResultSet rs = query.execute();
 
@@ -326,8 +311,7 @@ public class LogFood extends AppCompatActivity {
 
                 query = QueryBuilder.select(SelectResult.all())
                         .from(DataSource.database(db))
-                        .where(Expression.property("type").equalTo(Expression.string("profile"))
-                         .and(Expression.property("owner").equalTo(Expression.string(username))))
+                        .where(Expression.property("type").equalTo(Expression.string("profile")))
                         .orderBy(Ordering.property("dateUpdated").descending());
 
                 try {
